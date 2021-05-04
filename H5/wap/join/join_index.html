@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html class="ui-page-login" >
+<head>
+	<meta charset="UTF-8" >
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<meta name="format-detection" content="telephone=no" />
+	<title>代理加盟</title>
+	<!--标准mui.css-->
+	<link href="/mui/css/mui.min.css" rel="stylesheet" />
+	<link href="/mui/css/mui-icons-extra.css" rel="stylesheet" />
+	<link href="/style/css/main.css" rel="stylesheet" />
+	<link href="/style/css/index.css" rel="stylesheet" />
+	<!-- 加载JavaScript -->
+	<script type="text/javascript" src="/style/js/jquery-3.2.1.min.js"></script>
+	<script type="text/javascript" src="/style/layer/layer.js"></script>
+	<script type="text/javascript" src="/style/js/Validform_v5.3.2_min.js"></script>
+	<script type="text/javascript" src="/style/js/common.js"></script>
+	<script type="text/javascript" src="/mui/js/mui.min.js"></script>
+	<script type="text/javascript" src="/style/js/jquery.cookie.js"></script>
+	<style>
+		body, html {
+			background: #fff;
+		}
+		.login_header{
+			width: 100%;
+		}
+		.login_header a{
+			position: absolute;
+			top: 20px;
+		}
+		.login_header a:active{color: #efeff4;}
+		.login_header .mui-icon-left-nav{
+			left: 15px;
+		}
+		.touxiang {
+			font-size: 13px;
+			text-align: center;
+		}
+		.touxiang div {
+			width: 4em;
+			height: 4em;
+			padding: 0px;
+			border-radius: 50%;
+			border: 2px solid white;
+			color: gray;
+			margin: 0px auto;
+			margin-bottom: 5px;
+		}
+		.mui-table-view li a{
+			font-size: 15px;
+		}
+		#touxiangimg span{
+			height: 100%;
+			display: block;
+			background: url('') -8px 5px no-repeat;
+			margin: 0px auto;
+			background-size: 80px;
+		}
+		.money_count th{
+			color: #FF7800;
+		}
+		h3{
+			font-size: 16px;
+		}
+	</style>
+
+</head>
+
+<body>
+<div class="login_header">
+	<h1 class="mui-title" style="margin:0px;">
+		<a class="mui-icon mui-icon-left-nav mui-action-back" style="position: fixed;color: #dc1717;z-index:99;"></a>
+		<span style="margin-top: 10px;display: block;">代理加盟</span>
+	</h1>
+	<img src="https://xwsr2.16fass88.com/resources/wap_new/images/new_person_top_bg.png" style="width: 100%;display: none;">
+	<img src="../../images/new_dy_big_head.png" style="width: 100%;display: block;">
+</div>
+<div class="mui-content" style="background-color: #ffffff;">
+	<div style="background: white;padding: 10px;">
+		<div class="color-card">
+			<div class="mui-card-header" style="color: white;"><span>佣金计划</span></div>
+			<div class="mui-card">
+				<div class="mui-card-content">
+					<div class="mui-card-content-inner">
+						<span>新代理入驻，东赢鼎力扶持！ 高达50%佣金分成月入百万不是梦！高额的佣金比例会为您带来最大的回报，您的宏伟事业将从这里开始~加入东赢，我们不会让您失望。</span>
+						<h3>1.提款要求</h3>
+						<p>(1)、当月最少5个有效会员</p>
+						<p>(2)、当月帐户净盈利最少500元</p>
+						<h3>2.有效会员定义</h3>
+						<p>当月存款满100元且投注大于500元，具体判断以相关部门审核为准。</p>
+
+						<h3>3.佣金清零及累计</h3>
+						<p>(1)、合作伙伴连续2个月内，至少需要新增一名有效会员，否则佣金将清零。</p>
+						<p>(2)、合作伙伴连续3个月内佣金为负值，佣金将清零。</p>
+						<p>(3)、若合作伙伴本月佣金出现负值，将会带到下个月继续累计，直至获得正数并高于人民币500元结算。</p>
+						<p>(4)、若合作伙伴本月佣金未达500元，将会带到下个月继续累计，直至高于人民币500元结算。</p>
+
+						<h3>4.佣金结算周期</h3>
+						<p>佣金结算周期为自然月（每月第一天0:00至月末最后一天23:59 GMT+8北京时间）</p>
+						<h3>5.佣金支付</h3>
+						<p>每月5号佣金支付到账</p>
+						<h3>6.合作条约</h3>
+						<p>以下情况不诚实方法骗取佣金将会永久冻结合营账户，所有佣金一概不予发放。</p>
+						<p>A. 合营伙伴因活跃用户未达标，重复注册凑人数。</p>
+						<p>B. 合营伙伴下线玩家产生作弊、对赌等违规行为。</p>
+						<p>C. 恶意引导现有玩家进行重新注册至自己代理账号。</p>
+						<p>备注：东赢有权要求合营伙伴及其下线玩家提供有效证明文件。</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div style="background: white;padding: 10px;margin-top: 10px;">
+		<!--<div class="color-red-card">
+			<div class="mui-card-header" style="color: white;"><span>老虎机/真人佣金方案</span></div>
+			<div class="mui-card" style="margin-bottom: 20px;">
+				<div class="mui-card-content">
+					<table style="width: 100%; text-align: center;border-color: #efeff4;" rules="all" border="0">
+						<thead>
+						<tr>
+							<th>代理等级</th>
+							<th>活跃会员</th>
+							<th>净盈利</th>
+							<th>佣金百分比</th>
+						</tr>
+						<tr>
+							<td>铜牌合营</td>
+							<td>5个或以上</td>
+							<td>0-100,000</td>
+							<td>30%</td>
+						</tr>
+						<tr>
+							<td>银牌合营</td>
+							<td>10个或以上</td>
+							<td>100,001-300,000</td>
+							<td>35%</td>
+						</tr>
+						<tr>
+							<td>金牌合营</td>
+							<td>25个或以上</td>
+							<td>300,001-600,000</td>
+							<td>40%</td>
+						</tr>
+						<tr>
+							<td>钻石合营</td>
+							<td>50个或以上</td>
+							<td>600,001-1,000,000</td>
+							<td>45%</td>
+						</tr>
+						<tr>
+							<td>皇冠合营</td>
+							<td>80个或以上</td>
+							<td>1,000,001</td>
+							<td>50%</td>
+						</tr>
+						</thead>
+					</table>
+				</div>
+			</div>
+			<div class="mui-card-header" style="color: white;"><span>体育佣金方案</span></div>
+			<div class="mui-card" style="margin-bottom: 20px;">
+				<div class="mui-card-content">
+					<table style="width: 100%; text-align: center;border-color: #efeff4;" rules="all" border="0">
+						<thead>
+						<tr>
+							<th>代理等级</th>
+							<th>活跃会员</th>
+							<th>净盈利</th>
+							<th>佣金百分比</th>
+						</tr>
+						<tr>
+							<td>铜牌合营</td>
+							<td>3个或以上</td>
+							<td>1-300,000</td>
+							<td>30%</td>
+						</tr>
+						<tr>
+							<td>银牌合营</td>
+							<td>5个或以上</td>
+							<td>300,001-800,000</td>
+							<td>35%</td>
+						</tr>
+						<tr>
+							<td>金牌合营</td>
+							<td>10个或以上</td>
+							<td>800,001-2,000,000</td>
+							<td>40%</td>
+						</tr>
+						<tr>
+							<td>钻石合营</td>
+							<td>20个或以上</td>
+							<td>大于2,000,000</td>
+							<td>50%</td>
+						</tr>
+						</thead>
+					</table>
+				</div>
+			</div>
+
+		</div>-->
+
+	</div>
+	<div style="background: white;margin-top: 10px;font-size: 13px;">
+		<div class="mui-input-row bottom-line" style="height: 30px;line-height: 30px;padding-left: 15px;font-weight: bold;font-family: Times, TimesNR, 'New Century Schoolbook', Georgia, 'New York', serif;">
+			<span>联系我们</span>
+		</div>
+		<div class="mui-input-row">
+			<label style="text-align: left;width: 100%;padding: 5px 15px;">
+				<img src="https://xwsr2.16fass88.com/resources/wap_new/images/icon_email.png" width="20px">
+				<span style="letter-spacing: 1px;">合营部电邮：affiliate@dyvip99.com</span>
+			</label>
+		</div>
+		<div class="mui-input-row">
+			<label style="text-align: left;width: 100%;padding: 5px 15px;">
+				<img src="https://xwsr2.16fass88.com/resources/wap_new/images/icon_qq.png" width="20px">
+				<span style="color: black">合营QQ: 3007295473</span>
+				<span style="color: #FF7800;">(工作时间：14：00-23：00)</span>
+			</label>
+		</div>
+		<div class="mui-input-row">
+			<label style="text-align: left;width: 100%;padding: 5px 15px;">
+				<img src="https://xwsr2.16fass88.com/resources/wap_new/images/icon_skype.png" width="20px">
+				<span>合营Skype：东赢代理部</span>
+				<span style="color: #FF7800;">(live:9731af88cfa1d75)</span>
+			</label>
+		</div>
+	</div>
+</div>
+</body>
+@@include('html-foot.html')
+<script type="text/javascript">
+    $("#menu_nav a.bar-active").removeClass("bar-active")
+    $("#menu_nav a:nth-child(4)").addClass("bar-active")
+</script>
+<script>
+    $(document).ready(function() {
+    });
+</script>
+</html>

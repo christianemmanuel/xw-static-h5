@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<link href="/mui/css/mui.min.css" rel="stylesheet" />
+<link href="/mui/css/common.css" rel="stylesheet" />
+<!--扩展图标-->
+<link href="/mui/css/mui-icons-extra.css" rel="stylesheet" />
+<link href="/style/css/main.css" rel="stylesheet" />
+<link href="/style/css/index.css" rel="stylesheet" />
+<link  href="/style/plugins/cropperjs/cropper.min.css" rel="stylesheet">
+<!-- 加载JavaScript -->
+<script type="text/javascript" src="/style/js/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="/style/layer/layer.js"></script>
+<script type="text/javascript" src="/style/js/Validform_v5.3.2_min.js"></script>
+<script type="text/javascript" src="/style/js/common.js"></script>
+<script type="text/javascript" src="/mui/js/mui.min.js"></script>
+<script type="text/javascript" src="/style/js/jquery.marquee.min.js"></script>
+<script type="text/javascript" src="/style/js/jquery.cookie.js"></script>
+<script src="/style/plugins/cropperjs/cropper.min.js"></script>
+<body>
+<style>
+    .cropper-view-box,
+    .cropper-face {
+        border-radius: 50%;
+    }
+</style>
+<div class="box">
+    <input type="file" id="changeMore">
+    <img id="image" src="">
+</div>
+</body>
+<script>
+    $(document).ready(function(){
+        changeM();
+    });
+    function changeM(){
+        $("#changeMore").change(function (e) {
+            var file=e.target.files[0];
+            var reader=new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload=function (e) {
+                $('#image').attr("src", e.target.result);
+                var cropper = new Cropper(image, {
+                    aspectRatio: 1,
+                    viewMode: 1,
+                    ready: function () {
+                        croppable = true;
+                    }
+                });
+            };
+        });
+    }
+    function getRoundedCanvas(sourceCanvas) {
+        var canvas = document.createElement('canvas');
+        var context = canvas.getContext('2d');
+        var width = sourceCanvas.width;
+        var height = sourceCanvas.height;
+        width=getSize(width);
+        height=width;
+        canvas.width = width;
+        canvas.height = height;
+        context.beginPath();
+        //这里是控制裁剪区域的大小（这里也决定你所要生成的图片的大小和形状 我这边用的是圆形的头像 大家有别的需要可以修改）
+        context.arc(width/2, height/2, Math.min(width, height)/2, 0, 2 * Math.PI);
+        context.strokeStyle = 'rgba(0,0,0,0)';
+        context.stroke();
+        context.clip();
+        context.drawImage(sourceCanvas, 0, 0, width, height);
+        return canvas;
+    }
+    function getSize(size){
+        var num=parseInt(size);
+        if(num<=300){//先要求图片的大小小于300之间
+            return num;
+        }
+        return getSize(num/2);
+    }
+</script>
+</html>

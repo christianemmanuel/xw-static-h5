@@ -1,0 +1,56 @@
+body {
+    font-family: "Microsoft Yahei","微软雅黑", STXihei, "华文细黑", sans-serif !important;
+    margin: 0 auto;
+    padding: 0;
+
+}
+.ui-page-login body{
+    background-color: #000000 ;
+}
+.ui-page-login .mui-input-group{
+    background-color: #d2d2de;
+}
+.ui-page-login .mui-input-group .mui-input-row{
+    background-color: #ffffff;
+}
+.ui-page-login .mui-bar-nav~.mui-content {
+    padding-top: 1.7rem;
+}
+.mui-content{
+    padding-top: 10px!important;
+    margin-top: 1.16rem;
+    height: 17rem;
+}
+.ui-page-login .mui-input-row label{
+    padding: 0.4rem;
+}
+.mui-icon-eye:before{
+    background: url(https://xwsr2.16fass88.com/resources/wap_new/images/new-layout/eyes.png) no-repeat;
+    background-size: cover;
+    color: transparent;
+
+}
+.mui-input-group .mui-input-row:after, .mui-input-row .mui-input-clear~.mui-icon-clear, .mui-input-row .mui-input-password~.mui-icon-eye, .mui-input-row .mui-input-speech~.mui-icon-speech, .mui-table-view-cell:after {
+    right: 0;
+}
+.submit_btn {
+    margin: 20px 0 2px;
+}
+button.Zebra_DatePicker_Icon{
+    background: url(https://xwsr2.16fass88.com/resources/wap_new/images/new-layout/calendar.png) no-repeat !important;
+    background-size: cover !important;
+    right: 2% !important;
+}
+#regBtn{
+    margin-top: 0.6rem;
+}
+.regMember_form .mui-input-row{
+    height: 1.17rem;
+}
+.regMember_form img{
+    width: 0.6rem;
+    height: 0.6rem;
+}
+.mui-content-padded{
+    background-color: #d2d2de;
+}

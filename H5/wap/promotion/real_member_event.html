@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>东赢优惠活动</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+	<!--标准mui.css-->
+	<link href="/mui/css/mui.min.css" rel="stylesheet" />
+	<link href="/mui/css/common.css" rel="stylesheet" />
+	<!--扩展图标-->
+	<link href="/mui/css/mui-icons-extra.css" rel="stylesheet" />
+	<link href="/style/css/main.css" rel="stylesheet" />
+    <link href="/style/css/index.css" rel="stylesheet" />
+	<link href="/style/css/member_event.css" rel="stylesheet" />
+	<link href="/style/plugins/layui/css/layui.css" rel="stylesheet" />
+	<link href="/style/plugins/bootstrap/css/bootstrap.css" rel="stylesheet" />
+</head>
+<body>
+    <header class="mui-bar mui-bar-nav" style="padding-left: 15px;padding-right: 15px;display: none;">
+        <a class="mui-icon mui-icon-left-nav mui-pull-left" style="text-decoration: none; color: white;"></a>
+        <h1 class="mui-title" style="color: #ffffff;">领工资</h1>
+    </header>
+	<div class="member-event">
+        <img class="top-bg" src="https://xwsr2.16fass88.com/resources/wap_new/images/member-event/real-banner-new.jpg">
+        <div class="search">
+            <div class="layui-row">
+                <div class="layui-col-xs3">
+                    <p>流水查询</p>
+                </div>
+                <div class="layui-col-xs9">
+                    <input type="text" placeholder="请输入会员账号" name="search" id="seachUser">
+                    <button onclick="fun_queryMemberLevelInfo()" style="width: 25%"><img src="https://xwsr2.16fass88.com/resources/wap_new/images/member-event/search.png">查询</button>
+                </div>
+            </div>
+        </div>
+        <div class="member-details">
+            <div class="layui-row" style="margin-top: 5px;">
+                <div class="layui-col-xs6" id="user_name" style="margin-left: 6%;">
+                    用 户 名: xxx
+                </div>
+                <div class="layui-col-xs4" id="user_level" style="color: #a8975f">
+                    等级:0级
+                </div>
+            </div>
+            <div class="layui-row" style="margin-top: 25px;line-height: 1.8">
+                <div class="layui-col-xs4 title-details" style="text-align: right;">
+                    月 礼 金 ：<br>
+                    等级礼金：
+                </div>
+                <div class="layui-col-xs4" id="bouns" style="text-align: left;margin-left: 10px">
+                    -<br>
+                    -
+                </div>
+                <div class="layui-col-xs3 get-button" style="margin-top: -2px">
+                    <a id="leve_month_btn" href="javascript:void(0)"><img src="https://xwsr2.16fass88.com/resources/wap_new/images/member-event/get_grey.png"></a><br>
+                    <a id="leve_bouns_btn" href="javascript:void(0)"><img src="https://xwsr2.16fass88.com/resources/wap_new/images/member-event/get_grey.png"></a>
+                </div>
+            </div>
+        </div>
+        <div class="layui-tab">
+            <ul class="layui-tab-title">
+                <li class="layui-this">电竞·体育·真人会员</li>
+                <li onclick="openLevelUrl('/wap/promotion/electronic_member_event-content.html')">电子会员</li>
+            </ul>
+            <div class="layui-tab-content">
+                <div class="layui-tab-item layui-show">
+                    <div class="layui-row title-row">
+                        <span>活动内容: </span>凡是在北京时间2018年11月19号开始，在东赢的每一笔真人视讯（欧博、BBIN、AG、EBET、体育、电竞）永久累计投注，累积到一定标准，即可升级，每升一级即可获得相对应的等级礼金，等级礼金最高可获得20万元，还可获得无门槛要求的月俸禄，每月最高8万元；让您的会员账号变成永久收益的有价值的会员账号。
+                    </div>
+                    <div class="layui-row">
+                        <div class="layui-tab inner-tab">
+                            <ul class="layui-tab-title">
+                                <li class="layui-this">1-5级</li>
+                                <li>6-10级</li>
+                                <li>11-15级</li>
+                                <li>16-20级</li>
+                                <li>21-25级</li>
+                                <li>26-30级</li>
+                            </ul>
+                            <div class="layui-tab-content inner-content">
+                                <div class="layui-tab-item layui-show">
+                                    <table class="layui-table">
+                                        <colgroup>
+                                            <col width="25%">
+                                            <col width="15%">
+                                            <col width="15%">
+                                            <col width="15%">
+                                            <col width="15%">
+                                            <col width="15%">
+                                            <col>
+                                        </colgroup>
+                                        <tbody>
+                                        <tr>
+                                            <th>晋升标准等级</th>
+                                            <th>1级</th>
+                                            <th>2级</th>
+                                            <th>3级</th>
+                                            <th>4级</th>
+                                            <th>5级</th>
+                                        </tr>
+                                        <tr>
+                                            <td>累计投注</td>
+                                            <td>20万</td>
+                                            <td>50万</td>
+                                            <td>100万</td>
+                                            <td>200万</td>
+                                            <td>300万</td>
+                                        </tr>
+                                        <tr>
+                                            <td>晋级礼金</td>
+                                            <td>30元</td>
+                                            <td>70元</td>
+                                            <td>100元</td>
+                                            <td>200元</td>
+                                            <td>300元</td>
+                                        </tr>
+                                        <tr>
+                                            <td>月俸禄</td>
+                                            <td>8元</td>
+                                            <td>20元</td>
+                                            <td>40元</td>
+                                            <td>70元</td>
+                                            <td>100元</td>
+                                        </tr>
+                                        <tr>
+                                            <td>等级累计礼金</td>
+                                            <td>30元</td>
+                                            <td>100元</td>
+                                            <td>200元</td>
+                                            <td>400元</td>
+                                            <td>700元</td>
+                                        </tr>
+                                        <tr>
+                                            <td>存取款加速</td>
+                                            <td>---</td>
+                                            <td>---</td>
+                                            <td>---</td>
+                                            <td>---</td>
+                                            <td>---</td>
+                                        </tr>
+                                        <tr>
+                                            <td>一对一客服经理</td>
+                                            <td>---</td>
+                                            <td>---</td>
+                                            <td>---</td>
+                                            <td>---</td>
+                                            <td>---</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="layui-tab-item">
+                                    <table class="layui-table">
+                                        <colgroup>
+                                            <col width="25%">
+                                            <col width="15%">
+                                            <col width="15%">
+                                            <col width="15%">
+                                            <col width="15%">
+                                            <col width="15%">
+                                            <col>
+                                        </colgroup>
+                                        <tbody>
+                                        <tr>
+                                            <th>晋升标准等级</th>
+                                            <th>6级</th>
+                                            <th>7级</th>
+                                            <th>8级</th>
+                                            <th>9级</th>
+                                            <th>10级</th>
+                                        </tr>
+                                        <tr>
+                                            <td>累计投注</td>
+                                            <td>500万</td>
+                                            <td>700万</td>
+                                            <td>1000万</td>
+                                            <td>1300万</td>
+                                            <td>1600万</td>
+                                        </tr>
+                                        <tr>
+                                            <td>晋级礼金</td>
+                                            <td>400元</td>
+                                            <td>500元</td>
+                                            <td>700元</td>
+                                            <td>900元</td>
+                                            <td>1200元</td>
+                                        </tr>
+                                        <tr>
+                                            <td>月俸禄</td>
+                                            <td>150元</td>
+                                            <td>200元</td>
+                                            <td>250元</td>
+                                            <td>300元</td>
+                                            <td>400元</td>
+                                        </tr>
+                                        <tr>
+                                            <td>等级累计礼金</td>
+                                            <td>1100元</td>
+                                            <td>1600元</td>
+                                            <td>2300元</td>
+                                            <td>3200元</td>
+                                            <td>4400元</td>
+                                        </tr>
+                                        <tr>
+                                            <td>存取款加速</td>
+                                            <td>---</td>
+                                            <td>---</td>
+                                            <td>---</td>
+                                            <td>---</td>
+                                            <td>---</td>
+                                        </tr>
+                                        <tr>
+                                            <td>一对一客服经理</td>
+                                            <td>---</td>
+                                            <td>---</td>
+                                            <td>---</td>
+                                            <td>---</td>
+                                            <td>---</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="layui-tab-item">
+                                    <table class="layui-table">
+                                        <colgroup>
+                                            <col width="25%">
+                                            <col width="15%">
+                                            <col width="15%">
+                                            <col width="15%">
+                                            <col width="15%">
+                                            <col width="15%">
+                                            <col >
+                                        </colgroup>
+                                        <tbody>
+                                        <tr>
+                                            <th>晋升标准等级</th>
+                                            <th>11级</th>
+                                            <th>12级</th>
+                                            <th>13级</th>
+                                            <th>14级</th>
+                                            <th>15级</th>
+                                        </tr>
+                                        <tr>
+                                            <td>累计投注</td>
+                                            <td>2000万</td>
+                                            <td>2500万</td>
+                                            <td>3000万</td>
+                                            <td>3500万</td>
+                                            <td>4000万</td>
+                                        </tr>
+                                        <tr>
+                                            <td>等级礼金</td>
+                                            <td>1500元</td>
+                                            <td>1800元</td>
+                                            <td>2100元</td>
+                                            <td>2500元</td>
+                                            <td>3000元</td>
+                                        </tr>
+                                        <tr>
+                                            <td>月俸禄</td>
+                                            <td>500元</td>
+                                            <td>700元</td>
+                                            <td>900元</td>
+                                            <td>1100元</td>
+                                            <td>1300元</td>
+                                        </tr>
+                                        <tr>
+                                            <td>等级累计礼金</td>
+                                            <td>5900元</td>
+                                            <td>7700元</td>
+                                            <td>9800元</td>
+                                            <td>12300元</td>
+                                            <td>15300元</td>
+                                        </tr>
+                                        <tr>
+                                            <td>存取款加速</td>
+                                            <td>---</td>
+                                            <td>---</td>
+                                            <td>---</td>
+                                            <td>---</td>
+                                            <td>---</td>
+                                        </tr>
+                                        <tr>
+                                            <td>一对一客服经理</td>
+                                            <td>---</td>
+                                            <td>---</td>
+                                            <td>&#10004;</td>
+                                            <td>&#10004;</td>
+                                            <td>&#10004;</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="layui-tab-item">
+                                    <table class="layui-table">
+                                        <colgroup>
+                                            <col width="25%">
+                                            <col width="15%">
+                                            <col width="15%">
+                                            <col width="15%">
+                                            <col width="15%">
+                                            <col width="15%">
+                                            <col >
+                                        </colgroup>
+                                        <tbody>
+                                        <tr>
+                                            <th>晋升标准等级</th>
+                                            <th>16级</th>
+                                            <th>17级</th>
+                                            <th>18级</th>
+                                            <th>19级</th>
+                                            <th>20级</th>
+                                        </tr>
+                                        <tr>
+                                            <td>累计投注</td>
+                                            <td>5000万</td>
+                                            <td>6000万</td>
+                                            <td>8000万</td>
+                                            <td>1亿</td>
+                                            <td>1.2亿</td>
+                                        </tr>
+                                        <tr>
+                                            <td>等级礼金</td>
+                                            <td>4000元</td>
+                                            <td>5000元</td>
+                                            <td>6000元</td>
+                                            <td>8000元</td>
+                                            <td>10000元</td>
+                                        </tr>
+                                        <tr>
+                                            <td>月俸禄</td>
+                                            <td>1500元</td>
+                                            <td>1800元</td>
+                                            <td>2200元</td>
+                                            <td>2600元</td>
+                                            <td>3000元</td>
+                                        </tr>
+                                        <tr>
+                                            <td>等级累计礼金</td>
+                                            <td>19300元</td>
+                                            <td>24300元</td>
+                                            <td>30300元</td>
+                                            <td>38300元</td>
+                                            <td>48300元</td>
+                                        </tr>
+                                        <tr>
+                                            <td>存取款加速</td>
+                                            <td>---</td>
+                                            <td>---</td>
+                                            <td>---</td>
+                                            <td>&#10004;</td>
+                                            <td>&#10004;</td>
+                                        </tr>
+                                        <tr>
+                                            <td>一对一客服经理</td>
+                                            <td>&#10004;</td>
+                                            <td>&#10004;</td>
+                                            <td>&#10004;</td>
+                                            <td>&#10004;</td>
+                                            <td>&#10004;</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="layui-tab-item">
+                                    <table class="layui-table">
+                                        <colgroup>
+                                            <col width="25%">
+                                            <col width="15%">
+                                            <col width="15%">
+                                            <col width="15%">
+                                            <col width="15%">
+                                            <col width="15%">
+                                            <col >
+                                        </colgroup>
+                                        <tbody>
+                                        <tr>
+                                            <th>晋升标准等级</th>
+                                            <th>21级</th>
+                                            <th>22级</th>
+                                            <th>23级</th>
+                                            <th>24级</th>
+                                            <th>25级</th>
+                                        </tr>
+                                        <tr>
+                                            <td>累计投注</td>
+                                            <td>1.5亿</td>
+                                            <td>2.0亿</td>
+                                            <td>2.5亿</td>
+                                            <td>3.0亿</td>
+                                            <td>4.0亿</td>
+                                        </tr>
+                                        <tr>
+                                            <td>等级礼金</td>
+                                            <td>15000元</td>
+                                            <td>20000元</td>
+                                            <td>25000元</td>
+                                            <td>30000元</td>
+                                            <td>40000元</td>
+                                        </tr>
+                                        <tr>
+                                            <td>月俸禄</td>
+                                            <td>3500元</td>
+                                            <td>4000元</td>
+                                            <td>4500元</td>
+                                            <td>5000元</td>
+                                            <td>6000元</td>
+                                        </tr>
+                                        <tr>
+                                            <td>等级累计礼金</td>
+                                            <td>63300元</td>
+                                            <td>83300元</td>
+                                            <td>108300元</td>
+                                            <td>138300元</td>
+                                            <td>178300元</td>
+                                        </tr>
+                                        <tr>
+                                            <td>存取款加速</td>
+                                            <td>&#10004;</td>
+                                            <td>&#10004;</td>
+                                            <td>&#10004;</td>
+                                            <td>&#10004;</td>
+                                            <td>&#10004;</td>
+                                        </tr>
+                                        <tr>
+                                            <td>一对一客服经理</td>
+                                            <td>&#10004;</td>
+                                            <td>&#10004;</td>
+                                            <td>&#10004;</td>
+                                            <td>&#10004;</td>
+                                            <td>&#10004;</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="layui-tab-item">
+                                    <table class="layui-table">
+                                        <colgroup>
+                                            <col width="25%">
+                                            <col width="15%">
+                                            <col width="15%">
+                                            <col width="15%">
+                                            <col width="15%">
+                                            <col width="15%">
+                                            <col >
+                                        </colgroup>
+                                        <tbody>
+                                        <tr>
+                                            <th>晋升标准等级</th>
+                                            <th>26级</th>
+                                            <th>27级</th>
+                                            <th>28级</th>
+                                            <th>29级</th>
+                                            <th>30级</th>
+                                        </tr>
+                                        <tr>
+                                            <td>累计投注</td>
+                                            <td>5.0亿</td>
+                                            <td>7.0亿</td>
+                                            <td>9.0亿</td>
+                                            <td>12亿</td>
+                                            <td>15亿</td>
+                                        </tr>
+                                        <tr>
+                                            <td>等级礼金</td>
+                                            <td>50000元</td>
+                                            <td>70000元</td>
+                                            <td>10万元</td>
+                                            <td>15万元</td>
+                                            <td>20万元</td>
+                                        </tr>
+                                        <tr>
+                                            <td>月俸禄</td>
+                                            <td>7000元</td>
+                                            <td>10000元</td>
+                                            <td>20000元</td>
+                                            <td>50000元</td>
+                                            <td>80000元</td>
+                                        </tr>
+                                        <tr>
+                                            <td>等级累计礼金</td>
+                                            <td>228300元</td>
+                                            <td>298300元	</td>
+                                            <td>398300元</td>
+                                            <td>548300元</td>
+                                            <td>748300元</td>
+                                        </tr>
+                                        <tr>
+                                            <td>存取款加速</td>
+                                            <td>&#10004;</td>
+                                            <td>&#10004;</td>
+                                            <td>&#10004;</td>
+                                            <td>&#10004;</td>
+                                            <td>&#10004;</td>
+                                        </tr>
+                                        <tr>
+                                            <td>一对一客服经理</td>
+                                            <td>&#10004;</td>
+                                            <td>&#10004;</td>
+                                            <td>&#10004;</td>
+                                            <td>&#10004;</td>
+                                            <td>&#10004;</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-row member-bottom">
+                        <span>例: </span>会员每一笔真人视讯/体育投注累计达到300万投注量，即可获得晋级礼金30+70+100+200+300=700元，每月可获得100元月俸禄；当累计到700万有效投注，即可再次获得晋级礼金400+500=900元，每月可获得200元月俸禄！
+                        <h3>派发时间：</h3>
+                        <p style="color: red">
+                            1.升级时间，每周日 22:00-00:00自动完成升级。，
+                            <br>2.每月1号后可以领取月俸禄，月俸禄/升级奖金只需5倍投注流水不限制场馆，即可提款。
+                            <br>3.累积流水从活动开始计算，真人/体育/捕鱼投注额次日24:00更新，老虎机投注额当天24:00更新。
+                        </p>
+                        <h3>规则与条款：</h3>
+                        <p>
+                            1.此优惠促销只适用于拥有一个独立账户的玩家。住址、电子邮箱地址﹑电话号码﹑支付方式（相同借记卡/信用卡/银行账户号码）IP地址，同一网络环境等将可以作为判定是否独立玩家的条件。
+                            <br>2.对于发现任何有违背、欺骗、或利用规则和条款进行非法获利的会员，东赢娱乐保留在任何时候都可以停止、取消优惠或索回已支付的全部优惠的权利。
+                            <br>3.在某些未知因素超出可控范围的情况下，东赢娱乐保留可单方面执行的决定权，并承诺会在这类紧急问题发生时解释给客户原因并听取客户反馈与客户沟通协商解决。
+                            <br>4.东赢娱乐保留对本次活动的修订、终止和最终解释权，超出本网站控制外的技术错误，东赢娱乐将不承担任何责任。
+                            <br>5.东赢禁止一切对赌行为！如：在百家乐中同时投注“庄-闲”；轮盘中同时投注“黑-红”“大-小”“单-双”；龙虎中同时投注“龙-虎”；骰宝中同时投注“大-小”“单-双”等行为！若发现会员存在以上行为，东赢有权扣除账户全部盈利，在情节严重时，不返还本金并冻结账户及相关联账户
+                            <br>6.东赢娱乐有权延长，缩短，终止，或者修改此活动！此活动最终解释权归东赢娱乐所有。
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+	</div>
+
+
+</body>
+<!-- 加载JavaScript -->
+<script type="text/javascript" src="/style/js/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="/style/layer/layer.js"></script>
+<script type="text/javascript" src="/style/js/common.js"></script>
+<script type="text/javascript" src="/mui/js/mui.min.js"></script>
+<script type="text/javascript" src="/style/js/jquery.cookie.js"></script>
+<script type="text/javascript" src="/style/plugins/layui/layui.js"></script>
+<script type="text/javascript" src="/style/plugins/bootstrap/js/bootstrap.js"></script>
+
+<script type="text/javascript">
+    function getQueryString(name) {
+        var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+        var r = window.location.search.substr(1).match(reg);
+        if(r!=null)return  unescape(r[2]); return null;
+    }
+    var queryToken = getQueryString("token");
+    var headCode = getQueryString("headCode");
+     $(document).ready(function(){
+         mui.init();
+         mui(".mui-bar-nav").on('tap','.mui-pull-left',function(){
+             window.location.href="/wap/helpbonus/hb_index.html";
+         });
+         if(headCode==='show'){
+             $('.mui-bar.mui-bar-nav').show();
+             $('.member-event').css('margin-top','44px');
+         }
+         if (queryToken == null || queryToken === '') {
+             queryToken = wap_get_user().token;
+         }
+         if ((queryToken===null || queryToken===undefined || queryToken==='') && wap_is_user_notexist()) {
+             fun_alertMsg("请登入后再操作", function() {
+                 window.location.href="/index.html";
+             });
+         }else{
+             $.ajax({
+                 dataType: "jsonp",
+                 url:wap_site_host() + "/session/member/GameTypeLevelInfo",
+                 type:"GET",
+                 data:{'token': queryToken,'type':2},
+                 dataType: 'json',
+                 success:function(d){
+                     if (d.code == 0) {
+                         var monthBouns=d.data.monthBouns==0?"-":fun_filterTxt(d.data.monthBouns)+"元";
+                         var levelBouns=d.data.levelBouns==0?"-":fun_filterTxt(d.data.levelBouns)+"元";
+                         $('#user_name').html('用 户 名:'+fun_filterTxt(d.data.userName));
+                         $('#user_level').html('等级:'+d.data.level+'级');
+                         $('#bouns').html(monthBouns+'<br>'+levelBouns);
+                         checkMonthBtn(d.data.monthBouns,d.data.monthBounsCount);
+                         checkLevelBtn(d.data.levelBouns);
+                     } else {
+                         fun_alertMsg(d.message, function() {});
+                         wap_if_session_out(d.code);
+                     }
+                 },
+                 error:function(jqXHR, textStatus, errorThrown){
+                     wap_check_ajaxerror(jqXHR);
+                     fun_alertMsg('查询真人等级异常！', function() {});
+                 }
+             });
+         }
+     });
+    layui.use('element', function(){
+        var element = layui.element;
+    });
+    function checkMonthBtn(bouns,count){
+         if(bouns>0 && count==0){
+             $('#leve_month_btn').attr('href',"javascript:fun_getLevelBouns(2,2,'"+queryToken+"')");
+             $('#leve_month_btn img').attr('src','https://xwsr2.16fass88.com/resources/wap_new/images/member-event/get.png');
+         }
+    }
+    function checkLevelBtn(bouns){
+         if(bouns>0){
+             $('#leve_bouns_btn').attr('href',"javascript:fun_getLevelUpgradeBouns(2,'"+queryToken+"')");
+             $('#leve_bouns_btn img').attr('src','https://xwsr2.16fass88.com/resources/wap_new/images/member-event/get.png');
+         }
+    }
+    function fun_queryMemberLevelInfo() {
+         var userName = $("#seachUser").val().trim();
+         if(userName.length==0){
+             fun_alertMsg("请输入查询用户", function() {});
+             return;
+         }else{
+             $.ajax({
+                 dataType: "jsonp",
+                 url:wap_site_host() + "/session/member/queryGameTypeLevelInfo",
+                 type:"GET",
+                 data:{'token': queryToken,'type':2,'userName':userName},
+                 dataType: 'json',
+                 success:function(d){
+                     if (d.code == 0) {
+                         layer.open({
+                             type: 1,
+                             title: '查询中心',
+                             area: ['350px', '400px'],
+                             content: '<table class="layui-table" id="insuranceTable">' +
+                             '  <tbody>' +
+                             '    <tr style="text-align: center;">' +
+                             '      <td>会员帐号</td>' +
+                             '      <td>'+d.data.userName+'</td>' +
+                             '    </tr>' +
+                             '    <tr style="text-align: center;">' +
+                             '      <td>当前等级</td>' +
+                             '      <td>'+d.data.level+'</td>' +
+                             '    </tr>' +
+                             '    <tr style="text-align: center;">' +
+                             '      <td>累计总投注金额</td>' +
+                             '      <td>'+d.data.totalCredit+'</td>' +
+                             '    </tr>' +
+                             '    <tr style="text-align: center;">' +
+                             '      <td>累计晋级彩金</td>' +
+                             '      <td>'+d.data.levelBouns+'</td>' +
+                             '    </tr>' +
+                             '    <tr style="text-align: center;">' +
+                             '      <td>月俸禄</td>' +
+                             '      <td>'+d.data.monthBouns+'</td>' +
+                             '    </tr>' +
+                             '    <tr style="text-align: center;">' +
+                             '      <td>距离晋级需总投注金额</td>' +
+                             '      <td>'+d.data.needCredit+'</td>' +
+                             '    </tr>' +
+                             '  </tbody>' +
+                             '</table>' +
+                             '<div style="text-align: right;"><ul class="pagination" id="pagination-container"></ul></div>',
+                         });
+                     } else {
+                         fun_alertMsg(d.message, function() {});
+                         wap_if_session_out(d.code);
+                     }
+                 },
+                 error:function(jqXHR, textStatus, errorThrown){
+                     wap_check_ajaxerror(jqXHR);
+                     fun_alertMsg('查询真人流水异常！', function() {});
+                 }
+             });
+         }
+     }
+
+    function openLevelUrl(url) {
+        window.location.href=url+"?token="+queryToken+'&headCode='+headCode;
+    }
+</script>
+</html>

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html class="ui-page-login">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"/>
+	<title>银行信息</title>
+	<!--标准mui.css-->
+	<link href="/mui/css/mui.min.css" rel="stylesheet" />
+	<link href="/mui/css/mui-icons-extra.css" rel="stylesheet" />
+	<link href="/style/css/main.css" rel="stylesheet" />
+	<link href="/style/css/index.css" rel="stylesheet" />
+	<!-- 加载JavaScript -->
+	<script type="text/javascript" src="/style/js/jquery-3.2.1.min.js"></script>
+	<script type="text/javascript" src="/style/layer/layer.js"></script>
+	<script type="text/javascript" src="/style/js/Validform_v5.3.2_min.js"></script>
+	<script type="text/javascript" src="/style/js/common.js"></script>
+	<script type="text/javascript" src="/mui/js/mui.min.js"></script>
+	<script type="text/javascript" src="/style/js/jquery.cookie.js"></script>
+	<style>
+		.login_header{
+			width: 100%;
+		}
+		.login_header a{
+			position: absolute;
+			top: 20px;
+		}
+		.login_header a:active{color: #efeff4;}
+		.login_header .mui-icon-left-nav{
+			left: 15px;
+		}
+		.touxiang {
+			font-size: 13px;
+			text-align: center;
+		}
+		.touxiang div {
+			width: 4em;
+			height: 4em;
+			padding: 0px;
+			border-radius: 50%;
+			border: 2px solid white;
+			color: gray;
+			margin: 0px auto;
+			margin-bottom: 5px;
+		}
+		.mui-table-view li a{
+			font-size: 15px;
+		}
+		#touxiangimg span{
+			height: 100%;
+			display: block;
+			background: url('') -8px 5px no-repeat;
+			margin: 0px auto;
+			background-size: 80px;
+		}
+		#card_list .mui-card-footer:before{
+			background-color: white;
+		}
+	</style>
+
+</head>
+
+<body>
+<header class="mui-bar mui-bar-nav">
+    <a href="/wap/personal/personal_main.html" class="mui-icon mui-icon-back mui-pull-left"></a>
+    <h1 class="mui-title" id="header_title">银行信息</h1>
+</header>
+<div class="mui-content">
+    <div class="mui-input-row" style="text-align: center;margin-top: 20px;margin-bottom: 20px;">
+        <h1 style="font-size: 15px;color: #3764d6;" id="personal_host_url"></h1>
+    </div>
+    <div id="card_list" style="margin-top: 20px;"></div>
+    <div style="margin: 10px;">
+        <a href="/wap/bank/add-card.html"><div class="form_sumbit_btn">+&nbsp;添加银行卡</div></a>
+    </div>
+    <div style="margin: 10px 10px 50px 10px;">
+        <a href="/wap/bank/protocol.html"><div class="form_sumbit_btn">+&nbsp;添加虚拟币账户</div></a>
+    </div>
+</div>
+</body>
+@@include('html-foot.html')
+<script>
+    var loginMember = wap_get_user();
+    $(document).ready(function() {
+        initPage();
+    });
+    function initPage(){
+        $('#personal_host_url').text('专属网址：'+loginMember.userDomain);
+        loadBankCard();
+    }
+    function loadBankCard(){
+        $.ajax({
+            dataType: "jsonp",
+            url:wap_site_host() + "/session/bankcard/use?token="+wap_get_user().token,
+            type:"GET",
+            dataType: 'json',
+            success:function(resultData){
+                if (resultData.code == 0) {
+                    var listData = resultData.data;
+                    var appendHtml='';
+                    $.each(listData,function(n, value){
+                        appendHtml+= '<div class="mui-card">\
+							<div class="mui-card-header">'+value.bankName+'</div>\
+							<div class="mui-card-footer">\
+								<span>'+fun_filterTxt(value.cardNum)+'</span>\
+								<button type="button" class="mui-btn" style="background-color: #405fc2;color: #ffffff" onclick="unbindBankCard('+value.id+',\''+value.cardNum+'\')">解绑</button>\
+							</div>\
+						</div>';
+                    });
+                    $('#card_list').html(appendHtml);
+                } else {
+                    fun_alertMsg(resultData.message, function() {});
+                    wap_if_session_out(resultData.code);
+                }
+            },
+            error:function( jqXHR, textStatus){
+                wap_check_ajaxerror(jqXHR);
+                fun_toast('请求失败，请稍后重试');
+            }
+        });
+    }
+    function unbindBankCard(id, cardNum){
+    	layer.prompt({title: '请输入完整的银行卡号', formType: 1}, function(pass, index){
+    		layer.close(index);
+    		$.ajax({
+                dataType: "jsonp",
+                url:wap_site_host() + "/session/bankcard/"+id,
+                type:"GET",
+                data:{'token':wap_get_user().token, 'cardNum':pass},
+                dataType: 'json',
+                success:function(resultData){
+                    if (resultData.code == 0) {
+                        fun_alertMsg('操作成功', function() { window.location.href='/wap/bank/bank_index.html' });
+                    } else {
+                        fun_alertMsg(resultData.message, function() {});
+                        wap_if_session_out(resultData.code);
+                    }
+                },
+                error:function( jqXHR, textStatus){
+                    wap_check_ajaxerror(jqXHR);
+                    fun_toast('请求失败，请稍后重试');
+                }
+            });
+    	});
+    }
+</script>
+</html>

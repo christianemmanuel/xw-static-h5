@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>东赢站内信</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	
+	<!--标准mui.css-->
+	<link href="/mui/css/mui.min.css" rel="stylesheet" />
+	<link href="/mui/css/common.css" rel="stylesheet" />
+	<!--扩展图标-->
+	<link href="/mui/css/mui-icons-extra.css" rel="stylesheet" />
+	<link href="/style/css/main.css" rel="stylesheet" />
+	<link href="/style/css/index.css" rel="stylesheet" />
+	<style>
+		.mui-content>.mui-table-view:first-child{
+			margin-top: 0px;
+		}
+
+	</style>
+</head>
+<body style="padding: 0px;">
+	<!--侧滑菜单容器-->
+	<div class="mui-off-canvas-wrap">
+		<div class="mui-inner-wrap">
+			<!-- 主体页面begin -->
+			<header class="mui-bar mui-bar-nav">
+				<a class="mui-icon mui-icon-back mui-pull-left" href="/wap/personal/personal_main.html"></a>
+				<h1 class="mui-title" id="header_title">站内信</h1>
+			</header>
+			<div class="mui-content" style="height: 100%;background: #d2d2de;">
+				<ul class="mui-table-view" style="background-color: #d2d2de;">
+					<li class="mui-table-view-cell" id="message_li">
+						<a class="mui-navigate-right" href="/wap/station-letter/inbox.html">
+							<img src="../../images/email/in_box.png">收件箱
+							<span class="mui-badge mui-badge-primary" style="display: none;right: 40px;">0</span>
+						</a>
+					</li>
+					<li class="mui-table-view-cell">
+						<a class="mui-navigate-right" href="/wap/station-letter/outbox.html">
+							<img src="../../images/email/out_box.png" >发件箱
+						</a>
+					</li>
+					<li class="mui-table-view-cell">
+						<a class="mui-navigate-right" href="/wap/station-letter/send.html">
+							<img src="../../images/email/write.png">写信
+						</a>
+					</li>
+				</ul>
+			</div>
+			<!-- 主体页面end -->
+		</div>
+	</div>
+</body>
+<!-- 加载JavaScript -->
+<script type="text/javascript" src="/style/js/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="/style/layer/layer.js"></script>
+<script type="text/javascript" src="/style/js/common.js"></script>
+<script type="text/javascript" src="/mui/js/mui.min.js"></script>
+<script type="text/javascript" src="/style/js/jquery.cookie.js"></script>
+@@include('html-foot.html')
+<script type="text/javascript">
+	$(document).ready(function(){
+		mui.init();
+		loadNewMessageCount();
+	});
+	function loadNotices(){
+		$.ajax({
+			dataType: "jsonp",
+			url:wap_site_host()+'/notice/notice',
+			success:function(resultData){
+				if(resultData.code==0){
+					var noticeData = resultData.data;
+					var appendHtml='';
+					$.each(noticeData.types,function(n, value){
+						appendHtml+= '<li class="mui-table-view-cell" onclick="showList('+value.id+')"><a class="mui-navigate-right">'+fun_filterTxt(value.typeName)+'</a></li>';
+					});
+					$('.mui-content ul').html(appendHtml);
+				}
+			}
+		});
+	}
+	function showList(typeId){
+		_setStorageData('_notice_type_id', typeId);
+		window.location.href = "/wap/system-notice/sn_list.html";
+	}
+	function loadNewMessageCount(){
+		$.ajax({
+			type:"POST",
+			url: wap_site_host() + "/session/message/accountMessage/getNewMessageCount?token="+wap_get_user().token,
+		success:function(resultData){
+			if(resultData.code==0 && resultData.data.count>0){
+				$('#message_li .mui-badge-primary').html(resultData.data.count).show();
+			}
+		}
+		});
+	}
+</script>
+</html>

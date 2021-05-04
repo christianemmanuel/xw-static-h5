@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html class="ui-page-login">
+	<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<title>优惠申请</title>
+	<!--标准mui.css-->
+	<link href="/mui/css/mui.min.css" rel="stylesheet" />
+	<link href="/mui/css/mui-icons-extra.css" rel="stylesheet" />
+	<link rel="stylesheet" type="text/css" href="/style/plugins/mobileSelect/css/mobileSelect.css">
+	<link href="/style/css/main.css" rel="stylesheet" />
+		<link href="/style/css/index.css" rel="stylesheet" />
+	<!-- 加载JavaScript -->
+	<script type="text/javascript" src="/style/js/jquery-3.2.1.min.js"></script>
+	<script type="text/javascript" src="/style/layer/layer.js"></script>
+	<script type="text/javascript" src="/style/js/common.js"></script>
+	
+	<script type="text/javascript" src="/mui/js/mui.min.js"></script>
+	<script type="text/javascript" src="/style/js/city.data.js"></script>
+	<script type="text/javascript" src="/style/js/jquery.cookie.js"></script>
+	<script type="text/javascript" src="/style/plugins/mobileSelect/js/mobileSelect.min.js"></script>
+	<style>
+		.mui-content{
+			padding: 40px 5px 10px;
+		}
+		.mui-input-group{
+			background-color: #d2d2de;
+		}
+		.mui-input-group .mui-input-row{
+			margin: 10px 10px;
+			background-color: white;
+		}
+		.mui-input-row label{font-size: 13px;}
+	</style>
+</head>
+
+<body>
+	<header class="mui-bar mui-bar-nav" style="padding-left: 15px;padding-right: 15px;display: none;">
+		<a class="mui-icon mui-icon-left-nav mui-pull-left" style="text-decoration: none; color: white;"></a>
+		<h1 class="mui-title" style="color: #ffffff;">体育保险投注</h1>
+	</header>
+	<div class="mui-content">
+		<form class="mui-input-group">
+			<div class="mui-input-row" id="account_div">
+				<label>账号<span style="color: red;">*</span></label>
+				<label></label>
+			</div>
+			<div class="mui-input-row" id="platform_div">
+				<label>投注平台<span style="color: red;">*</span></label>
+				<label>东赢体育</label>
+			</div>
+			<div class="mui-input-row">
+				<label>注单号<span style="color: red;">*</span></label>
+				<input type="text" id="betNumber"  class="mui-input-clear" placeholder="请填写14-15位注单号" data-input-clear="3">
+			</div>
+		</form>
+		<div style="margin: 20px 10px;">
+			<div  id="submit_btn" class="form_sumbit_btn" onclick="submitForm()">提交</div>
+		</div>
+	</div>
+</body>
+@@include('html-foot.html')
+<script>
+function getQueryString(name) {
+	var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+	var r = window.location.search.substr(1).match(reg);
+	if(r!=null)return  unescape(r[2]); return null;
+}
+var queryToken = getQueryString("token");
+var headCode = getQueryString("headCode");
+var menuCode = getQueryParam("menuCode");
+$(document).ready(function() {
+    mui.init();
+    mui(".mui-bar-nav").on('tap','.mui-pull-left',function(){
+        window.location.href="/wap/helpbonus/hb_index.html";
+    });
+	if(menuCode && menuCode == 'hide'){
+		$('.mui-bar').hide();
+	}else{
+		$('.mui-bar').show();
+	}
+    if(headCode==='show'){
+        $('.mui-bar.mui-bar-nav').show();
+    }else{
+        $('.mui-content').css('padding-top','0');
+	}
+    if ((queryToken===null || queryToken===undefined || queryToken==='') && wap_is_user_notexist()) {
+        wap_go_login('请登录后再操作');
+    }else{
+        if(queryToken===null || queryToken===undefined || queryToken===''){
+            queryToken = wap_get_user().token;
+        }
+        $.ajax({
+            dataType: "jsonp",
+            crossDomain: true,
+            url: wap_site_host()+'/session/member?token='+queryToken,
+            success:function(resultData){
+                if(resultData.code==0){
+                    $('#account_div label:last').html(resultData.data.loginName);
+				}else{
+                    fun_toast(resultData.message);
+				}
+            },
+            error:function( jqXHR, textStatus){
+                fun_toast('用户信息查询失败，请稍后重试');
+            }
+        });
+	}
+});
+function submitForm(){
+	var betNumber = $.trim($("#betNumber").val());
+	if (betNumber.length < 14 || betNumber.length > 15) {
+		fun_alertMsg('请填写正确的14-15位注单号！', function() {});
+		return;
+	}
+	$.ajax({
+       	url:wap_site_host() + "/session/memberSportInsurance/save?token="+queryToken,
+		type:"POST",
+		data:{"betNumber":betNumber},
+		dataType: 'json',
+	 	success:function(d){
+  		 	if (d.code == 0) {
+  		 		fun_alertMsg('提交成功', function() { $("#betNumber").val('');mui($('#submit_btn')).button('reset'); });
+   		   	} else {
+   		   		fun_alertMsg(d.msg, function() {});
+   		   		mui($('#submit_btn')).button('reset');
+   		   		wap_if_session_out(d.code);
+   		   	}	
+ 		 },
+ 		 error:function(jqXHR, textStatus){
+ 			wap_check_ajaxerror(jqXHR);
+ 			fun_alertMsg('提交异常！', function() {});
+ 			mui($('#submit_btn')).button('reset');
+ 		 }
+	});
+}  
+</script>
+</html>

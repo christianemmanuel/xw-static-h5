@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html class="ui-page-login" style="background: #efeff4;">
+	<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<title>推荐好友</title>
+	<!--标准mui.css-->
+	<link href="/mui/css/mui.min.css" rel="stylesheet" />
+	<link href="/mui/css/common.css" rel="stylesheet" />
+	<link href="/style/css/main.css" rel="stylesheet" />
+		<link href="/style/css/index.css" rel="stylesheet" />
+	<!-- 加载JavaScript -->
+	<script type="text/javascript" src="/style/js/jquery-3.2.1.min.js"></script>
+	<script type="text/javascript" src="/style/layer/layer.js"></script>
+	<script type="text/javascript" src="/style/js/Validform_v5.3.2_min.js"></script>
+	<script type="text/javascript" src="/style/js/common.js"></script>
+	<script type="text/javascript" src="/style/js/md5.js"></script>
+	<script type="text/javascript" src="/mui/js/mui.min.js"></script>
+	<script type="text/javascript" src="/style/js/jquery.cookie.js"></script>
+	<style>
+	.compulsory-tip {
+		color: red;
+		padding-left: 5px;
+	}
+	.mui-content{
+		padding: 40px 5px 60px;
+	}
+	.radio_inline {
+		display: inline-block;
+		width: 65%;
+	}
+	.radio_inline label {
+		width: 20%;
+		padding-left: 40px;
+		padding-right: 40px;
+	}
+	.radio_inline input[type=radio] {
+		width: 15%;
+		right: auto;
+	}
+	.mui-input-row label img{vertical-align: middle;margin-right: 5px;float: left;margin-left: 10px;}
+	.mui-input-row label{width: 45%;text-align: right;font-size: 14px;}
+	.mui-content .mui-input-row input{width: 55%;}
+	.mui-input-group{
+		background-color: #d2d2de;
+	}
+	.mui-input-group .mui-input-row {
+		margin: 10px 10px;
+		background-color: white;
+	}
+	.color-card{
+		background:linear-gradient(90deg, #7abdfc 0%, #2d74f6 100%);
+	}
+</style>
+
+</head>
+
+<body>
+	<header class="mui-bar mui-bar-nav" >
+		<a class="mui-icon mui-icon-left-nav mui-pull-left" href="/wap/helpbonus/hb_index.html"></a>
+		<h1 class="mui-title" style="color: #ffffff;">推荐好友</h1>
+	</header>
+	<div class="mui-content" style="background: #efeff4;">
+		<div style="background: #d2d2de;padding-top: 2px;padding-bottom: 5px;">
+			<form class="mui-input-group">
+				<div class="mui-input-row">
+					<label><img src="https://xwsr2.16fass88.com/resources/wap_new/images/icon_personal.png" width="20px">好友姓名<span class="compulsory-tip">*</span></label>
+					<input id='recommendRealName' name="recommendRealName" type="text" class="mui-input-clear mui-input" placeholder="好友姓名">
+				</div>
+				<div class="mui-input-row">
+					<label><img src="https://xwsr2.16fass88.com/resources/wap_new/images/icon_id.png" width="20px">好友用户名<span class="compulsory-tip">*</span></label>
+					<input id='recommendName' name="recommendName" type="text" class="mui-input-clear mui-input" placeholder="好友用户名">
+				</div>
+			</form>
+		</div>
+		<div class="mui-content-padded">
+			<div id='recommendFriendsBtn' class="form_sumbit_btn">提 交</div>
+		</div>
+		<div style="background: white;padding: 10px;margin-top: 25px">
+			<div style="font-size: 15px;margin-left: 20px;">申请条件</div>
+			<div class="color-card">
+				<div class="mui-card" style="margin-bottom: 10px;">
+					<div class="mui-card-header" style="padding: 0px 15px;"><span>申请人</span></div>
+					<div class="mui-card-content">
+						<div class="mui-card-content-inner">
+							<span>1.邀请人必须在东赢网站有过至少200元的存款并有游戏记录。</span><br/>
+							<span>2.邀请人必须在被邀请人注册后的一周之内申请推荐朋友奖金。审核成功后，系统会自动派发到您的主账户。</span>
+						</div>
+					</div>
+				</div>
+				<div class="mui-card">
+					<div class="mui-card-header" style="padding: 0px 15px;"><span>被邀请人</span></div>
+					<div class="mui-card-content">
+						<div class="mui-card-content-inner">
+							<span>1.被邀请人必须最低累积存款500元；</span><br/>
+							<span>2.被邀请人必须第一次在本网站注册；且邀请人使用的不同电脑，不同住址；</span><br/>
+							<span>3.被邀请账户不能是合营商（代理）名下；</span><br/>
+							<span>4.被邀请人必须比邀请人晚注册的会员，必须比邀请人晚注册的会员；被邀请人存款后，需要在一周内提交申请。</span><br/>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</body>
+@@include('html-foot.html')
+<script>
+	//var loginMember = wap_get_user();
+	function verifyForm(recommendName, recommendRealName) {
+		var flag = false;
+		var msg = '';
+		if (recommendName.length == 0) {
+			msg = '好友用户名不可为空';
+		} else if (recommendName.length < 6 || recommendName.length > 15) {
+			msg = '请输入正确的用户名';
+		} else if (recommendRealName.length == 0) {
+			msg = '好友姓名不可为空';
+		} /*else if (recommendName == loginMember.loginName) {
+			msg = '不可自己推荐自己';
+		}*/ else {
+			flag = true;
+		}
+		if (!flag){ fun_alertMsg(msg, function() {}); }
+		return flag;
+	}
+    function getQueryString(name) {
+        var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+        var r = window.location.search.substr(1).match(reg);
+        if(r!=null)return  unescape(r[2]); return null;
+    }
+    var queryToken = getQueryString("token");
+    var headCode = getQueryString("headCode");
+	var menuCode = getQueryString("menuCode");
+
+   $(function(){
+       if(headCode==='hide'){
+           $('.mui-bar.mui-bar-nav').hide();
+           $('.mui-content').css('padding-top','0');
+       }
+	   if(menuCode === 'hide'){
+		   $('#menu_nav').hide();
+	   }
+	   $("#recommendFriendsBtn").click(function(e){
+           if ((queryToken===null || queryToken===undefined || queryToken==='') && wap_is_user_notexist()) {
+               wap_go_login('请登录后再操作');
+           }else {
+               if (queryToken === null || queryToken === undefined || queryToken === '') {
+                   queryToken = wap_get_user().token;
+               }
+               e.preventDefault();
+               var recommendName = $("#recommendName").val().trim();
+               var recommendRealName = $("#recommendRealName").val().trim();
+               var formData = {
+                   "recommendName" : recommendName,
+                   "recommendRealName" : recommendRealName,
+                   "token" : queryToken
+               };
+
+               if (verifyForm(recommendName, recommendRealName)) {//验证表单
+                   fun_confirmMsg('您是否确定被邀请的玩家信息正确？',function(){
+                       $.ajax({
+                           url:wap_site_host() + "/session/recommend/member/saveMemberRecommend",
+                           type:"POST",
+                           data:formData,
+                           dataType: 'json',
+                           success:function(d){
+                               if (d.code == 0) {
+                                   fun_alertMsg('推荐好友成功！', '系统提示', function() { window.location.href='/wap/helpbonus/hb_index.html' });
+                               } else {
+                                   fun_alertMsg(d.message, function() {});
+                                   wap_if_session_out(d.code);
+                               }
+                           },
+                           error:function(jqXHR, textStatus){
+                               wap_check_ajaxerror(jqXHR);
+                               fun_alertMsg('推荐好友异常！', function() {});
+                           }
+                       });
+                   },function(){});
+               }
+           }
+	   });
+   }); 
+</script>
+</html>

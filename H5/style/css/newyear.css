@@ -1,0 +1,290 @@
+@charset "utf-8";
+
+body{
+    font-family: "Microsoft YaHei", 微软雅黑 !important;
+    background-color:#ffffff;
+    position: relative;
+}
+.container{
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+}
+.newyear img{
+    width: 100%;
+}
+.progressbar{
+    padding: 20px 0 5px;
+    color: #210900;
+}
+.progressbar .layui-col-xs2{
+    text-align: center;
+    font-size: 12px;
+    padding-top: 13px;
+    letter-spacing: 1px;
+}
+.progressbar .layui-col-xs10{
+    position: relative;
+}
+.progressbar .layui-col-xs10 img{
+    width: 95%;
+}
+.progressbar .layui-col-xs10 p{
+    /*position: absolute;*/
+}
+.progressbar .money{
+    display: flex;
+}
+.black{
+    color: #210900 !important;
+}
+.progressbar .money p{
+    padding-right: 7px;
+    color: #c40000;
+    letter-spacing: 1px;
+    font-size: 7px;
+    margin: 0;
+}
+.progressbar .money .zero{
+    padding-right: 26px;
+}
+.progressbar .money .one{
+    padding-right: 17px;
+}
+.progressbar .money .two{
+    padding-right: 13px;
+}
+.progressbar .money .three{
+    padding-right: 12px;
+}
+.progressbar .money .four{
+    padding-right: 8px;
+}
+.progressbar .arrow{
+    position: absolute;
+    top: 21px;
+    right: 34%;
+}
+.progressbar .arrow img{
+    width: 18%;
+    margin-left: 11px;
+}
+.progressbar .arrow p{
+    font-size: 7px;
+    line-height: 0;
+    color: #c40000;
+}
+.newyearpacket{
+    margin: 20px 0;
+    background: url(https://xwsr2.16fass88.com/resources/wap_new/images/newyear/bg.png) no-repeat;
+    background-size: contain;
+    position: relative;
+    padding: 0 20px;
+}
+.newyearpacket .text{
+    position: absolute;
+    width: 47%;
+    right: 7px;
+    top: 8px;
+}
+.newyearpacket .text p ,.newyearpacket .text p span{
+    color: #333333;
+}
+.newyearpacket .text p{
+    font-size: 12px;
+}
+.newyearpacket .text p span{
+    font-size: 10px;
+}
+.newyearpacket .layui-row{
+    padding-top: 18%;
+    padding-bottom: 3%;
+}
+.newyearpacket img{
+    width: 74%;
+    display: block;
+    margin: 0 auto;
+    padding-bottom: 11%;
+}
+
+.newyearpacket .btn-newyear{
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 16%;
+    text-align: center;
+}
+
+.btn-newyear .layui-btn{
+    padding: 0 15px;
+    background-color: #fcff00;
+    color: #830000;
+    line-height: 26px;
+    height: 25px;
+    border-radius: 40px;
+    font-weight: bold;
+    font-size: 13px;
+}
+.btn-newyear .layui-btn:hover{
+    opacity: 1;
+    color: #830000;
+}
+figure{
+    width: 100%;
+    overflow: hidden;
+    left: 0;
+    top: 17px;
+    position: absolute;
+    margin: 0 0 0 -38%!important;
+}
+figure img{
+    display:block; /*remove inline-block spaces*/
+    width:100%; /*make image streatch*/
+}
+figure img{
+    /*add to other styles*/
+    margin: 0 0 0 38%;
+}
+.pop-up{
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 18%;
+    text-align: center;
+    z-index: 2;
+    display: none;
+}
+.pop-up .btn-pop-up{
+    position: absolute;
+    margin: 0 auto;
+    left: 0;
+    right: 0;
+    top: 29%;
+}
+.pop-up .layui-btn{
+    padding: 0 34px;
+    background-color: #c80007;
+    color: #fdff72;
+    border-radius: 40px;
+    font-weight: bold;
+}
+.pop-up p{
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    width: 250px;
+    top: 21%;
+}
+.pop-up img{
+    width: 80%;
+}
+.overlay{
+    width:100%;
+    height:100%;
+    opacity: 0.5;
+    background-color: black;
+    position: absolute;
+    top: 0;
+    z-index: 1;
+    display: none;
+}
+.gray{
+    background-color: #828282 !important;
+    color:#2f2f2f !important;
+    padding: 0 22px!important;
+}
+
+@media only screen and (max-width: 380px) {
+    .progressbar .money p{
+        padding-right: 1.5%;
+        font-size: 6.5px;
+    }
+    .progressbar .money .zero{
+        padding-right: 24px;
+    }
+    .progressbar .money .one{
+        padding-right: 14px;
+    }
+    .progressbar .money .two{
+        padding-right: 12px;
+    }
+    .progressbar .money .three{
+        padding-right: 10px;
+    }
+    .progressbar .money .four{
+        padding-right: 6px;
+    }
+    .newyearpacket .text p{
+        font-size: 11px;
+    }
+    .newyearpacket .text p span{
+        font-size: 9px;
+    }
+    .btn-newyear .layui-btn {
+         padding: 0 12px;
+         line-height: 23px;
+         height: 22px;
+     }
+}
+@media only screen and (max-width: 320px) {
+    figure {
+        top: 16px;
+    }
+    .progressbar .money p{
+        padding-right: 1%;
+        font-size: 5.5px;
+    }
+    .progressbar .money .zero{
+        padding-right: 21px;
+    }
+    .progressbar .money .one{
+        padding-right: 11px;
+    }
+    .progressbar .money .two{
+        padding-right: 7px;
+    }
+    .progressbar .money .three{
+        padding-right: 7px;
+    }
+    .progressbar .layui-col-xs2{
+        font-size: 10px;
+        padding-top: 12px;
+    }
+    .newyearpacket .text{
+        right: 12px;
+    }
+    .newyearpacket .text p{
+        font-size: 10px;
+    }
+    .newyearpacket .text p span{
+        font-size: 8px;
+    }
+    .newyearpacket .btn-newyear{
+        bottom: 16%;
+    }
+    .btn-newyear .layui-btn{
+        padding: 0 11px;
+        line-height: 18px;
+        height: 20px;
+        font-size: 11px;
+    }
+    .pop-up p {
+        width: 220px;
+        font-size: 13px;
+    }
+    .pop-up .layui-btn{
+        height: 27px;
+        line-height: 28px;
+        padding: 0 25px;
+    }
+    .bar_grey{
+        background:url("https://xwsr2.16fass88.com/resources/wap_new/images/newyear/bar.png");
+        width: 100%;
+    }
+    .bar_red{
+        background:url("https://xwsr2.16fass88.com/resources/wap_new/images/newyear/bar-red.png");
+        width: 100%;
+    }
+}

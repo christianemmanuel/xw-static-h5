@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html class="ui-page-login">
+	<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<title>优惠申请</title>
+	<!--标准mui.css-->
+	<link href="/mui/css/mui.min.css" rel="stylesheet" />
+	<link href="/mui/css/mui-icons-extra.css" rel="stylesheet" />
+	<link rel="stylesheet" type="text/css" href="/style/plugins/mobileSelect/css/mobileSelect.css">
+	<link href="/style/css/main.css" rel="stylesheet" />
+		<link href="/style/css/index.css" rel="stylesheet" />
+		<link href="/style/dropload/dropload.css" rel="stylesheet">
+	<!-- 加载JavaScript -->
+	<script type="text/javascript" src="/style/js/jquery-3.2.1.min.js"></script>
+	<script type="text/javascript" src="/style/layer/layer.js"></script>
+	<script type="text/javascript" src="/style/js/common.js"></script>
+	
+	<script type="text/javascript" src="/mui/js/mui.min.js"></script>
+	<script type="text/javascript" src="/style/js/city.data.js"></script>
+	<script type="text/javascript" src="/style/js/jquery.cookie.js"></script>
+	<script type="text/javascript" src="/style/plugins/mobileSelect/js/mobileSelect.min.js"></script>
+		<script type="text/javascript" src="/style/dropload/dropload.min.js"></script>
+	<style>
+		.mui-input-row label{font-size: 13px;}
+	</style>
+</head>
+
+<body>
+	<header class="mui-bar mui-bar-nav" style="padding-left: 15px;padding-right: 15px;display: none;">
+		<a class="mui-icon mui-icon-left-nav mui-pull-left" style="text-decoration: none; color: white;"></a>
+		<h1 class="mui-title" style="color: #ffffff;">电子幸运注单</h1>
+	</header>
+	<div class="mui-content">
+		<form class="mui-input-group">
+			<div class="mui-input-row" id="account_div">
+				<label>账号<span style="color: red;">*</span></label>
+				<input type="text" id="playerAccount" readonly>
+			</div>
+			<div class="mui-input-row" id="platform_div">
+				<label>投注平台<span style="color: red;">*</span></label>
+                <select id="platName">
+                    <option value="">请选择平台</option>
+                    <option value="PT">PT</option>
+                    <option value="SW">SW</option>
+                    <option value="MG">MG</option>
+                    <option value="CQ">CQ</option>
+                    <option value="BBIN">BBIN</option>
+                    <option value="SG">SG</option>
+                    <option value="PP">PP</option>
+                    <option value="FG">FG</option>
+                    <option value="AG">AG</option>
+                </select>
+			</div>
+			<div class="mui-input-row">
+				<label>注单号<span style="color: red;">*</span></label>
+				<input type="text" id="betNumber"  class="mui-input-clear" placeholder="请填写88结尾的注单号" data-input-clear="3">
+			</div>
+		</form>
+		<div style="margin: 10px;">
+			<button type="button" id="submit_btn" class="submit_btn" data-loading-text="提交中" onclick="submitForm()">提交</button>
+		</div>
+		<p style="text-align: center;margin: 20px;font-size: 16px;font-weight: bold;color: black;">申请记录</p>
+		<ul class="mui-table-view" style="display: block;margin-top: 0px;">
+		</ul>
+	</div>
+</body>
+@@include('html-foot.html')
+<script>
+function getQueryString(name) {
+	var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+	var r = window.location.search.substr(1).match(reg);
+	if(r!=null)return  unescape(r[2]); return null;
+}
+var queryToken = getQueryString("token");
+var headCode = getQueryString("headCode");
+$(document).ready(function() {
+    mui.init();
+    mui(".mui-bar-nav").on('tap','.mui-pull-left',function(){
+        window.location.href="/wap/helpbonus/hb_index.html";
+    });
+    if(headCode==='show'){
+        $('.mui-bar.mui-bar-nav').show();
+    }else{
+        $('.mui-content').css('padding-top','0');
+	}
+    if ((queryToken===null || queryToken===undefined || queryToken==='') && wap_is_user_notexist()) {
+        wap_go_login('请登录后再操作');
+    }else{
+        if(queryToken===null || queryToken===undefined || queryToken===''){
+            queryToken = wap_get_user().token;
+        }
+        $.ajax({
+            dataType: "jsonp",
+            crossDomain: true,
+            url: wap_site_host()+'/session/member?token='+queryToken,
+            success:function(resultData){
+                if(resultData.code==0){
+                    $('#account_div input:last').val(resultData.data.loginName);
+				}else{
+                    fun_toast(resultData.message);
+				}
+            },
+            error:function( jqXHR, textStatus){
+                fun_toast('用户信息查询失败，请稍后重试');
+            }
+        });
+	}
+    $('.mui-content').dropload({
+        scrollArea : window,
+        domUp : {
+            domClass   : 'dropload-up',
+            domRefresh : '<div class="dropload-refresh">↓下拉刷新</div>',
+            domUpdate  : '<div class="dropload-update">↑释放更新</div>',
+            domLoad    : '<div class="dropload-load"><span class="loading"></span>加载中...</div>'
+        },
+        domDown : {
+            domClass   : 'dropload-down',
+            domRefresh : '<div class="dropload-refresh">↑上拉加载更多</div>',
+            domLoad    : '<div class="dropload-load"><span class="loading"></span>加载中...</div>',
+            domNoData  : '<div class="dropload-noData">没有更多数据了</div>'
+        },
+        loadUpFn : function(me){
+            refreshList(null,me,0);
+        },
+        loadDownFn : function(me){
+            var lastTime = $('.mui-content li:last').data('commit_date');
+            lastTime = (lastTime==undefined) ? null : lastTime;
+            refreshList(lastTime,me,1);
+        },
+        threshold : 50
+    });
+});
+function submitForm(){
+	mui($('#submit_btn')).button('loading');
+    var playerAccount = $.trim($('#playerAccount').val());
+    if(playerAccount.length<=0){ fun_alertMsg('请登录后再操作', function() {});return; }
+    var platName = $.trim($('#platName').val());
+    if(platName.length<=0){ fun_alertMsg('请选择投注平台', function() {});return; }
+	var betNumber = $.trim($("#betNumber").val());
+	if (betNumber.length <= 0 || betNumber.substr(betNumber.length-2,2)!='88') {
+		fun_alertMsg('请填写正确的带88结尾的注单号！', function() {});mui($('#submit_btn')).button('reset');
+		return;
+	}
+	$.ajax({
+       	url:wap_site_host() + "/session/memberSlotInsurance/save?token="+queryToken,
+		type:"POST",
+		data:{'platName':platName,"betNumber":betNumber},
+		dataType: 'json',
+	 	success:function(d){
+  		 	if (d.code == 0) {
+  		 		fun_alertMsg('提交成功', function() { $("#betNumber").val('');mui($('#submit_btn')).button('reset'); });
+   		   	} else {
+   		   		fun_alertMsg(d.msg, function() {});
+   		   		mui($('#submit_btn')).button('reset');
+   		   		wap_if_session_out(d.code);
+   		   	}	
+ 		 },
+ 		 error:function(jqXHR, textStatus){
+ 			wap_check_ajaxerror(jqXHR);
+ 			fun_alertMsg('提交异常！', function() {});
+ 			mui($('#submit_btn')).button('reset');
+ 		 }
+	});
+}
+
+function refreshList(lastTime,me,loadType){
+    $.ajax({
+        dataType: "jsonp",
+        url:wap_site_host() + "/session/memberSlotInsurance/listData/phone?token="+queryToken,
+        type:"GET",
+        data:{"lastTime":lastTime, "length":10},
+        dataType: 'json',
+        success:function(resultData){
+            if (resultData.code == 0) {
+                var listData = resultData.data;
+                var appendHtml='';
+                $.each(listData,function(n, v){
+                    var applyTimeStr = new Date(v.applyTime).format("yyyy-MM-dd hh:mm:ss");
+                    var dataStatus = v.status;
+                    if(dataStatus === 1){
+                        dataStatus = "未审核";
+                    } else if(dataStatus === 2){
+                        dataStatus = "已审核";
+                    } else if(dataStatus === 3){
+                        dataStatus = "已取消";
+                    }
+                    appendHtml+='<li class="mui-table-view-cell mui-media" data-commit_date="'+applyTimeStr+'">\
+							<div class="mui-input-row"><label>账号</label><label style="width: 60%;">'+v.playerAccount+'</label></div>\
+							<div class="mui-input-row"><label>平台</label><label style="width: 60%;">'+fun_filterTxt(v.platName)+'</label></div>\
+							<div class="mui-input-row"><label>注单号</label><label style="width: 60%;">'+fun_filterTxt(v.betNumber)+'</label></div>\
+							<div class="mui-input-row"><label>申请时间</label><label style="width: 60%;">'+applyTimeStr+'</label></div>\
+							<div class="mui-input-row"><label>状态</label><label style="width: 60%;">'+dataStatus+'</label></div>\
+							<div class="mui-input-row"><label>备注</label><span style="font-size: 15px;width: 60%;">'+fun_filterTxt(v.failReason)+'</span>\
+							</div>\
+						</li>';
+
+                });
+                if(loadType==0){
+                    $('.mui-content ul').html(appendHtml);
+                }else{
+                    $('.mui-content ul').append(appendHtml);
+                }
+
+                // 每次数据插入，必须重置
+                me.resetload();
+                if(appendHtml==''){
+                    // 锁定
+                    me.lock();
+                    // 无数据
+                    me.noData();
+                }else{
+                    // 解锁loadDownFn里锁定的情况
+                    me.unlock();
+                    me.noData(false);
+                }
+            } else {
+                fun_alertMsg(resultData.message, function() {});
+                // 即使加载出错，也得重置
+                me.resetload();
+                // 锁定
+                me.lock();
+                // 无数据
+                me.noData();
+                wap_if_session_out(resultData.code);
+            }
+        },
+        error:function( jqXHR, textStatus){
+            wap_check_ajaxerror(jqXHR);
+            fun_toast('请求失败，请稍后重试');
+            // 即使加载出错，也得重置
+            me.resetload();
+            // 锁定
+            me.lock();
+            // 无数据
+            me.noData();
+        }
+    });
+}
+</script>
+</html>

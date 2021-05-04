@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>东赢爵位尊享</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+    <!--标准mui.css-->
+    <link href="/style/css/swiper.min.css" rel="stylesheet" />
+    <link href="/mui/css/mui.min.css" rel="stylesheet" />
+    <link href="/mui/css/common.css" rel="stylesheet" />
+    <link href="/style/css/vip.css" rel="stylesheet" />
+    <link href="/style/css/index.css" rel="stylesheet" />
+    <!--扩展图标-->
+    <link href="/mui/css/mui-icons-extra.css" rel="stylesheet" />
+    <link href="/style/css/main.css" rel="stylesheet" />
+    <style type="text/css">
+        body, html {
+            background: #efeff4;
+        }
+        .mui-grid-view.mui-grid-9{
+            border-right: 0px;
+            border-bottom: 0px;
+        }
+        .back-table td{
+            color: #9c4f03;
+        }
+    </style>
+</head>
+<body>
+<header class="mui-bar mui-bar-nav" style="padding-left: 15px;padding-right: 15px;">
+    <a class="mui-icon mui-icon-left-nav mui-pull-left mui-action-back" style="text-decoration: none; color: white;"></a>
+    <h1 class="mui-title" style="color: #ffffff;">爵位尊享</h1>
+</header>
+<div class="mui-content" style="height: 100%;background-color: #000000;">
+    <div class="mui-input-row" id="top_bg">
+        <img src="https://xwsr2.16fass88.com/resources/wap_new/images/new-layout/banner-vip.png?1" style="width: 100%;">
+    </div>
+    <div class="mui-row vip-tabs">
+        <div class="swiper-container">
+            <ul class="mui-tabs__bar">
+                <li class="mui--is-active" onclick="selectVip(this,0)"><a data-mui-toggle="tab" data-mui-controls="pane-default-1">勋爵</a></li>
+                <li onclick="selectVip(this,1)"><a data-mui-toggle="tab" data-mui-controls="pane-default-2">子爵</a></li>
+                <li onclick="selectVip(this,2)"><a data-mui-toggle="tab" data-mui-controls="pane-default-3">男爵</a></li>
+                <li onclick="selectVip(this,3)"><a data-mui-toggle="tab" data-mui-controls="pane-default-4">伯爵</a></li>
+                <li onclick="selectVip(this,4)"><a data-mui-toggle="tab" data-mui-controls="pane-default-5">公爵</a></li>
+                <li onclick="selectVip(this,5)"><a data-mui-toggle="tab" data-mui-controls="pane-default-6">世爵</a></li>
+                <li onclick="selectVip(this,6)"><a data-mui-toggle="tab" data-mui-controls="pane-default-7">国王</a></li>
+            </ul>
+            <div class="swiper-wrapper">
+                <div class="swiper-slide mui-tabs__pane mui--is-active" id="pane-default-1">
+                    <div class="mui-row">
+                        <div class="tabs-img">
+                            <img src="https://xwsr2.16fass88.com/resources/wap_new/images/new-layout/img01.png">
+                        </div>
+                        <div class="vip-text">
+                            <p class="p1"><img src="https://ezeu.ytyq8866.com/resources/web_h5/images/vip/vip_text_01.png"></p>
+                            <p class="p2">只要有一笔存款即可获得</p>
+                            <p class="p3">勋爵身份可尊享：</p>
+                            <div class="leftBox">
+                                <p>&gt; 电竞/体育返水比例高达0.5%
+                                    <br>
+                                    &gt; 日提款限额10万元</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-slide mui-tabs__pane" id="pane-default-2">
+                    <div class="mui-row">
+                        <div class="tabs-img">
+                            <img src="https://xwsr2.16fass88.com/resources/wap_new/images/new-layout/img02.png">
+                        </div>
+                        <div class="vip-text">
+                            <p class="p1"><img src="https://ezeu.ytyq8866.com/resources/web_h5/images/vip/vip_text_02.png"></p>
+                            <p class="p2">只要累积存款达5000元，且当月累积存款1888即可获得</p>
+                            <p class="p3">子爵身份可尊享：</p>
+                            <div class="leftBox">
+                                <p>&gt; 电竞/体育返水比例高达0.5%
+                                    <br>
+                                    &gt; 每月可申请20%存送 最高奖金588元
+                                    <br>
+                                    &gt; 日提款限额10万元
+                                </p>
+                            </div>
+                            <div class="rightBox">
+                                <a class="a1" href="/wap/deposit/deposit_index.html"><button class="mui-btn">申请每月存送</button></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-slide mui-tabs__pane" id="pane-default-3">
+                    <div class="mui-row">
+                        <div class="tabs-img">
+                            <img src="https://xwsr2.16fass88.com/resources/wap_new/images/new-layout/img03.png">
+                        </div>
+                        <div class="vip-text">
+                            <p class="p1"><img src="https://ezeu.ytyq8866.com/resources/web_h5/images/vip/vip_text_03.png"></p>
+                            <p class="p2">只要累积存款达50000元，且当月累积存款10888即可获得</p>
+                            <p class="p3">男爵身份可尊享：</p>
+                            <div class="leftBox">
+                                <p>&gt; 电竞/体育返水比例高达0.6%
+                                    <br>
+                                    &gt; 每月可申请20%存送 最高奖金888元
+                                    <br>
+                                    &gt; 生日当天可获得礼金188元
+                                    <br>
+                                    &gt; 日提款限额20万元
+                                </p>
+                            </div>
+                            <div class="rightBox">
+                                <a class="a1" href="/wap/deposit/deposit_index.html"><button class="mui-btn">申请每月存送</button></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-slide mui-tabs__pane" id="pane-default-4">
+                    <div class="mui-row">
+                        <div class="tabs-img">
+                            <img src="https://xwsr2.16fass88.com/resources/wap_new/images/new-layout/img04.png">
+                        </div>
+                        <div class="vip-text">
+                            <p class="p1"><img src="https://ezeu.ytyq8866.com/resources/web_h5/images/vip/vip_text_04.png"></p>
+                            <p class="p2">只要累积存款达250000元，且当月累积存款38888即可获得</p>
+                            <p class="p3">伯爵身份可尊享：</p>
+                            <div class="leftBox">
+                                <p>&gt; 电竞/体育返水比例高达0.7%
+                                    <br>
+                                    &gt; 每月可申请25%存送 最高奖金1888元
+                                    <br>
+                                    &gt; 生日当天可获得礼金588元
+                                    <br>
+                                    &gt; 日提款限额20万元
+                                    <br>
+                                    &gt; 还有存提专属通道和专属客服经理等专属服务
+                                </p>
+                            </div>
+                            <div class="rightBox">
+                                <a class="a1" href="/wap/deposit/deposit_index.html"><button class="mui-btn">申请每月存送</button></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-slide mui-tabs__pane" id="pane-default-5">
+                    <div class="mui-row">
+                        <div class="tabs-img">
+                            <img src="https://xwsr2.16fass88.com/resources/wap_new/images/new-layout/img05.png">
+                        </div>
+                        <div class="vip-text">
+                            <p class="p1"><img src="https://ezeu.ytyq8866.com/resources/web_h5/images/vip/vip_text_05.png"></p>
+                            <p class="p2">只要累积存款达500000元，且当月累积存款58888即可获得</p>
+                            <p class="p3">公爵身份可尊享：</p>
+                            <div class="leftBox">
+                                <p>&gt; 电竞/体育返水比例高达0.8%
+                                    <br>
+                                    &gt; 每月可申请25%存送 最高奖金3888元
+                                    <br>
+                                    &gt; 生日当天可获得礼金888元
+                                    <br>
+                                    &gt; 日提款限额20万元
+                                    <br>
+                                    &gt; 还有存提专属通道和专属客服经理等专属服务
+                                </p>
+                            </div>
+                            <div class="rightBox">
+                                <a class="a1" href="/wap/deposit/deposit_index.html"><button class="mui-btn">申请每月存送</button></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-slide mui-tabs__pane" id="pane-default-6">
+                    <div class="mui-row">
+                        <div class="tabs-img">
+                            <img src="https://xwsr2.16fass88.com/resources/wap_new/images/new-layout/img06.png">
+                        </div>
+                        <div class="vip-text">
+                            <p class="p1"><img src="https://ezeu.ytyq8866.com/resources/web_h5/images/vip/vip_text_06.png"></p>
+                            <p class="p2">只要累积存款达2500000元，且当月累积存款88888即可获得</p>
+                            <p class="p3">世爵身份可尊享：</p>
+                            <div class="leftBox">
+                                <p>&gt; 电竞/体育返水比例高达0.9%
+                                    <br>
+                                    &gt; 每月可申请30%存送 最高奖金5888元
+                                    <br>
+                                    &gt; 生日当天可获得礼金1888元
+                                    <br>
+                                    &gt; 日提款限额25万元
+                                    <br>
+                                    &gt; 还有存提专属通道,境外7日游和专属客服经理等专属服务
+                                </p>
+                            </div>
+                            <div class="rightBox">
+                                <a class="a1" href="/wap/deposit/deposit_index.html"><button class="mui-btn">申请每月存送</button></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-slide mui-tabs__pane" id="pane-default-7">
+                    <div class="mui-row">
+                        <div class="tabs-img">
+                            <img src="https://xwsr2.16fass88.com/resources/wap_new/images/new-layout/img07.png">
+                        </div>
+                        <div class="vip-text">
+                            <p class="p1"><img src="https://ezeu.ytyq8866.com/resources/web_h5/images/vip/vip_text_07.png"></p>
+                            <p class="p2">只要累积存款达5000000元，且当月累积存款188888即可获得</p>
+                            <p class="p3">国王身份可尊享：</p>
+                            <div class="leftBox">
+                                <p>&gt; 电竞/体育返水比例高达1%
+                                    <br>
+                                    &gt; 每月可申请35%存送 最高奖金8888元
+                                    <br>
+                                    &gt; 生日当天可获得礼金8888元
+                                    <br>
+                                    &gt; 日提款限额30万元
+                                    <br>
+                                    &gt; 所有专属服务+每月特别礼物
+                                </p>
+                            </div>
+                            <div class="rightBox">
+                                <a class="a1" href="/wap/deposit/deposit_index.html"><button class="mui-btn">申请每月存送</button></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Add Arrows -->
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+        </div>
+    </div>
+    <div class="mui-row line">
+        <img src="https://xwsr2.16fass88.com/resources/wap_new/images/new-layout/img09.png">
+    </div>
+    <div class="mui-row">
+        <div class="requirementBox">
+            <table class="layui-table" lay-even="" lay-skin="row">
+                <colgroup>
+                    <col width="15%">
+                    <col width="45%">
+                    <col>
+                </colgroup>
+                <thead>
+                <tr>
+                    <th>等级</th>
+                    <th>升级要求/元</th>
+                    <th>保级要求</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>勋爵</td>
+                    <td>有一笔存款</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>子爵</td>
+                    <td>5000≤累积存款&lt;50000元</td>
+                    <td>1888≤当月累积存款</td>
+                </tr>
+                <tr>
+                    <td>男爵</td>
+                    <td>50000≤累积存款＜250000</td>
+                    <td>10888≤当月累积存款</td>
+                </tr>
+                <tr>
+                    <td>伯爵</td>
+                    <td>250000≤累积存款＜500000</td>
+                    <td>38888≤当月累积存款</td>
+                </tr>
+                <tr>
+                    <td>公爵</td>
+                    <td>500000≤累积存款＜2500000</td>
+                    <td>58888≤当月累积存款</td>
+                </tr>
+                <tr>
+                    <td>世爵</td>
+                    <td>2500000≤累积存款＜5000000</td>
+                    <td>88888≤当月累积存款</td>
+                </tr>
+                <tr>
+                    <td>国王</td>
+                    <td>累积存款≥5000000</td>
+                    <td>188888≤当月累积存款</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="mui-row">
+        <div class="requirementBox second-box">
+            <table class="layui-table" lay-even="" lay-skin="row">
+                <colgroup>
+                    <col width="15%">
+                    <col width="17%">
+                    <col width="17%">
+                    <col>
+                </colgroup>
+                <thead>
+                <tr>
+                    <th>等级</th>
+                    <th>VIP<br>生日礼金</th>
+                    <th>日提款<br>限额</th>
+                    <th>专属服务</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>勋爵</td>
+                    <td></td>
+                    <td>10万元</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>子爵</td>
+                    <td></td>
+                    <td>10万元</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>男爵</td>
+                    <td>188元</td>
+                    <td>20万元</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>伯爵</td>
+                    <td>588元</td>
+                    <td>20万元</td>
+                    <td>存提专属通道+专属客服经理</td>
+                </tr>
+                <tr>
+                    <td>公爵</td>
+                    <td>888元</td>
+                    <td>20万元</td>
+                    <td>存提专属通道+专属客服经理</td>
+                </tr>
+                <tr>
+                    <td>世爵</td>
+                    <td>1888元</td>
+                    <td>25万元</td>
+                    <td>存提专属通道+境外7日游</td>
+                </tr>
+                <tr>
+                    <td>国王</td>
+                    <td>8888元</td>
+                    <td>30万元</td>
+                    <td>以上全部服务+每月特别礼物</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="mui-row">
+        <div class="requirementBox second-box">
+            <table class="layui-table" lay-even="" lay-skin="row">
+                <colgroup>
+                    <col width="15%">
+                    <col>
+                </colgroup>
+                <thead>
+                <tr>
+                    <th>等级</th>
+                    <th>每月优惠</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>勋爵</td>
+                    <td>无</td>
+                </tr>
+                <tr>
+                    <td>子爵</td>
+                    <td>存款最少100元可申请每月一次再存20%最高奖金588元</td>
+                </tr>
+                <tr>
+                    <td>男爵</td>
+                    <td>存款最少200元可申请每月一次再存20%最高奖金888元</td>
+                </tr>
+                <tr>
+                    <td>伯爵</td>
+                    <td>存款最少500元可申请每月一次再存25%最高奖金1888元</td>
+                </tr>
+                <tr>
+                    <td>公爵</td>
+                    <td>存款最少500元可申请每月一次再存25%最高奖金3888元</td>
+                </tr>
+                <tr>
+                    <td>世爵</td>
+                    <td>存款最少1000元可申请每月一次再存30% 最高奖金5888元</td>
+                </tr>
+                <tr>
+                    <td>国王</td>
+                    <td>存款最少1000元可申请每月一次再存35% 最高奖金8888元</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="mui-row">
+        <div class="requirementBox second-box">
+            <table class="layui-table" lay-even="" lay-skin="row">
+                <colgroup>
+                    <col width="15%">
+                    <col>
+                </colgroup>
+                <thead>
+                <tr>
+                    <th>会员等级</th>
+                    <th>勋爵</th>
+                    <th>子爵</th>
+                    <th>男爵</th>
+                    <th>伯爵</th>
+                    <th>公爵</th>
+                    <th>世爵</th>
+                    <th>国王</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>电竞返水</td>
+                    <td>0.5%</td>
+                    <td>0.5%</td>
+                    <td>0.6%</td>
+                    <td>0.7%</td>
+                    <td>0.8%</td>
+                    <td>0.9%</td>
+                    <td>1%</td>
+                </tr>
+                <tr>
+                    <td>体育返水</td>
+                    <td>0.5%</td>
+                    <td>0.5%</td>
+                    <td>0.6%</td>
+                    <td>0.7%</td>
+                    <td>0.8%</td>
+                    <td>0.9%</td>
+                    <td>1%</td>
+                </tr>
+                <tr>
+                    <td>真人返水</td>
+                    <td>0.5%</td>
+                    <td>0.5%</td>
+                    <td>0.6%</td>
+                    <td>0.6%</td>
+                    <td>0.8%</td>
+                    <td>0.8%</td>
+                    <td>1%</td>
+                </tr>
+                <tr>
+                    <td>电子返水</td>
+                    <td>0.5%</td>
+                    <td>0.6%</td>
+                    <td>0.7%</td>
+                    <td>0.8%</td>
+                    <td>0.9%</td>
+                    <td>1%</td>
+                    <td>1.2%</td>
+                </tr>
+                <tr>
+                    <td>捕鱼返水</td>
+                    <td>0.5%</td>
+                    <td>0.6%</td>
+                    <td>0.7%</td>
+                    <td>0.8%</td>
+                    <td>0.9%</td>
+                    <td>1%</td>
+                    <td>1.2%</td>
+                </tr>
+                <tr>
+                    <td>棋牌返水</td>
+                    <td>0.5%</td>
+                    <td>0.6%</td>
+                    <td>0.7%</td>
+                    <td>0.8%</td>
+                    <td>0.9%</td>
+                    <td>1%</td>
+                    <td>1.2%</td>
+                </tr>
+                <tr>
+                    <td>返水上限</td>
+                    <td colspan="7">88,888元</td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="textBox">
+                <p>注：</p>
+                <p>1.生日礼金(需当日申请)只需完成老虎机8倍,真人/体育10倍投注额即可申请提款！<br>
+                    2.vip存送只需完成老虎机10倍,电竞/体育12倍,真人娱乐15倍投注额即可申请提款！</p>
+            </div>
+        </div>
+    </div>
+    <div class="mui-row line-bottom">
+        <img src="https://xwsr2.16fass88.com/resources/wap_new/images/new-layout/img10.png">
+    </div>
+    <div class="mui-row text-rules" style="margin-bottom: 40px;">
+        <h2>规则与条款</h2>
+        <ul>
+            <li>凡是东赢的会员根据账户级别存款达到要求，即可享受不同返水比例！更有生日礼金，每月vip存送奖金领不停！(此存送不与救援共享)</li>
+            <li>此优惠促销只适用于拥有一个独立账户的玩家。住址、电子邮箱地址﹑电话号码﹑支付方
+                式（相同借记卡/信用卡/银行账户号码）IP地址，同一网络环境等将可以作为判定是否独立
+                玩家的条件。对于发现任何有违背、欺骗、或利用规则和条款进行非法获利的会员，东赢娱
+                乐保留在任何时候都可以停止、取消优惠或索回已支付的全部优惠的权利。</li>
+            <li>在某些未知因素超出可控范围的情况下，东赢娱乐保留可单方面执行的决定权，并承诺会
+                在这类紧急问题发生时解释给客户原因并听取客户反馈与客户沟通协商解决。</li>
+            <li>东赢娱乐保留对本次活动的修订、终止和最终解释权，超出本网站控制外的技术错误，兴
+                旺娱乐将不承担任何责任。</li>
+            <li>东赢娱乐有权延长，缩短，终止，或者修改此活动！此活动最终解释权归东赢娱乐所有。</li>
+        </ul>
+    </div>
+</div>
+<!-- 主体页面end -->
+
+</body>
+<!-- 加载JavaScript -->
+<script type="text/javascript" src="/style/js/swiper.min.js"></script>
+<script type="text/javascript" src="/style/js/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="/mui/js/mui.js"></script>
+<script type="text/javascript" src="/mui/js/mui.min.js"></script>
+<script type="text/javascript" src="/style/layer/layer.js"></script>
+<script type="text/javascript" src="/style/js/common.js"></script>
+<script type="text/javascript" src="/style/js/jquery.cookie.js"></script>
+@@include('html-foot.html')
+<script type="text/javascript">
+    $("#menu_nav a.bar-active").removeClass("bar-active");
+    $("#menu_nav a:nth-child(3)").addClass("bar-active");
+    var swiper = new Swiper('.swiper-container', {
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+        on: {
+            slideChangeTransitionEnd: function(){
+                $(".mui-tabs__bar li.mui--is-active").removeClass("mui--is-active");
+                $(".mui-tabs__bar li:nth-child("+(this.activeIndex+1)+")").addClass("mui--is-active")
+            },
+        },
+    });
+
+    function getQueryString(name) {
+        var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+        var r = window.location.search.substr(1).match(reg);
+        if(r!=null)return  unescape(r[2]); return null;
+    }
+    var queryToken = getQueryString("token");
+    var headCode = getQueryString("headCode");
+    var flag=0;
+    function grandOffer(level) {
+        if(flag==1){
+            return;
+        }
+        flag=1;
+        if(queryToken===null || queryToken===undefined || queryToken===''){
+            queryToken = wap_get_user().token;
+        }
+        if ((queryToken===null || queryToken===undefined || queryToken==='') && wap_is_user_notexist()) {
+            wap_go_login('请登录后再操作');
+        }else{
+            var levelNum = wap_get_user().vipLevel;
+            if(parseInt(levelNum)!=level){
+                fun_alertMsg("爵位不符合,您的当前爵位为"+wap_get_user().vipName, function() {});
+                flag=0;
+                return;
+            }
+            $.ajax({
+                dataType: "jsonp",
+                crossDomain: true,
+                url: wap_site_host()+'/session/grand-bonus/receive?token='+queryToken,
+                success:function(resultData){
+                    fun_alertMsg(resultData.msg, function() {});
+                    flag=0;
+                },
+                error:function( jqXHR, textStatus){
+                    wap_check_ajaxerror(jqXHR);
+                    fun_alertMsg('领取爵位奖金失败，请稍后重试', function() {});
+                    flag=0;
+                }
+            });
+        }
+    }
+
+    $(document).ready(function(){
+        if(headCode==='show'){
+            $('.mui-bar.mui-bar-nav').show();
+        }else{
+            $('.mui-content').css('padding-top','0');
+        }
+        if(!wap_is_user_notexist()){
+            var levelNum = wap_get_user().vipLevel;
+            if(!isNaN(levelNum)){
+                levelNum=levelNum>2?levelNum-2:0;
+                selectVip($('.mui-tabs__bar li').eq(levelNum),levelNum);
+            }
+        }
+
+    });
+    window.onload = function() {
+        $(".vip-tabs").css("top",$("#top_bg").height()*0.8+"px");
+    };
+    function selectVip(a,b){
+        $(".mui-tabs__bar li.mui--is-active").removeClass("mui--is-active");
+        $(a).addClass("mui--is-active");
+        swiper.slideTo(b, 1000, false);
+    }
+</script>
+</html>

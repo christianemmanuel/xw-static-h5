@@ -1,0 +1,147 @@
+body {
+    font-family: "Microsoft Yahei","微软雅黑", STXihei, "华文细黑", sans-serif !important;
+    margin: 0 auto;
+    padding: 0;
+
+}
+.ui-page-login, body {
+    width: 100%;
+    height:100%;
+    margin: 0px;
+    padding: 0px;
+    background: url("../../images/login/bg.jpg") top no-repeat;
+    background-size: cover;
+}
+
+.login-logo{
+    margin: 0 auto;
+    display: block;
+    padding: 20% 0 10%;
+    width: 40%;
+}
+.mui-input-row .mui-input-password~.mui-icon-eye, .mui-input-row .mui-input-speech~.mui-icon-speech, .mui-table-view-cell:after, .mui-input-group .mui-input-row:after, .mui-input-row .mui-input-clear~.mui-icon-clear, .mui-input-row .mui-input-password~.mui-icon-eye, .mui-input-row .mui-input-speech~.mui-icon-speech, .mui-table-view-cell:after {
+    right: 20%;
+    top: 0.31rem;
+}
+.mui-content .mui-icon-eye{
+    margin-right: 0.4rem;
+}
+.mui-content .mui-icon-eye:after{
+    color:#1b82d1;
+}
+.login-name {
+    position: relative;
+}
+.wrap{
+    min-height:100%;
+    overflow: hidden;
+}
+
+.mui-input-row input{
+    width: 67%;
+    margin: 0 auto;
+    background-color: #eaeaf2;
+    border-radius: 1rem;
+    height: 1.17rem;
+    display: block;
+    padding-left: 1.3rem!important;
+    font-size: 0.36rem;
+}
+.mui-input-row i{
+    width: 0.5rem;
+    height: 0.5rem;
+    position: absolute;
+    left: 2.3rem;
+    top: 0.3rem;
+}
+.login-name-icon{
+    background: url(../../images/login/login_name.png) no-repeat;
+    background-size: 0.5rem 0.5rem;
+}
+.login-password-icon{
+    background: url(../../images/login/login_key.png) no-repeat;
+    background-size: 0.5rem 0.5rem;
+}
+
+.mui-input-group{
+    background: transparent;
+    margin: 0 auto;
+}
+.mui-input-group .mui-input-row:after{
+    background: transparent;
+}
+.mui-input-group .mui-input-row {
+    height: 1.2rem;
+    margin-top: 0.52rem;
+}
+input:-internal-autofill-previewed, input:-internal-autofill-selected, textarea:-internal-autofill-previewed, textarea:-internal-autofill-selected, select:-internal-autofill-previewed, select:-internal-autofill-selected {
+    background-color: #d7d0d3 !important;
+    background-image: none !important;
+    color: rgb(0, 0, 0) !important;
+}
+.pw-row{
+    padding: 0.52rem 0;
+}
+.mui-col-xs-6 a{
+    float: right;
+    border: 3px solid #5b80e7;
+    border-radius: 1rem;
+    text-align: center;
+}
+.remember{
+    border: 3px solid #5b80e7;
+    border-radius: 1rem;
+    padding: 0.2rem 0;
+    width: 67%;
+    float: right;
+    font-size: 0.36rem;
+}
+.remember.active{
+    border: 3px solid #5b80e7;
+}
+.remember.active label {
+    color: #405fc2;
+}
+.mui-checkbox label, .mui-radio label{
+    color: #405fc2;
+    text-align: right;
+    padding-right: 0.5rem;
+}
+.mui-checkbox input[type=checkbox]:before {
+    background: url("../../images/login/remind_w.png") top no-repeat;
+    background-size: cover;
+}
+.mui-checkbox input[type=checkbox]:checked:before, .mui-radio input[type=radio]:checked:before {
+    background: url("../../images/login/remind.png") top no-repeat;
+    background-size: cover;
+    content: '\e411';
+}
+.mui-checkbox input[type=checkbox], .mui-radio input[type=radio]{
+    left: 0.4rem;
+}
+ input[type=checkbox]:checked + label{
+    color: red !important;
+    border: 1px solid red !important;
+}
+
+.forget{
+    margin-left: 0.6rem;
+    padding: 0.2rem 0.6rem;
+    float: left !important;
+    font-size: 0.36rem;
+    color: #405fc2;
+}
+.submit_btn{
+    background: #5b80e8 !important;
+    width: 67%;
+    margin: 0 auto 10px auto;
+    font-size: 0.36rem;
+}
+
+.login-text{
+    text-align: center;
+    color: #007aff;
+    margin: 0 auto;
+    display: block;
+    font-size: 0.36rem;
+}

@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html class="ui-page-login">
+	<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<title>个人中心</title>
+	<!--标准mui.css-->
+	<link href="/mui/css/mui.min.css" rel="stylesheet" />
+	<link href="/mui/css/mui-icons-extra.css" rel="stylesheet" />
+	<link rel="stylesheet" type="text/css" href="/style/plugins/mobileSelect/css/mobileSelect.css">
+	<link href="/style/css/main.css" rel="stylesheet" />
+		<link href="/style/css/index.css" rel="stylesheet" />
+	<!-- 加载JavaScript -->
+	<script type="text/javascript" src="/style/js/jquery-3.2.1.min.js"></script>
+	<script type="text/javascript" src="/style/layer/layer.js"></script>
+	<script type="text/javascript" src="/style/js/common.js"></script>
+	
+	<script type="text/javascript" src="/mui/js/mui.min.js"></script>
+	<script type="text/javascript" src="/style/js/city.data.js"></script>
+	<script type="text/javascript" src="/style/js/jquery.cookie.js"></script>
+	<script type="text/javascript" src="/style/plugins/mobileSelect/js/mobileSelect.min.js"></script>
+	<style>
+		.mui-content{
+			height: 100%;
+			padding: 10px 10px;
+		}
+		.mui-input-group{
+			margin-top: 10px;
+			background-color: #d2d2de;
+		}
+		.mui-input-group .mui-input-row{
+			margin: 10px 0px;
+			background-color: white;
+			height: 1.3rem;
+		}
+		.mui-input-row label{font-size: 17px;}
+	</style>
+</head>
+
+<body>
+	<header class="mui-bar mui-bar-nav" style="padding-left: 15px;padding-right: 15px;">
+    	<a class="mui-icon mui-icon-left-nav mui-pull-left" style="text-decoration: none; color: white;" href="/wap/withdrawal/withdrawal_index.html"></a>
+        <h1 class="mui-title" style="color: #ffffff;">绑定银行卡</h1>
+    </header>
+	<div class="mui-content">
+		<form class="mui-input-group">
+			<div class="mui-input-row">
+				<label>银行名称<span style="color: red;">*</span></label>
+				<span id="_bank" style="line-height: 40px;color: #757575;display: block;">请选择</span>
+				<input id="bank" type="hidden" >
+			</div>
+			<div class="mui-input-row">
+				<label>银行卡号<span style="color: red;">*</span></label>
+				<input type="text" id="cardNum" class="mui-input-clear" placeholder="请仔细核对" data-input-clear="3" maxlength="30">
+			</div>
+			<div class="mui-input-row" id="account_div">
+				<label>持卡人姓名<span style="color: red;">*</span></label>
+				<label style="font-size: 17px"></label>
+			</div>
+			<div class="mui-input-row">
+				<label>开户行地址<span style="color: red;">*</span></label>
+				<input type="text" id="cmbAddr"  class="mui-input-clear" placeholder="地址请包括省/市/分行名称" data-input-clear="3">
+			</div>
+			<div class="mui-input-row">
+				<label>手机号码<span style="color: red;">*</span></label>
+				<input type="text" id="phone" placeholder="请输入您绑定的手机号码">
+			</div>
+			<div class="mui-input-row">
+				<label>手机验证码<span style="color: red;">*</span></label>
+				<input type="text" id="bank_phoneCode" maxlength="4" class="mui-input-clear mui-input" placeholder="注册手机验证码" style="width: 40%;float: left;">
+				<a onclick="getBindCardCode()" style="width: 2.2rem;height: 0.84rem;margin-top: 0.1rem;margin-right:0.2rem;line-height: .9rem;color: #fff;background-color: #07d6a0;float: left;border-radius: 5px;text-align: center;"
+				   type="button" id="bank_phoneCode_btn">验证</a>
+			</div>
+			<input type="hidden" id="bank_phoneCodeId" />
+		</form>
+		<div style="color: #ed4938;">若持卡人姓名不符可联系在线客服更正信息，感谢您的支持与理解！</div>
+		<div style="color: #ed4938;">若10分钟内没有收到验证码，请联系在线客服咨询！</div>
+		<div style="margin-top: 20px;">
+			<div id="submit_btn" class="form_sumbit_btn" onclick="submitForm()" style="width: 85%;margin: 0 auto;">提交</div>
+		</div>
+	</div>
+</body>
+@@include('html-foot.html')
+<script>
+var loginMember = wap_get_user();
+$(document).ready(function() {
+	mui.init({ });
+    if(loginMember.memberName=="nullnull" || loginMember.memberName.length==0 ){
+        fun_alertMsg('请先完善真实姓名再进行绑定银行卡操作', '系统提示', function() {
+            window.location.href="/wap/personal/update_realName.html"
+        });
+    }else if(loginMember.hasPhone === false) {
+        fun_alertMsg('请先完善联系方式再进行绑定银行卡操作', '系统提示', function() {
+            window.location.href="/wap/personal/update_telephone.html"
+        });
+	}else{
+        $('#account_div label:last').html(fun_filterTxt(loginMember.memberName));
+	}
+	loadBanks();
+});
+function loadBanks(){
+	$.ajax({
+		dataType: "jsonp",
+		url:wap_site_host()+'/session/bank?token='+wap_get_user().token,
+		dataType: 'json',
+		success:function(resultData){
+			if(resultData.code==0){
+				var bankDatas = resultData.data;
+				var bankArray = new Array();
+				$.each(bankDatas,function(n, v){
+					bankArray.push({'id':v.id,'value':v.bankName});
+				});
+				var _bankSeclect = new MobileSelect({
+				    trigger: '#_bank',
+				    wheels: [ {data: bankArray } ],
+				    transitionEnd:function(indexArr, data){  },
+				    callback:function(indexArr, data){
+				    	$('#bank').val(fun_filterTxt(data[0].id));
+						$('#_bank').html(fun_filterTxt(data[0].value));
+				    }
+				});
+			}else {
+				fun_alertMsg(resultData.message, function() {});
+   		   		wap_if_session_out(resultData.code);
+   		   	}
+		},
+		 error:function(jqXHR, textStatus){
+			 wap_check_ajaxerror(jqXHR);
+			 fun_alertMsg('获取数据异常！', function() {});
+ 		 }
+	});
+}
+function submitForm(){
+	var bank = $.trim($("#bank").val());
+	var cardNum = $.trim($("#cardNum").val());
+	var cmbAddr = $.trim($("#cmbAddr").val());
+    var code = $.trim($("#bank_phoneCode").val());
+    var codeId = $.trim($("#bank_phoneCodeId").val());
+    var phone = $.trim($('#phone').val());
+	if (bank.length == 0) {
+		fun_alertMsg('请选择银行名称！', function() {});
+		return;
+	} else if (cardNum==null || cardNum.length == 0){
+		fun_alertMsg('请输入银行账号！', function() {});
+		return;
+	} else if (cmbAddr==null || cmbAddr.length == 0){
+		fun_alertMsg('请输入开户行地址！', function() {});
+		return;
+	} else if (code == null || code.length == 0){
+        fun_alertMsg('手机验证码不能为空！', function() {});
+        return;
+    } else if (phone == null || phone.length == 0){
+        fun_alertMsg('手机号码不能为空！', function() {});
+        return;
+    }
+	$.ajax({
+       	url:wap_site_host() + "/session/bankcard?token="+wap_get_user().token,
+		type:"POST",
+		data:{"cardNum":cardNum, "cmbAddr": cmbAddr,"bankId":bank,"code":code,"codeId":codeId,"phone":phone},
+		dataType: 'json',
+	 	success:function(d){
+  		 	if (d.code == 0) {
+  		 		fun_alertMsg('提交成功', function() { window.location.href='/wap/bank/bank_index.html' });
+   		   	} else {
+   		   		fun_alertMsg(d.message, function() {});
+   		   		wap_if_session_out(d.code);
+   		   	}	
+ 		 },
+ 		 error:function(jqXHR, textStatus){
+ 			wap_check_ajaxerror(jqXHR);
+ 			fun_alertMsg('提交异常！', function() {});
+ 		 }
+	});
+}
+function getBindCardCode() {
+    $.ajax({
+        url: wap_site_host() + "/session/bankcard/getBindCardCode?token="+wap_get_user().token,
+        type: "GET",
+        data: {},
+        success: function (d) {
+            if (d.code == 0) {
+                fun_alertMsg('操作成功，请查看手机短信获取验证码');
+                $('#bank_phoneCodeId').val(d.data.codeId)
+                refreshCutDown(60);
+            } else {
+                refreshCutDown(10);
+                fun_alertMsg(d.message);
+            }
+        },
+        error: function (e) {
+            fun_alertMsg('提交异常！', function () {
+            });
+        }
+    });
+}
+function refreshCutDown(sec) {
+    $("#bank_phoneCode_btn").text(sec+'s');
+    $("#bank_phoneCode_btn").addClass('disable');
+    $("#bank_phoneCode_btn").removeAttr("onclick","");
+    var interval = setInterval(function () {
+        sec --;
+        if (sec <= 0){
+            $("#bank_phoneCode_btn").text("验证");
+            $("#bank_phoneCode_btn").removeClass('disable');
+            $("#bank_phoneCode_btn").attr("onclick","getBindCardCode()");
+            clearInterval(interval);
+        } else {
+            $("#bank_phoneCode_btn").text(sec + 's');
+        }
+    }, 1000);
+}
+</script>
+</html>

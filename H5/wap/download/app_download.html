@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>东赢体育下载</title>
+    <link rel="stylesheet" type="text/css" href="/style/css/ba.css?v=3">
+    <link rel="stylesheet" type="text/css" href="/style/css/download.css?v=3">
+    <link rel="stylesheet" type="text/css" href="/style/css/swiper-3.4.1.min.css?v=3" />
+    <script type="text/javascript" src="/style/js/jquery-3.2.1.min.js?v=5" ></script>
+    <script type="text/javascript" src="/style/js/swiper-3.4.1.min.js?v=5"></script>
+</head>
+<body>
+<div class="download">
+    <div class="remind">
+        <div class="content">
+            <a class="logo"><img src="https://xwsr2.16fass88.com/resources/wap_new/images/app/logo.png" width="73px" height="73px"/></a>
+            <h3>东赢体育</h3>
+            <div class="remind-txt">
+                体育顶尖APP，体育热点赛事下注<br>
+                投注最流畅，最快捷，最好用<br>
+                全面支持苹果安卓各类手机在线下载
+            </div>
+            <div class="load">
+                <a class="install" id="download">下载安装</a>
+            </div>
+            <p class="tuto">下滑查看教程</p>
+            <span id="consult"></span>
+        </div>
+    </div>
+    <div class="torial">
+        <div class="swiper-container">
+            <div class="swiper-wrapper">
+            </div>
+            <div class="swiper-pagination"></div>
+        </div>
+    </div>
+</div>
+<div class="weixin_tip" style="display: none;">
+    <img id="tips" src="https://xwsr2.16fass88.com/resources/wap_new/images/app/wxtips_android.png" alt="" style="width:100%;height:auto;"/>
+</div>
+
+<script>
+    var andList=[
+        {imgurl:'https://xwsr2.16fass88.com/resources/wap_new/images/app/helpand_01.png'},
+        {imgurl:'https://xwsr2.16fass88.com/resources/wap_new/images/app/helpand_02.png'},
+        {imgurl:'https://xwsr2.16fass88.com/resources/wap_new/images/app/helpand_03.png'},
+        {imgurl:'https://xwsr2.16fass88.com/resources/wap_new/images/app/helpand_04.png'},
+        {imgurl:'https://xwsr2.16fass88.com/resources/wap_new/images/app/helpand_05.png'}
+    ];
+    var iosList=[
+        {imgurl:'https://xwsr2.16fass88.com/resources/wap_new/images/app/helpios_01.png'},
+        {imgurl:'https://xwsr2.16fass88.com/resources/wap_new/images/app/helpios_02.png'},
+        {imgurl:'https://xwsr2.16fass88.com/resources/wap_new/images/app/helpios_03.png'},
+        {imgurl:'https://xwsr2.16fass88.com/resources/wap_new/images/app/helpios_04.png'},
+        {imgurl:'https://xwsr2.16fass88.com/resources/wap_new/images/app/helpios_05.png'},
+        {imgurl:'https://xwsr2.16fass88.com/resources/wap_new/images/app/helpios_06.png'}
+    ];
+    $(function(){
+        function is_weixin() {
+            var ua = navigator.userAgent.toLowerCase();
+            if (ua.match(/MicroMessenger/i) == "micromessenger"){
+                return true;
+            } else {
+                return false;
+            }
+        }
+        var isWeixin = is_weixin();
+        if(isWeixin){
+            $(".weixin_tip").show();
+            if(/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)){
+                $("#tips").attr("src","https://xwsr2.16fass88.com/resources/wap_new/images/appwxtips_ios.png");
+            }else if (/(Android)/i.test(navigator.userAgent)){
+                $("#tips").attr("src","https://xwsr2.16fass88.com/resources/wap_new/images/appwxtips_android.png");
+            }
+        }else{
+            $(".download").show();
+            if(/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)){
+                for(var i=0;i<iosList.length;i++){
+                    $(".swiper-wrapper").append('<div class="swiper-slide"><img src="'+iosList[i].imgurl+'" alt=""/></div>')
+                };
+                $('#download').attr('href','itms-services://?action=download-manifest&url=https://gk3ic100.sm176upm.com/xw.plist');
+            }else if (/(Android)/i.test(navigator.userAgent)){
+                showAndroid();
+            }else {
+                //window.location.href="downloadty_com.html";
+                showAndroid();
+            };
+        };
+    });
+    function showAndroid(){
+        for(var i=0;i<andList.length;i++){
+            $(".swiper-wrapper").append('<div class="swiper-slide"><img src="'+andList[i].imgurl+'" alt=""/></div>')
+        };
+        $('#download').attr('href','https://jvw2h9.jdwxn.com/xw-sport.apk?v='+Math.random());
+    }
+    var mySwiper = new Swiper('.swiper-container',{
+        effect : 'slide',
+        pagination : '.swiper-pagination',
+        initialSlide :0,
+        observer:true,
+        observeParents:true
+    });
+
+</script>
+</body>
+@@include('html-foot.html')
+</html>

@@ -1,0 +1,350 @@
+body {
+    font-family: "Microsoft Yahei","微软雅黑", STXihei, "华文细黑", sans-serif !important;
+    margin: 0 auto;
+    padding: 0;
+}
+header a{
+    font-size: 15px;
+}
+.withdrawl{
+    -webkit-border-radius: 10px 10px 0 0;
+    border-radius: 10px 10px 0 0;
+    padding-top: 10px !important;
+    margin-top: 44px;
+    padding-bottom: 30% !important;
+}
+.mui-content,transfer {
+    background-color: #cfcfd3;
+}
+.mui-bar-nav {
+    background-color: #101021;
+    padding: 0 15px;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+.mui-bar-nav .mui-icon{
+    font-size: 16px;
+}
+.mui-bar-nav~.mui-content {
+    padding-top: 31px;
+}
+.refresh{
+    color: #ffffff;
+    margin-top: 12px;
+}
+
+.mui-bar .mui-icon{
+    padding-top: 15px;
+}
+.refresh-icon .mui-icon{
+    padding-top: 15px !important;
+}
+.plat-list-row .plat-list-first{
+    text-align: left;
+    line-height: 40px;
+    display: flex;
+}
+.plat-list-row .plat-list-first span{
+    color: #ff8400;
+    margin-right: 15px;
+    width: 30%;
+    text-align: center;
+
+}
+.plat-list-row {
+    background-color: #edeef4;
+    padding: 0px 10px;
+}
+.mui-content .radius {
+    background-color: #cfcfd3;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+.mui-table-view{
+    background-color: #d2d2de;
+}
+.mui-table-view-cell{
+    padding: 10px;
+    margin: 0 10px;
+    background-color: #edeef4;
+    box-shadow: 0px 5px 5px 0px rgba(6, 0, 1, 0.12);
+}
+.mui-table-view-cell p{
+    color: #242424;
+}
+.mui-input-group{
+    background-color: #edeef4;
+}
+.submit_btn{
+    border-radius: 0px;
+    margin: 20px 0;
+}
+.mui-content-padded{
+    margin: 10px 0px;
+    background-color: #d2d2de;
+}
+#records_title{
+    text-align: center;
+    line-height: 50px;
+    margin: 0 10px;
+    font-size: 15px;
+    background: #edeef4;
+    padding: 0 20px;
+}
+#view_records{
+    display: block;
+    margin: 10px;
+    background: #edeef4;
+    box-shadow: 0px 5px 5px 0px rgba(6, 0, 1, 0.12);
+}
+#view_records span{
+    text-align: center;
+    margin: 0 auto;
+    display: block;
+    padding: 15px 0;
+}
+#view_records .mui-media{
+    border-radius: 0;
+    background: #edeef4;
+    box-shadow: none;
+}
+.card img{
+    margin: 0 auto;
+    display: block;
+    width: 40%;
+}
+.card p{
+    color: #909090;
+    text-align: center;
+}
+.transfer{
+    padding-bottom: 40px !important;
+    -webkit-border-radius: 10px 10px 0 0;
+    border-radius: 10px 10px 0 0;
+    padding-top: 1px !important;
+    margin-top: 44px;
+}
+.transfer-form{
+    padding: 15px;
+
+}
+.transfer-form p{
+    color: #000000;
+    font-size: 17px;
+    font-weight: normal;
+}
+.transfer-form input{
+    width: 4.8rem;
+}
+.transfer-form .mui-btn{
+    color: #FFF;
+    width: 2.6rem;
+    background-image: linear-gradient(90deg,#3379f5 0,#77bbfc 100%),linear-gradient(#5b80e7,#5b80e7);
+    background-blend-mode: normal,normal;
+}
+.transfer-select{
+    margin: 15px 0 0;
+    position: relative;
+}
+.transfer-select, .transfer-select , .mui-push-right:after{
+    /*color: #46d1ff;
+    font-weight: bold;
+    right: 5px;*/
+    content: none;
+}
+
+.mui-navigate-right{
+    background-color: white;
+    border-radius: 44px;
+    height: 30px;
+    display: block;
+    text-align: center;
+}
+
+.mui-navigate-right:after{
+    color: #000;
+    right: 5px;
+    transform: translateY(-50%) rotate(90deg);
+    font-size: 14px;
+    right: 0.78rem;
+    font-weight: 700;
+}
+
+.transfer-select .select-left{
+    background-color: #edeef4;
+    padding: 15px;
+}
+.transfer-select .select-left:before{
+    content: '';
+    /*position: absolute;
+    left: 99%;
+    top: 0%;
+    z-index: 1;
+    border-top: 25px solid transparent;
+    border-bottom: 25px solid transparent;
+    border-left: 30px solid #edeef4;*/
+}
+.transfer-select .select-right{
+    padding: 15px;
+}
+.mui-focusin>.mui-bar-nav{
+    position: fixed !important;
+}
+
+.select-left span{
+    font-size: 12px;
+    color: #000;
+    line-height: 30px;
+}
+.select-right span{
+    font-size: 12px;
+    line-height: 30px;
+    color: #000;
+}
+.list-cell .refresh_btn{
+    color: white;
+    background-color: #5b80e7;
+    width: 1.9rem;
+    margin: 0 auto;
+    border-radius: 0.3rem;
+}
+.transfer_btn {
+    width: 100%;
+    height: 1.3rem;
+    text-align: center;
+    line-height: 1.3rem;
+    color: #ffffff;
+    font-size: 0.44rem;
+    background-image: linear-gradient(90deg, #3379f5 0%, #77bbfc 100%), linear-gradient(#5b80e7, #5b80e7);
+    background-blend-mode: normal, normal;
+}
+.transfer_count_list{
+    display: flex;
+    padding: 10px;
+}
+.transfer_count{
+    border: 1px solid #377df5;
+    width: 1.46rem;
+    height: .8rem;
+    text-align: center;
+    margin: 5px 10px;
+    line-height: 0.78rem;
+    border-radius: 3px;
+}
+.bank-tab{
+    width: 94%;
+    margin: 0.5rem auto;
+}
+.page-tab{
+    display: flex;
+    padding-bottom: 0.3rem;
+    background-color: #edeef4;
+    box-shadow: 0px 5px 5px 0px rgba(6, 0, 1, 0.12);
+}
+.page-tab>section{
+    width: 2.3rem;
+    margin: 0.3rem 0 0 0.9rem;
+    padding-top: 0.5rem;
+    text-align: center;
+    cursor: pointer;
+    border-radius:5px;
+}
+.tab-active{
+    border: solid 1px #33bcd4;
+}
+.page-tab>section>p{
+    color: #000;
+    font-size: 0.36rem;
+}
+.page-tab img{
+    width: 1.5rem;
+    height: 1.3rem;
+}
+.usdt-container{
+    display: none;
+    padding: 0.5rem 0;
+}
+.usdt-row{
+    width: 100%;
+    margin: 5px 0px;
+}
+.usdt-row label{
+    display: inline-block;
+    width: 25%;
+    font-size: 0.36rem;
+    margin-left: 2%;
+}
+.usdt-row input,
+.usdt-row select{
+    width: 70%;
+    font-size: .36rem;
+    margin-bottom: 0px;
+    padding: 4px 6px;
+    height: 30px;
+}
+.rate{
+    color: #13f129;
+}
+.rate::placeholder{
+    color: #13f129;
+}
+.draw-text{
+    font-size: 0.36rem;
+}
+.draw-content{
+    width: 96%;
+    margin: 0 auto;
+    padding-bottom: 0.5rem;
+}
+.draw-icon{
+    width: 5%;
+    color: #3a5dbf;
+    font-size: 0.5rem;
+}
+.draw-content input{
+    width: 65%;
+    font-size: 0.36rem;
+    border: none;
+    background: none;
+}
+.max-money{
+    height: 1.1rem;
+    line-height: 1.1rem;
+    border-bottom: 1px solid #a2a2a2;
+}
+.draw-content button{
+    display: inline-block;
+    width: 25%;
+    font-size: 0.36rem;
+    height: 1rem;
+    line-height: 0.5rem;;
+    color: #fff;
+    background-image: linear-gradient(90deg,#3379f5 0,#77bbfc 100%),
+    linear-gradient(#5b80e7,#5b80e7);
+    background-blend-mode: normal,normal
+}
+.draw-content p{
+    height: 0.35rem;
+    font-size: 0.3rem;
+}
+.draw-button{
+    display:none;
+    width: 100%;
+    margin: 0 auto;
+    height: 1.2rem;
+    font-size: 0.36rem;
+    line-height: 0.5rem;
+    margin-top: 0.5rem;
+    text-align: center;
+    color: #fff;
+    background-image: linear-gradient(90deg,#3379f5 0,#77bbfc 100%),
+    linear-gradient(#5b80e7,#5b80e7);
+}
+.card-select{
+    text-align: left;
+    padding: 4px 6px;
+    font-size: 15px;
+    cursor: pointer;
+    border: 1px solid rgba(0,0,0,.2);
+    border-radius: 3px;
+}

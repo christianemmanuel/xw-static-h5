@@ -1,0 +1,207 @@
+html {
+    background-color: #eaeef2;
+}
+body {
+    font-family: "Microsoft Yahei","微软雅黑", STXihei, "华文细黑", sans-serif !important;
+    margin: 0 auto;
+    padding: 0;
+}
+
+.dy-vip-top {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    font-size: 0.36rem;
+    color: #fff;
+    background: url(../../images/vip/top_bg.png) center no-repeat;
+    height: 1.1rem;
+    position: relative;
+}
+
+.dy-vip-tab {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: absolute;
+    bottom: 0;
+}
+.dy-vip-tab.tab-left{
+    left: 2.91rem;
+}
+.dy-vip-tab.tab-right{
+    right: 2.91rem;
+}
+.dy-vip-tab img{
+    width: 0.5rem;
+}
+.dy-vip-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: #eaeef2;
+    padding-bottom: 1.6rem;
+}
+
+.dy-vip-privilege-logo {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    background: url("../../images/vip/logo_bg.png") center no-repeat;
+}
+
+.dy-vip-logo-level {
+    height: 205px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.dy-vip-logo-backImg {
+    height: 3.29rem;
+    width: 5.75rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    background: url(../../images/vip/vip_logo_bg.png) center no-repeat;
+    position: relative;
+    margin-left: 0.78rem;
+}
+.dy-vip-logo-backImg .dy-vip-img{
+    position: absolute;
+    width: 2.66rem;
+    top: -0.26rem;
+    left: -1.3rem;
+}
+.dy-vip-logo-backImg .dy-vip-text-img{
+    width: 1.9rem;
+    margin-top: 10px;
+}
+.dy-vip-logo-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-size: 10px;
+    color: #73561f;
+    margin-left: 1.48rem;
+    width: 3.5rem;
+}
+
+.dy-vip-privilege-title {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    margin: 10px;
+    font-size: 0.36rem;
+    font-weight: bold;
+    color: #3a3a3a;
+}
+.dy-vip-privilege-title img{
+    height: 0.5rem;
+}
+.dy-vip-privilege-title span{
+    margin-left: 0.3rem;
+}
+.dy-vip-privilege-content {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    font-size: 13px;
+    color: #3a3a3a;
+    background-color: #ffffff;
+    margin: 10px;
+    padding: 7px 5px;
+}
+.dy-vip-privilege-content img{
+    height: 1.1rem;
+}
+.dy-vip-btn {
+    width: 2.4rem;
+    height: 0.8rem;
+    background-color: #5b80e7;
+    font-size: .4rem;
+    color: #fefefe;
+    text-align: center;
+    line-height: 0.8rem;
+}
+
+.dy-vip-privilege-percentage {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    font-size: 0.65rem;
+    font-weight: bold;
+    color: #ccb455;
+    margin-bottom: 5px;
+}
+
+.dy-vip-privilege-item {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    font-size: 13px;
+    color: #3a3a3a;
+    margin-bottom: 10px;
+}
+
+.dy-vip-body table {
+    text-align: center;
+    font-size: 10px;
+    color: #6b748a;
+    border: 1px solid #bac8dc;
+    border-collapse: collapse;
+    margin: 10px;
+    width: calc(100% - 20px);
+}
+
+.dy-vip-body table td {
+    border: 1px solid #bac8dc;
+}
+.dy-vip-body thead{
+    background-color: #7197ff;
+}
+.dy-vip-body tbody{
+    background-color: #eaf1f6;
+    color: #52697e;
+}
+.dy-vip-th {
+    color: #ffffff;
+}
+
+.dy-vip-rule {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    font-size: 13px;
+    color: #52697e;
+    margin: 10px;
+}
+
+.dy-vip-rule-title {
+    font-size: 0.36rem;
+    color: #3865e8;
+}
+#info_div{
+    background-color: white;
+}
+.dy-vip-privilege-logo .swiper-button-next{
+    background: url("../../images/vip/right.png") no-repeat;
+    background-size: 100%;
+    width: 1.2rem;
+    height: 1.3rem;
+}
+.dy-vip-privilege-logo .swiper-button-prev{
+    background: url("../../images/vip/left.png") no-repeat;
+    background-size: 100%;
+    width: 1.2rem;
+    height: 1.3rem;
+}
+.percent-span {
+    width: 33.333%;
+    text-align: center;
+}

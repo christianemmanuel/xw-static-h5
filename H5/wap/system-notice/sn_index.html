@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>东赢系统公告</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	
+	<!--标准mui.css-->
+	<link href="/mui/css/mui.min.css" rel="stylesheet" />
+	<link href="/mui/css/common.css" rel="stylesheet" />
+	<!--扩展图标-->
+	<link href="/mui/css/mui-icons-extra.css" rel="stylesheet" />
+	<link href="/style/css/main.css" rel="stylesheet" />
+	<link href="/style/css/index.css" rel="stylesheet" />
+	<style type="text/css">
+		.mui-table-view-cell>a:not(.mui-btn){
+			margin: -11px 0px !important;
+		}
+	</style>
+</head>
+<body style="padding: 0px;">
+	<!--侧滑菜单容器-->
+	<div class="mui-off-canvas-wrap">
+		<div class="mui-inner-wrap">
+			<!-- 主体页面begin -->
+			<header class="mui-bar mui-bar-nav">
+				<a href="/wap/personal/personal_main.html" class="mui-icon mui-icon-back mui-pull-left"></a>
+				<h1 class="mui-title" id="header_title">系统公告</h1>
+			</header>
+			<div class="mui-content" style="height: 100%;">
+				<ul class="mui-table-view">
+				</ul>
+			</div>
+			<!-- 主体页面end -->
+		</div>
+	</div>
+</body>
+<!-- 加载JavaScript -->
+<script type="text/javascript" src="/style/js/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="/style/layer/layer.js"></script>
+<script type="text/javascript" src="/style/js/common.js"></script>
+<script type="text/javascript" src="/mui/js/mui.min.js"></script>
+<script type="text/javascript" src="/style/js/jquery.cookie.js"></script>
+@@include('html-foot.html')
+<script type="text/javascript">
+	$(document).ready(function(){
+		mui.init();
+		loadNotices();
+	});
+	function loadNotices(){
+		$.ajax({
+			dataType: "jsonp",
+			url:wap_site_host()+'/notice/notice',
+			success:function(resultData){
+				if(resultData.code==0){
+					var noticeData = resultData.data;
+					var appendHtml='';
+					$.each(noticeData.types,function(n, value){
+						appendHtml+= '<li class="mui-table-view-cell" onclick="showList('+value.id+')"><a class="mui-navigate-right">'+fun_filterTxt(value.typeName)+'</a></li>';
+					});
+					$('.mui-content ul').html(appendHtml);
+				}
+			}
+		});
+	}
+	function showList(typeId){
+		_setStorageData('_notice_type_id', typeId);
+		window.location.href = "/wap/system-notice/sn_list.html";
+	}
+</script>
+</html>

@@ -1,0 +1,378 @@
+@font-face {
+    font-family: reejijingang;       /*这里是说明调用来的字体名字*/
+    src: url('../font/reejijingang.ttf');   /*这里是字体文件路径*/
+}
+body {
+    font-family: "Microsoft Yahei","微软雅黑", STXihei, "华文细黑", sans-serif;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    background-position: center;
+    width: 100%;
+    height: 100%;
+}
+.redpacket-rain{
+    background: url(https://xwsr2.16fass88.com/resources/wap_new/images/redpacket-rain/bg.jpg)top center no-repeat;
+    margin: 0 auto;
+    background-size: contain;
+}
+
+.container-wrap{
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+}
+.redpacket-rain .winners{
+    padding-top: 115%;
+    margin: 0 auto;
+}
+.redpacket-rain .details, .redpacket-rain .rules{
+    margin: 20px auto;
+}
+.redpacket-rain .winners,.redpacket-rain .details, .redpacket-rain .rules{
+    display: block;
+}
+.redpacket-rain .winners img,.redpacket-rain .details img, .redpacket-rain .rules img{
+    margin: 0 auto;
+    display: block;
+    width: 40%;
+}
+.winners-wrap{
+    height: 120px;
+}
+.details-wrap img{
+    padding-bottom: 10px;
+}
+.winners-wrap, .details-wrap{
+    background-color: #560506;
+    padding: 5px 0;
+}
+.winners-table{
+    height: 100px;
+    margin: 0 auto;
+}
+.winners-table .table{
+    width: 100%;
+}
+.winners-table .table td {
+    width: 38%;
+    padding: 7px 0;
+}
+.winners-table .table td:nth-child(2){
+    width: 25%;
+}
+.winners-table .table td:nth-child(3){
+    width: 35%;
+}
+.winners-table .table>tbody>tr>td{
+    border: none;
+}
+hr {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+.table td{
+    text-align: center;
+}
+.table th, .table td{
+    border:none;
+    font-size: 11px;
+    color: #ffffff;
+    border: none;
+}
+.table td span{
+    color: #ffd200;
+}
+#contain{
+    display: block;
+    height: 70px;
+    overflow-y: scroll;
+}
+
+.details .table {
+    background-color: #560506;
+    color: #e3cb87;
+    border: 1px solid #980202;
+}
+.details .table thead tr{
+    background-color: #4a0001;
+}
+.details .table td, .details .table th{
+    vertical-align: middle;
+    text-align: center;
+    border: 1px solid #980202;
+    color: #e3cb87;
+}
+.rules ul{
+    margin-right: 20px;
+    padding-top: 30px;
+}
+.rules ul li{
+    list-style-type: decimal;
+    color: #e3cb87;
+    font-size: 11px;
+    line-height: 22px;
+    padding-bottom: 20px;
+}
+.couten {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    overflow-y: hidden;
+}
+.couten li {
+    position: absolute;
+    animation: all 3s linear;
+    top:-100px;
+    -webkit-tap-highlight-color:  rgba(0, 0, 0, 0);
+    left:0;
+    right: 0;
+    z-index: 6;
+    list-style-type: none;
+}
+.couten li a{
+    display: block;
+}
+.couten li a img{
+    /*width: 10%;*/
+}
+.pop-up-congrats {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, .2);
+    z-index: 100;
+    display: none;
+    left: 0;
+    right: 0;
+}
+.pop-up-congrats .sen {
+    width: 70%;
+    height: 150px;
+    border-radius: 5px;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 19%;
+    margin: auto;
+}
+.redpacket-rain .pop-up-congrats img{
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: -87%;
+    width: 100%;
+    display: block;
+    margin: 0 auto;
+}
+.redpacket-rain .pop-up-congrats h2, .redpacket-rain .pop-up-congrats p{
+    position: absolute;
+    left: 0;
+    right: 0;
+    z-index: 2;
+    font-size: 31px;
+    color: #fff;
+    text-align: center;
+    font-weight: bold;
+    margin-left: 95px;
+}
+.redpacket-rain .pop-up-congrats h2{
+    top: 16%;
+    font-size: 31px;
+}
+.redpacket-rain .pop-up-congrats p{
+    top: 35%;
+    font-size: 60px;
+}
+.redpacket-rain .pop-up-congrats a {
+    position: absolute;
+    right: 450px;
+    top: -12%;
+}
+.redpacket-rain .pop-up-congrats a img{
+    width: 40px;
+}
+.countdown {
+    width: 100%;
+    margin: 0 auto;
+}
+.countdown .bloc-time {
+    float: left;
+    margin-right: 38px;
+    text-align: center;
+}
+.countdown .bloc-time:last-child {
+    margin-right: 0;
+}
+.wrap {
+    margin: 0 auto;
+    display: block;
+    text-align: center;
+    position: absolute;
+    z-index: 1;
+    left:0;
+    right:0;
+    top: 12.2%;
+    padding-left: 23.7%;
+}
+
+.figure {
+    position: relative;
+    float: left;
+    height: 36px;
+    width: 19px;
+    margin-right: 8px;
+    background-color: transparent;
+    border-radius: 8px;
+}
+.figure:last-child {
+    margin-right: 0;
+}
+.figure span {
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: auto;
+    font-family: reejijingang;
+    font-weight: 700;
+    color: #ffffff;
+    font-size: 25px;
+    line-height: 40px;
+
+}
+.figure .top:after, .figure .bottom-back:after {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    border-bottom: 2px solid rgba(152, 70, 71, .3);
+}
+.figure .top {
+    z-index: 3;
+    background-color: #401212;
+    transform-origin: 50% 100%;
+    -webkit-transform-origin: 50% 100%;
+}
+.figure .bottom {
+    z-index: 1;
+}
+.figure:before {
+    content: "";
+    position: absolute;
+    display: block;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 50%;
+    background-color: rgba(0, 0, 0, .02);
+}
+.figure .bottom-back {
+    z-index: 2;
+    top: 0;
+    height: 50%;
+    overflow: hidden;
+}
+.figure .bottom-back span {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+}
+.figure .top, .figure .top-back {
+    height: 50%;
+    overflow: hidden;
+}
+.figure .top-back{
+    z-index: 4;
+    bottom: 0;
+    background-color: #401212;
+    -webkit-transform-origin: 50% 0;
+    transform-origin: 50% 0;
+}
+.figure .top-back span {
+    position: absolute;
+    top: -100%;
+    left: 0;
+    right: 0;
+    margin: auto;
+}
+
+.title{
+    margin: 0 auto;
+    padding-top: 38%;
+    height: 30px;
+    width: 100px;
+    color: #ff0;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+@media only screen and (max-width: 414px) {
+    .wrap {
+        top: 11.8%;
+        padding-left: 23.7%;
+    }
+    .title{
+        padding-top: 39%;
+    }
+}
+@media only screen and (max-width: 375px) {
+    .wrap {
+        top: 10.8%;
+        padding-left: 23.7%;
+    }
+    .figure {
+        margin-right: 6px;
+        height: 31px;
+    }
+    .countdown .bloc-time {
+        margin-right: 32px;
+    }
+    .figure span {
+        font-size: 23px;
+        line-height: 33px;
+    }
+    .title{
+        padding-top: 39%;
+    }
+}
+@media only screen and (max-width: 360px) {
+    .wrap {
+        top: 10.4%;
+    }
+    .figure {
+        margin-right: 5px;
+    }
+    .countdown .bloc-time {
+        margin-right: 29px;
+    }
+}
+@media only screen and (max-width: 320px) {
+    .wrap {
+        top: 9.3%;
+    }
+    .figure {
+        margin-right: 5px;
+        height: 27px;
+        width: 16px;
+    }
+    .countdown .bloc-time {
+        margin-right: 28px;
+    }
+    .figure span {
+        font-size: 20px;
+    }
+    .table th, .table td{
+        font-size: 8px;
+    }
+    .winners-table .table td {
+        width: 38%;
+        padding: 5px 0;
+    }
+}

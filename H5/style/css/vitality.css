@@ -1,0 +1,237 @@
+.vitality-container {
+    background-color: #fff;
+    font-size: 12px;
+    color: #d0d1d3;
+    padding: 0 0 2rem 0;
+}
+.vitality-container .top-banner {
+    height:7rem;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    background-image: url("../../../images/promo/vitality/vitality_banner.png");
+}
+.vitality-container .vitality-content {
+    width: 9.6rem;
+    text-align: center;
+}
+.vitality-container .vitality-content .title-box {
+    margin-top: .444rem;
+    margin-bottom: .6rem;
+}
+.vitality-container .vitality-content .rule-list {
+    text-align: left;
+    padding-left: 0;
+}
+.vitality-container .vitality-content .rule-list > li {
+    list-style-type: decimal;
+    list-style-position: inside;
+    margin-bottom: .6rem;
+}
+.vitality-container .vitality-content .receive-container .red-packet {
+    width: 1.888rem;
+    height: 2.796rem;
+    margin: 0 auto;
+    cursor: pointer;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    background-image: url("../../../images/promo/vitality/vitality_red.png");
+}
+.vitality-count{
+    margin: 0.7rem auto;
+    width: 80%;
+    height: 1.3rem;
+    line-height:1.3rem;
+    background-image: url('../../../images/promo/vitality/time_bg.png');
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+}
+.package-content{
+    width: 80%;
+    margin: 1.2rem auto 0.5rem auto;
+    position: relative;
+    text-align: center;
+}
+.package-content p{
+    position: absolute;
+    top: -1.5rem;
+    left: -0.07rem;
+    z-index: 0;
+    z-index: 0;
+}
+.row-gift{
+    display: none;
+}
+.red-gift{
+    width: 62%;
+    height: 4.3rem;
+}
+.red-money{
+    display: none;
+    position: absolute;
+    top: 0.4rem;
+    left: 1.7rem;
+    width: 55%;
+    height: 1rem;
+    font-family: MicrosoftYaHei-Bold;
+    font-size: 0.5rem;
+    color: #D2B672;
+}
+.red-bottom{
+    width: 80%;
+    margin: 0 auto;
+}
+.red-top{
+    width: 29%;
+    height: 3rem;
+    position: absolute;
+    top: 0.0rem;
+    left: 2.77rem;
+    cursor: pointer;
+}
+.vitality-count span{
+    display:inline-block;
+    width: 1.1rem;
+    height: 0.8rem;
+    line-height: 0.8rem;
+    text-align: center;
+	background-image: linear-gradient(0deg, 
+		#6d4040 0%, 
+		#2c2b30 100%), 
+	linear-gradient(
+		#202228, 
+		#202228);
+	background-blend-mode: normal, 
+		normal;
+    border-radius: 0.1rem; 
+	font-family: MicrosoftYaHei-Bold;
+	font-size: 0.4rem;
+	letter-spacing: 0.1rem;
+    color: #ffffff;
+    margin: 0.25rem 0.05rem;
+}
+.vitality-count b{
+    font-weight: 600;
+    font-size: 0.3rem;
+    position: relative;
+    top: 10px;
+    color: #555657;
+}
+.package-table h3{
+    font-family: MicrosoftYaHei-Bold;
+    font-size: 0.4rem;
+    color: #33bcd4;
+}
+.vitality-actives{
+    text-align: left;  
+}
+.vitality-actives p{
+    font-size: 0.3rem;
+    color: #555657;;
+}
+.vitality-actives h3{
+    font-size: 0.3rem;
+    height: 1rem;
+    line-height: 1rem;
+    color: #555657;
+}
+.draw-record table{
+    width: 100%;
+    margin: 0.5rem auto;
+}
+.draw-record table th{
+    font-size: 0.33rem;
+    height: 1rem;
+    line-height: 1rem;
+	background-image: linear-gradient(0deg, 
+		#0094ff 0%, 
+		#19c6ff 100%), 
+	linear-gradient(
+		#f4f6f9, 
+		#f4f6f9);
+	background-blend-mode: normal, 
+        normal;
+    color: #ffffff;
+    text-align: center;
+}
+.draw-record table td{
+    font-size: 0.33rem;
+    height: 0.7rem;
+    line-height: 0.7rem;
+    background-color: #ffffff;
+	border: solid 1px #dcdce8;
+    text-align: center;
+    color: #555657;
+}
+.vitality-actives table{
+    width: 90%;
+    margin: 0.5rem auto;
+}
+.vitality-actives table th{
+    font-size: 0.33rem;
+    height: 1rem;
+    line-height: 1rem;
+	background-image: linear-gradient(0deg, 
+		#0094ff 0%, 
+		#19c6ff 100%), 
+	linear-gradient(
+		#f4f6f9, 
+		#f4f6f9);
+	background-blend-mode: normal, 
+        normal;
+    color: #ffffff;
+    text-align: center;
+}
+.vitality-actives table td{
+    font-size: 0.33rem;
+    height: 0.7rem;
+    line-height: 0.7rem;
+	background-color: #ffffff;
+	border: solid 1px #dcdce8;
+    text-align: center;
+    color: #555657;
+}
+nav{
+    width: 70%;
+    margin: 0 auto;
+    text-align: center;
+}
+.pagination{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+.pagination li{
+    margin-right:0.3rem;
+    background-color: #202228;
+}
+#pagination a{
+    display: inline-block;
+    width: 1rem;
+    height: 1rem;
+    line-height:  0.7rem;
+    background-color: #ffffff;
+    border: solid 1px #dcdce8;
+    color: #555657;
+    cursor: pointer;
+}
+.pagination>li:first-child>a,
+.pagination>li:last-child>a{
+    border-radius:0 !important;
+}
+.page-active{
+    color: #ffffff !important;
+    border: solid 1px #0094FF  !important;
+    background-color: #0094FF !important;
+}
+.page-active:hover{
+    color: #ffffff;
+}
+.rule-list{
+    font-size: 0.3rem;
+    color: #555657;
+}

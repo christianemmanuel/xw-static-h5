@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html class="ui-page-login">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>申请礼品</title>
+    <!--标准mui.css-->
+    <link href="/mui/css/mui.min.css" rel="stylesheet" />
+    <link href="/style/css/main.css" rel="stylesheet" />
+    <link href="/style/css/index.css" rel="stylesheet" />
+    <!-- 加载JavaScript -->
+    <script type="text/javascript" src="/style/js/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="/style/layer/layer.js"></script>
+    <script type="text/javascript" src="/style/js/Validform_v5.3.2_min.js"></script>
+    <script type="text/javascript" src="/style/js/common.js"></script>
+    <script type="text/javascript" src="/style/js/md5.js"></script>
+    <script type="text/javascript" src="/mui/js/mui.min.js"></script>
+    <script type="text/javascript" src="/style/js/jquery.cookie.js"></script>
+    <style>
+        .ui-page-login,
+        body {
+            width: 100%;
+            height: 100%;
+            margin: 0px;
+            padding: 0px;
+            background: #fff;
+        }
+        .mui-input-row span{
+            color: #FF8C00;
+            padding-left: 5px;
+        }
+        .mui-content{height: 100%;padding: 10px 10px;}
+        .area {
+            margin: 20px auto 0px auto;
+        }
+        .mui-input-group {
+            margin-top: 10px;
+            background-color: #d2d2de;
+        }
+        .mui-input-group label {
+            width: 40%;
+            text-align: left;
+            padding: 0 10px;
+            line-height: 1.3rem;
+        }
+        .mui-input-group input{
+            line-height: 1.3rem;
+        }
+        .mui-input-row label~input,
+        .mui-input-row label~select,
+        .mui-input-row label~textarea {
+            width: 60%;
+        }
+        .login_header a{
+            position: absolute;
+            top: 20px;
+        }
+        .login_header a:active{color: #FF8C00;}
+        .login_header .mui-icon-left-nav{
+            left: 15px;
+        }
+        .mui-input-row .mui-input-password ~ .mui-icon-eye.mui-active{
+            color:#FF8C00;
+        }
+        .mui-btn {
+            padding: 10px;
+        }
+        .mui-input-group .mui-input-row {
+            margin: 10px 0px;
+            background-color: white;
+            height: 1.3rem;
+        }
+    </style>
+</head>
+
+<body>
+<div class="mui-off-canvas-wrap">
+    <div class="mui-inner-wrap">
+        <!-- 主体页面begin -->
+        <header class="mui-bar mui-bar-nav">
+            <a class="mui-icon mui-icon-back mui-pull-left"></a>
+            <h1 class="mui-title" id="header_title">申请礼品</h1>
+        </header>
+        <div class="mui-content" >
+            <form id='login-form' class="mui-input-group">
+                <div class="mui-input-row">
+                    <label><span class="mui-icon"></span> <span>*</span>收件人</label>
+                    <input id='oldPassword' type="text" class="mui-input" placeholder="收件人">
+                </div>
+                <div class="mui-input-row">
+                    <label><span class="mui-icon"></span> <span>*</span>手机号码</label>
+                    <input id='password' type="text" class="mui-input" maxlength="11" placeholder="手机号码">
+                </div>
+                <div class="mui-input-row" style="height: 4rem;">
+                    <label><span class="mui-icon"></span> <span>*</span>收件地址</label>
+                    <textarea id="plainPassword" rows="5" cols="8"></textarea>
+                </div>
+            </form>
+            <div style="margin-top: 20px;">
+                <div id='updatePwdBtn' class="form_sumbit_btn">提交</div>
+            </div>
+        </div>
+        <!-- 主体页面end -->
+    </div>
+</div>
+<script>
+    var loginMember = wap_get_user();
+    $(function(){
+        function getQueryString(name) {
+            var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+            var r = window.location.search.substr(1).match(reg);
+            if(r!=null)return  unescape(r[2]); return null;
+        }
+        var queryToken = getQueryString("token");
+        var headCode = getQueryString("headCode");
+        var menuCode = getQueryString("menuCode");
+        var giftId = getQueryString("giftId");
+        if(headCode==='show'){
+            $('.mui-bar.mui-bar-nav').show();
+            $('.top-banner').css('margin-top','44px');
+        } else if(headCode === 'hide') {
+            $('.mui-bar.mui-bar-nav').hide();
+        }
+        if(menuCode==='hide'){
+            $('#menu_nav').hide();
+        }
+        mui(".mui-bar-nav").on('tap','.mui-pull-left',function(){
+            window.location.href='/wap/promotion/esportsGift.html?token=' + queryToken + "&menuCode="+menuCode+"&headCode="+headCode;
+        });
+        $("#updatePwdBtn").click(function(e){
+            e.preventDefault();
+            var oldPassword = $("#oldPassword").val().trim();
+            var password = $("#password").val().trim();
+            var plainPassword = $("#plainPassword").val().trim();
+            if (oldPassword.length == 0) {
+                fun_alertMsg('请输入收件人！', function() {});
+                return;
+            } else if (password.length == 0){
+                fun_alertMsg('请输入手机号码！', function() {});
+                return;
+            } else if (password.length != 11){
+                fun_alertMsg('手机号码长度为11位！', function() {});
+                return;
+            } else if (plainPassword.length == 0){
+                fun_alertMsg('请输入收件地址！', function() {});
+                return;
+            }
+            mui($('#updatePwdBtn')).button('loading');
+            $.ajax({
+                url:event_site_host() + "/ptweb/eposrts/esportsGiftExchange",
+                type:"POST",
+                data:{"receiver":oldPassword, "telephone":password, "address":plainPassword, 'token':queryToken, 'giftId':giftId},
+                dataType: 'json',
+                success:function(d){
+                    if (d.code == 0) {
+                        mui($('#updatePwdBtn')).button('reset');
+                        fun_alertMsg('提交成功。', function() {
+                            location.href = '/wap/promotion/esportsGiftRecord.html?token='+queryToken+"&headCode="+headCode+"&menuCode="+menuCode;
+                        });
+                    } else {
+                        fun_alertMsg(d.message, function() {});
+                        mui($('#updatePwdBtn')).button('reset');
+                        wap_if_session_out(d.code);
+                    }
+                },
+                error:function(jqXHR, textStatus){
+                    wap_check_ajaxerror(jqXHR);
+                    fun_alertMsg('提交电竞礼品异常！', function() {});
+                    mui($('#updatePwdBtn')).button('reset');
+                }
+            });
+        });
+    });
+</script>
+</body>
+@@include('html-foot.html')
+</html>

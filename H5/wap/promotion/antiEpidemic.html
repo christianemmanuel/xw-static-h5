@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <title>东赢 - 电竞、体育每月投注皆有礼，多种礼品等你领！</title>
+    <link rel="stylesheet" href="/style/plugins/bootstrap/css/bootstrap.min.css">
+    <link href="/mui/css/mui.min.css" rel="stylesheet" />
+    <link href="/mui/css/mui-icons-extra.css" rel="stylesheet" />
+    <link href="/style/css/main.css" rel="stylesheet" />
+    <link href="/style/css/index.css" rel="stylesheet" />
+    <link rel="stylesheet" href="/style/css/antiEpidemic.css">
+
+    <script type="text/javascript" src="/style/js/adaptive.js"></script>
+    <script type="text/javascript" src="/style/js/jquery-3.2.1.min.js"></script>
+    <script src="/style/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/style/js/common.js"></script>
+    <script type="text/javascript" src="/mui/js/mui.min.js"></script>
+    <script type="text/javascript" src="/style/js/lodash.js"></script>
+    <script src="/style/plugins/tweenMax/TweenMax.min.js" type="text/javascript" ></script>
+    <script type="text/javascript" src="/style/js/jquery.cookie.js"></script>
+</head>
+<body>
+<header class="mui-bar mui-bar-nav" style="padding-left: 15px;padding-right: 15px;display: none;">
+    <a class="mui-icon mui-icon-left-nav mui-pull-left" style="text-decoration: none; color: white;"></a>
+    <h1 class="mui-title" style="color: #ffffff;">东赢携手抗疫</h1>
+</header>
+<div class="anti-epidemic-container">
+    <div class="top-banner"></div>
+    <img src="../../images/promo/ae/title_exchange.png" style="margin-top: 20px;margin-bottom: 37px;width: 4.453rem;">
+    <div class="ae-card-row">
+        <div class="ae-card-item">
+            <div class="ae-card-bg">
+                <img src="../../images/promo/ae/dyCard_1.png" class="card-img">
+                <div class="ae-card-desc">所需充值金额2000元</div>
+                <div class="ae-card-left-box">可用<span class="left-count" id="dyCard_1">0</span>张</div>
+            </div>
+            <div class="ae-btn exchange-btn" data-id="1">兑换</div>
+        </div>
+        <div class="ae-card-item">
+            <div class="ae-card-bg">
+                <img src="../../images/promo/ae/dyCard_2.png" class="card-img">
+                <div class="ae-card-desc">所需充值金额2000元</div>
+                <div class="ae-card-left-box">可用<span class="left-count" id="dyCard_2">0</span>张</div>
+            </div>
+            <div class="ae-btn exchange-btn" data-id="2">兑换</div>
+        </div>
+        <div class="ae-card-item">
+            <div class="ae-card-bg">
+                <img src="../../images/promo/ae/dyCard_3.png" class="card-img">
+                <div class="ae-card-desc">所需充值金额2000元</div>
+                <div class="ae-card-left-box">可用<span class="left-count" id="dyCard_3">0</span>张</div>
+            </div>
+            <div class="ae-btn exchange-btn" data-id="3">兑换</div>
+        </div>
+        <div class="ae-card-item">
+            <div class="ae-card-bg">
+                <img src="../../images/promo/ae/dyCard_4.png" class="card-img">
+                <div class="ae-card-desc">所需充值金额2000元</div>
+                <div class="ae-card-left-box">可用<span class="left-count" id="dyCard_4">0</span>张</div>
+            </div>
+            <div class="ae-btn exchange-btn" data-id="4">兑换</div>
+        </div>
+        <div class="ae-card-item">
+            <div class="ae-card-bg">
+                <img src="../../images/promo/ae/dyCard_5.png" class="card-img">
+                <div class="ae-card-desc">所需充值金额2000元</div>
+                <div class="ae-card-left-box">可用<span class="left-count" id="dyCard_5">0</span>张</div>
+            </div>
+            <div class="ae-btn exchange-btn" data-id="5">兑换</div>
+        </div>
+        <div class="ae-card-item">
+            <div class="ae-card-bg">
+                <img src="../../images/promo/ae/dyCard_6.png" class="card-img">
+                <div class="ae-card-desc">所需充值金额2000元</div>
+                <div class="ae-card-left-box">可用<span class="left-count" id="dyCard_6">0</span>张</div>
+            </div>
+            <div class="ae-btn exchange-btn" data-id="6">兑换</div>
+        </div>
+        <div class="ae-card-item">
+            <div class="ae-card-bg">
+                <img src="../../images/promo/ae/dyCard_7.png" class="card-img">
+                <div class="ae-card-desc">所需充值金额2000元</div>
+                <div class="ae-card-left-box">可用<span class="left-count" id="dyCard_7">0</span>张</div>
+            </div>
+            <div class="ae-btn exchange-btn" data-id="7">兑换</div>
+        </div>
+        <div class="ae-card-item">
+            <div class="ae-card-bg">
+                <img src="../../images/promo/ae/dyCard_8.png" class="card-img">
+                <div class="ae-card-desc">所需充值金额2000元</div>
+                <div class="ae-card-left-box">可用<span class="left-count" id="dyCard_8">0</span>张</div>
+            </div>
+            <div class="ae-btn exchange-btn" data-id="8">兑换</div>
+        </div>
+        <div class="ae-card-item">
+            <div class="ae-card-bg">
+                <img src="../../images/promo/ae/dyCard_9.png" class="card-img">
+                <div class="ae-card-desc">所需充值金额2000元</div>
+                <div class="ae-card-left-box">可用<span class="left-count" id="dyCard_9">0</span>张</div>
+            </div>
+            <div class="ae-btn exchange-btn" data-id="9">兑换</div>
+        </div>
+    </div>
+    <div class="ae-btn bonu-btn">领取100元彩金</div>
+    <img src="../../images/promo/ae/title_content.png" style="margin-top: 20px;margin-bottom: 37px;width: 4.453rem;">
+    <div class="anti-content">
+        <div>活动时间：2020年4月10日-5月10日</div>
+        <table class="ae-table">
+            <tr>
+                <td>集卡途径</td>
+                <td>可获得物品</td>
+                <td>整套可获得彩金</td>
+                <td>流水要求</td>
+            </tr>
+            <tr>
+                <td>每日登陆免费抽取一次</td>
+                <td>除“东赢”字卡以外任意字卡</td>
+                <td rowspan="2">100元</td>
+                <td rowspan="2">1倍</td>
+            </tr>
+            <tr>
+                <td>使用存款金额兑换</td>
+                <td>任意兑换抗疫字卡</td>
+            </tr>
+        </table>
+        <ul class="role-list" style="margin-left: 0.33rem;">
+            <li>用户每日登录东赢账号即可免费抽取一次抗疫字卡（注：“东赢”抗疫字卡除外），同时每累计存款2000元可以兑换任意一张抗疫字卡，每集齐一套抗疫字卡，可以点击集册下方的“申请100元彩金”按钮兑换彩金。</li>
+            <li>活动期间兑换次数无上限，活动彩金一倍流水即可出款。</li>
+            <li>充值金额累计不予任何存送活动共享。</li>
+            <li>每位有效玩家、每一手机号码、电子邮箱、相同银行卡、每一个IP地址、每一台电脑者只能享受一次优惠，如发现有违规者我们将保留无限期审核扣回礼品及所产生的利润权利。</li>
+            <li>抗疫字卡有效兑换时间截止为5月20日23:59:59，届时所有未使用的抽卡次数、兑换次数、抗疫字卡将无效作废。</li>
+            <li>东赢拥有本活动最终解释权。</li>
+        </ul>
+    </div>
+</div>
+<div class="ae-shade"></div>
+<div class="new-card-box">
+    <div class="new-card new-card-front">
+        <img src="../../images/promo/ae/open.png" style="width: 2.037rem;">
+    </div>
+    <div class="new-card new-card-back">
+        <div class="back-close"></div>
+        <img src="../../images/promo/ae/dyCard_7.png" style="width: 6rem;" id="free_card">
+        <img src="../../images/promo/ae/got.png" style="width: 3.166rem;">
+    </div>
+</div>
+</body>
+@@include('html-foot.html')
+<script type="text/javascript">
+    function getQueryString(name) {
+        var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+        var r = window.location.search.substr(1).match(reg);
+        if(r!=null)return  unescape(r[2]); return null;
+    }
+    var queryToken = getQueryString("token");
+    var headCode = getQueryString("headCode");
+    var menuCode = getQueryString("menuCode");
+    $(document).ready(function() {
+        mui.init();
+        // 点击确认的时候关闭模态层
+        mui(".mui-bar-nav").on('tap','.mui-pull-left',function(){
+            window.location.href="/wap/helpbonus/hb_index.html";
+        });
+        if(headCode==='show'){
+            $('.mui-bar.mui-bar-nav').show();
+            $('.top-banner').css('margin-top','44px');
+        } else if(headCode === 'hide') {
+            $('.mui-bar.mui-bar-nav').hide();
+        }
+        if(menuCode==='hide'){
+            $('#menu_nav').hide();
+        }
+        if(queryToken == null || queryToken === '') {
+            queryToken = wap_get_user().token;
+        }
+        if((queryToken===null || queryToken===undefined || queryToken==='') && wap_is_user_notexist()) {
+            fun_alertMsg("请登入后再操作", function() {
+                window.location.href="/index.html";
+            });
+        } else {
+            dyCardInit();
+        }
+    });
+    function dyCardInit() {
+        $.ajax({
+            dataType: "jsonp",
+            url:event_site_host() + "/ptweb/dyCard/init",
+            type:"POST",
+            data:{'token': queryToken},
+            dataType: 'json',
+            success:function(d){
+                if (d.code == 0) {
+                    if(d.data.freeCount==0){
+                        $('.ae-shade').show();
+                        $('.new-card-box').show();
+                    }
+                    $("#dyCard_1").text(d.data.dyCardInfo.cardOneNum);
+                    $("#dyCard_2").text(d.data.dyCardInfo.cardTwoNum);
+                    $("#dyCard_3").text(d.data.dyCardInfo.cardThreeNum);
+                    $("#dyCard_4").text(d.data.dyCardInfo.cardFourNum);
+                    $("#dyCard_5").text(d.data.dyCardInfo.cardFiveNum);
+                    $("#dyCard_6").text(d.data.dyCardInfo.cardSixNum);
+                    $("#dyCard_7").text(d.data.dyCardInfo.cardSevenNum);
+                    $("#dyCard_8").text(d.data.dyCardInfo.cardEightNum);
+                    $("#dyCard_9").text(d.data.dyCardInfo.cardNineNum);
+                } else {
+                    fun_alertMsg(d.message, function() {});
+                    wap_if_session_out(d.code);
+                }
+            },
+            error:function(jqXHR, textStatus, errorThrown){
+                wap_check_ajaxerror(jqXHR);
+                fun_alertMsg('卡片列表获取失败，请稍后重试', function() {});
+            }
+        });
+    }
+
+    $('.new-card-front').click(function(){
+        $.ajax({
+            dataType: "jsonp",
+            url:event_site_host() + "/ptweb/dyCard/freeCard",
+            type:"POST",
+            data:{'token': queryToken},
+            dataType: 'json',
+            success:function(d){
+                if (d.code == 0) {
+                    $("#free_card").attr('src','/images/promo/ae/dyCard_'+d.data.cardId+'.png');
+                    var count=parseInt($("#dyCard_"+d.data.cardId).text());
+                    $("#dyCard_"+d.data.cardId).text(count+1);
+                    $(".new-card-box").toggleClass('flipped');
+                } else {
+                    $('.ae-shade').hide();
+                    $('.new-card-box').hide();
+                    fun_alertMsg(d.message, function() {});
+                    wap_if_session_out(d.code);
+                }
+            },
+            error:function(jqXHR, textStatus, errorThrown){
+                wap_check_ajaxerror(jqXHR);
+                fun_alertMsg('每日免费卡片获取失败，请稍后重试', function() {});
+            }
+        });
+    });
+    $('.new-card-back').click(function(){
+        $('.ae-shade').hide();
+        $('.new-card-box').hide();
+    });
+
+    $('.exchange-btn').click(function() {
+        var cardId=parseInt(this.dataset.id);
+        $.ajax({
+            dataType: "jsonp",
+            url:event_site_host() + "/ptweb/dyCard/exchange",
+            type:"POST",
+            data:{'token': queryToken,'cardId':cardId},
+            dataType: 'json',
+            success:function(d){
+                if (d.code == 0) {
+                    var count=parseInt($("#dyCard_"+cardId).text());
+                    $("#dyCard_"+cardId).text(count+1);
+                    fun_alertMsg("兑换成功", function() {});
+                } else {
+                    fun_alertMsg(d.message, function() {});
+                    wap_if_session_out(d.code);
+                }
+            },
+            error:function(jqXHR, textStatus, errorThrown){
+                wap_check_ajaxerror(jqXHR);
+                fun_alertMsg('兑换卡片失败，请稍后重试', function() {});
+            }
+        });
+    });
+    $('.bonu-btn').click(function () {
+        $.ajax({
+            dataType: "jsonp",
+            url:event_site_host() + "/ptweb/dyCard/getBouns",
+            type:"POST",
+            data:{'token': queryToken},
+            dataType: 'json',
+            success:function(d){
+                if (d.code == 0) {
+                    fun_alertMsg("恭喜获得100元彩金", function() {
+                        document.location.reload();
+                    });
+                } else {
+                    fun_alertMsg(d.message, function() {});
+                    wap_if_session_out(d.code);
+                }
+            },
+            error:function(jqXHR, textStatus, errorThrown){
+                wap_check_ajaxerror(jqXHR);
+                fun_alertMsg('领取彩金失败，请稍后重试', function() {});
+            }
+        });
+    });
+</script>
+</html>

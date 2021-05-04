@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>东赢 - 彩票</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+	<!--标准mui.css-->
+	<link href="/mui/css/mui.min.css" rel="stylesheet" />
+	<link href="/mui/css/common.css" rel="stylesheet" />
+	<link href="/style/css/index.css" rel="stylesheet" />
+	<!--扩展图标-->
+	<link href="/mui/css/mui-icons-extra.css" rel="stylesheet" />
+	<link href="/style/css/main.css" rel="stylesheet" />
+	<style type="text/css">
+		.mui-table-view-cell .mui-media-body{float: left;}
+		.title-nav{
+			background: #F0EFF4;
+			text-align: center;
+			height: 38px;
+			line-height: 38px;
+			vertical-align: middle;
+		}
+		.title-nav img{
+			margin-right: 15px;
+			vertical-align: middle;
+		}
+		.plat-list{
+			display: block;
+			padding: 10px;
+			color: black;
+			font-size: 12px;
+		}
+		.plat-list .cover{
+			width: 40%;
+			display: inline-block;
+		}
+		.plat-list .info{
+			width: 58%;
+			display: inline-block;
+		}
+		.plat-list .info span{
+			font-size: 18px;
+			font-weight: bold;
+		}
+		.plat-list label{
+			color: #107BD4;
+		}
+	</style>
+</head>
+<body style="padding: 0px;">
+<!--侧滑菜单容器-->
+<div class="mui-off-canvas-wrap">
+	<div class="mui-inner-wrap">
+		<!-- 主体页面begin -->
+		<header class="mui-bar mui-bar-nav">
+			<a href="/index.html" class="mui-icon mui-icon-back mui-pull-left"></a>
+			<h1 class="mui-title" id="header_title">彩票</h1>
+		</header>
+		<div
+                class="mui-content" style="height: 100%;overflow: scroll; padding-bottom: 25%;">
+			<div>
+				<a href="javascript:goToUrl('/ptweb/playELottery?gameCode=Game_List')" class="plat-list">
+				<!--<a href="javascript:fun_alertMsg('亲爱的用户您好，TCG彩票正在维护中，给你造成不便，敬请谅解!', function() {})" class="plat-list">-->
+					<div class="cover">
+						<img src="https://xwsr2.16fass88.com/resources/wap_new/images/lottery_tcg.png" width="120px">
+					</div>
+					<div class="info">
+						<span>TCG彩票</span>
+						<div>
+							独特的双面彩票玩法。
+						</div>
+						<img src="https://xwsr2.16fass88.com/resources/wap_new/images/startBtn.png" width="12px" style="margin-right: 5px"><label>进入游戏</label>
+					</div>
+				</a>
+				<a href="javascript:goToUrl('/ptweb/playGame?gameCode=lottery&pid=36&pfCode=BBIN')" class="plat-list">
+					<div class="cover">
+						<img src="https://xwsr2.16fass88.com/resources/wap_new/images/lottery_bbin.png" width="120px">
+					</div>
+					<div class="info">
+						<span>BBIN彩票</span>
+						<div>
+							彩票游戏玩法简单，赔率多元。
+						</div>
+						<img src="https://xwsr2.16fass88.com/resources/wap_new/images/startBtn.png" width="12px" style="margin-right: 5px"><label>进入游戏</label>
+					</div>
+				</a>
+
+			</div>
+		</div>
+		<!-- 主体页面end -->
+	</div>
+</div>
+</body>
+<!-- 加载JavaScript -->
+<script type="text/javascript" src="/style/js/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="/style/layer/layer.js"></script>
+<script type="text/javascript" src="/style/js/common.js"></script>
+<script type="text/javascript" src="/mui/js/mui.min.js"></script>
+<script type="text/javascript" src="/style/js/jquery.cookie.js"></script>
+@@include('html-foot.html')
+<script type="text/javascript">
+    $(document).ready(function(){
+        mui.init();
+    });
+    function goToUrl(redirectUrl) {
+        if (wap_is_user_notexist()) {
+            fun_alertMsg('请登录后再操作','系统提示');
+        } else {
+            //window.location.href = redirectUrl+'&token='+wap_get_user().token;
+            window.open(event_site_host() + redirectUrl +'&token='+wap_get_user().token);
+        }
+    }
+</script>
+</html>

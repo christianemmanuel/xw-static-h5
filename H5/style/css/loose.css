@@ -1,0 +1,135 @@
+html,
+body,
+p{
+ margin: 0;
+ padding: 0;
+ font-family: MicrosoftYaHei;
+}
+.content{
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+    padding: 0 0 2rem;
+    color: #555657;
+}
+.banner{
+    width: 100%;
+}
+.banner>img{
+    width: 100%;
+}
+.lucky{
+    display: flex;
+    justify-content: space-between;
+    width: 80%;
+    margin: 30px auto; 
+    text-align: center;
+
+}
+.lucky>div{
+    width: 40%;
+}
+.bag img,
+.sack img{
+    width: 80%;
+}
+.bag p,
+.sack p{
+    height: 24px;
+    margin: 10px 0;
+	font-size: 14px;
+	color: #555657;
+}
+.lucky button{
+    width: 100%;
+    height: 30px;
+    line-height: 30px;
+    font-size: 16px;
+    padding: 0 !important;
+    color: #ffffff;
+	background-image: linear-gradient(90deg, 
+		#19c6ff 0%, 
+		#0094ff 100%), 
+	linear-gradient(
+		#0094ff, 
+		#0094ff);
+	background-blend-mode: normal, 
+		normal;
+    border-radius: 3px;
+    border: none;
+}
+.lucky button:focus{
+    outline:none;
+}
+.table{
+    width: 90%;
+    margin: 0 auto;
+}
+.table table{
+    width: 100%;
+    border-collapse:collapse;
+    font-size: 12px;
+}
+.table table th{
+    width: 33%;
+    height: 42px;
+    line-height: 42px;
+    text-align: center;
+    color: #ffffff;
+	background-image: linear-gradient(0deg, 
+		#0094ff 0%, 
+		#19c6ff 100%), 
+	linear-gradient(
+		#f4f6f9, 
+		#f4f6f9);
+	background-blend-mode: normal, 
+		normal;
+}
+.table table td{
+    height: 42px;
+    line-height: 42px;
+    text-align: center;
+    border: solid 1px #dcdce8;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+}
+.green{
+    color: #00ff00
+}
+.red{
+    color: #ff0000;
+}
+.content .page-list {
+    display: flex;
+    justify-content: center;
+    margin-top: .4rem;
+}
+.content .page-list .page-item {
+    width: .888rem;
+    height: .888rem;
+    background-color: #ffffff;
+    line-height: .888rem;
+    text-align: center;
+    cursor: pointer;
+    margin: 0 .111rem;
+    border: solid 1px #dcdce8;
+}
+.content .page-list .page-item.active, .content .page-list .page-item:hover {
+    background-color: #0094ff;
+    color: #fff;
+}
+.activity{
+    width: 90%;
+    margin: 0 auto;
+}
+.activity img{
+    width: 95%;
+    margin: 50px auto 20px auto;
+}
+.activity p{
+    line-height: 18px;
+    font-size: 12px;
+    margin: 10px 0;
+    color: #414655;
+}

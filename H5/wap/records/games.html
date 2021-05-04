@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>东赢游戏记录</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	
+	<!--标准mui.css-->
+	<link href="/mui/css/mui.min.css" rel="stylesheet" />
+	<link href="/mui/css/common.css" rel="stylesheet" />
+	<link href="/style/css/index.css" rel="stylesheet" />
+	<!--扩展图标-->
+	<link href="/mui/css/mui-icons-extra.css" rel="stylesheet" />
+	<link href="/style/css/main.css" rel="stylesheet" />
+	<link href="/style/dropload/dropload.css" rel="stylesheet" />
+	<style type="text/css">
+		.mui-content{
+	        padding-bottom: 40px;
+	        background-color: #fff;
+	    }
+	    .mui-content .mui-table-view label{
+	        padding: 5px 5px;
+	    }
+	</style>
+</head>
+<body style="padding: 0px;">
+	<!-- 主体页面begin -->
+	<header class="mui-bar mui-bar-nav">
+		<a class="mui-icon mui-icon-back mui-pull-left" href="/wap/records/records_index.html"></a>
+		<h1 class="mui-title" id="header_title">游戏记录</h1>
+	</header>
+	<div class="mui-content" style="height: 100%;padding-bottom: 0px;">
+		<ul class="mui-table-view" style="display: block;margin-top: 0px;">
+		</ul>
+	</div>
+	<!-- 主体页面end -->
+</body>
+<!-- 加载JavaScript -->
+<script type="text/javascript" src="/style/js/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="/style/layer/layer.js"></script>
+<script type="text/javascript" src="/style/js/common.js"></script>
+<script type="text/javascript" src="/mui/js/mui.min.js"></script>
+<script type="text/javascript" src="/style/dropload/dropload.min.js"></script>
+<script type="text/javascript" src="/style/js/jquery.cookie.js"></script>
+@@include('html-foot.html')
+<script type="text/javascript">
+	$(document).ready(function(){
+	    $('.mui-content').dropload({
+	        scrollArea : window,
+	        domUp : {
+	            domClass   : 'dropload-up',
+	            domRefresh : '<div class="dropload-refresh">↓下拉刷新</div>',
+	            domUpdate  : '<div class="dropload-update">↑释放更新</div>',
+	            domLoad    : '<div class="dropload-load"><span class="loading"></span>加载中...</div>'
+	        },
+	        domDown : {
+	            domClass   : 'dropload-down',
+	            domRefresh : '<div class="dropload-refresh">↑上拉加载更多</div>',
+	            domLoad    : '<div class="dropload-load"><span class="loading"></span>加载中...</div>',
+	            domNoData  : '<div class="dropload-noData">没有更多数据了</div>'
+	        },
+	        loadUpFn : function(me){
+	        	pageNo=0;
+	        	refreshList(me,0);
+	        },
+	        loadDownFn : function(me){
+ 	        	refreshList(me,1);
+	        },
+	        threshold : 50
+	    });
+	});
+	var pageNo = 1;
+	function refreshList(me,loadType){
+		var sendLastId = pageNo;
+		$.ajax({
+			dataType: "jsonp",
+	       	url:wap_site_host() + "/session/record/gameRecords",
+    		type:"GET",
+    		data:{"pageNumber":sendLastId,"pageSize":10,"token":wap_get_user().token},
+    		dataType: 'json',
+  		 	success:function(resultData){
+      		 	if (resultData.code == 0) {
+      		 		var listData = resultData.data;
+					var appendHtml='';
+					$.each(listData,function(n, v){
+						appendHtml+='<li class="mui-table-view-cell mui-media" data-start_date="'+fun_timeFormat(v.betTime)+'">\
+							<div class="mui-input-row"><label>下注编号</label><label style="width: 60%;">'+v.recordNumber+'</label></div>\
+							<div class="mui-input-row"><label>游戏名称</label><label style="width: 60%;">'+fun_filterTxt(v.gameName)+'</label></div>\
+							<div class="mui-input-row"><label>下注金额</label><label style="width: 60%;">'+fun_filterTxt(v.bet)+'</label></div>\
+							<div class="mui-input-row"><label>结果</label><label style="width: 60%;">'+fun_filterTxt(v.result)+'</label></div>\
+							<div class="mui-input-row"><label>派彩</label><label style="width: 60%;">'+fun_filterTxt(v.payout)+'</label></div>\
+							<div class="mui-input-row"><label>下注时间</label><label style="width: 60%;">'+fun_timeFormat(v.betTime)+'</label></div>\
+						</li>';
+					});
+					if(loadType==0){
+					    $('.mui-content ul').html(appendHtml);
+					}else{
+					    if(sendLastId==0){
+                            $('.mui-content ul').html(appendHtml);
+						}else {
+                            $('.mui-content ul').append(appendHtml);
+						}
+					}
+					// 每次数据插入，必须重置
+                    me.resetload();
+                    if(appendHtml==''){
+						// 锁定
+	                    me.lock();
+	                 	// 无数据
+	                    me.noData();
+					}else{
+						// 解锁loadDownFn里锁定的情况
+	                    me.unlock();
+	                    me.noData(false);
+	                    pageNo+=1;//刷新成功后，修改pageNo
+					}
+	   		   	} else {
+	   		   		if(resultData.code==4014){}
+	   		   		else{
+	   		   			fun_alertMsg(resultData.message, function() {});
+	   		   		}
+	   		  		// 即使加载出错，也得重置
+                    me.resetload();
+                 	// 锁定
+                    me.lock();
+                 	// 无数据
+                    me.noData();
+                    wap_if_session_out(resultData.code);
+	   		   	}
+     		 },
+     		 error:function( jqXHR, textStatus){
+     			wap_check_ajaxerror(jqXHR);
+     			fun_toast('请求失败，请稍后重试');
+     			// 即使加载出错，也得重置
+                me.resetload();
+             	// 锁定
+                me.lock();
+             	// 无数据
+                me.noData();
+     		 }
+		});
+	}
+</script>
+</html>

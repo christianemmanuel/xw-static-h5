@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <title>东赢零钱宝</title>
+    <link rel="stylesheet" href="/style/plugins/bootstrap/css/bootstrap.min.css">
+    <link href="/mui/css/mui.min.css" rel="stylesheet" />
+    <link href="/mui/css/mui-icons-extra.css" rel="stylesheet" />
+    <link href="/style/css/main.css" rel="stylesheet" />
+    <link href="/style/css/index.css" rel="stylesheet" />
+    <link rel="stylesheet" href="/style/css/loose.css">
+
+    <script type="text/javascript" src="/style/js/adaptive.js"></script>
+    <script type="text/javascript" src="/style/js/jquery-3.2.1.min.js"></script>
+    <script src="/style/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/style/js/common.js"></script>
+    <script type="text/javascript" src="/mui/js/mui.min.js"></script>
+    <script type="text/javascript" src="/style/js/lodash.js"></script>
+    <script src="/style/plugins/tweenMax/TweenMax.min.js" type="text/javascript" ></script>
+    <script type="text/javascript" src="../../style/js/jquery.cookie.js"></script>
+</head>
+<body>
+<header class="mui-bar mui-bar-nav" style="padding-left: 15px;padding-right: 15px;display: none;">
+    <a class="mui-icon mui-icon-left-nav mui-pull-left" style="text-decoration: none; color: white;"></a>
+    <h1 class="mui-title" style="color: #ffffff;">东赢零钱宝</h1>
+</header>
+<div class="content">
+    <div class="banner">
+        <img src="/images/promo/loose/banner-h5.jpg" alt="">
+    </div>
+    <div class="lucky">
+        <div class="bag">
+            <img src="/images/promo/loose/web-bag.png" alt="" srcset="">
+            <p></p>
+            <button id="money_box_lottery_btn">抽奖</button>
+        </div>
+        <div class="sack">
+            <img src="/images/promo/loose/web-sack.png" alt="" srcset="">
+            <p>当前金额：<span id="money_box_amount">0</span>元</p>
+            <button id="money_box_get_btn">领取</button>
+        </div>
+    </div>
+    <div class="table">
+        <table>
+            <thead>
+                <th>抽奖时间</th>
+                <th>获奖金额</th>
+                <th>领取状态</th>
+            </thead>
+            <tbody id="recordBody"><tr><td colspan='3'>暂无数据</td></tr></tbody>
+        </table>
+        <div class="page-list" id="record_page">
+            <span class="page-item"><</span>
+            <span class="page-item active">1</span>
+            <span class="page-item">></span>
+        </div>
+    </div>
+    <div class="activity">
+        <img class="title" src="/images/promo/loose/web-title.png" alt="">
+        <p>活动日期：2020年12月1日起</p>
+        <p style="line-height: 20px;">活动内容：</p>
+        <p>1.每日单笔存款500元以上可进行一次抽红包，奖金为18元至2888元不等</p>
+        <p>2.每日领奖金额自动放入东赢零钱宝中，满500元即可领取。</p>
+        <p>3.每个月最后一日23:59:59前没领取则视为放弃；</p>
+        <p>4.当月不限制零钱宝领取次数，符合领取后点击领取则领取零钱宝中全部金额；</p>
+        <p>5.奖金可在体育电竞游戏场馆完成3倍流水，其他场馆完成6倍流水后即可提款（彩票不共享）；</p>
+        <p>6.所有电竞/体育赔率均为欧洲盘，且投注赔率低于1.70和无效的、取消的、同局中对冲投注将不计算在有效投注内。</p>
+        <p>7.此优惠不与任意存送优惠共享；</p>
+        <p>8.此优惠促销只适用于拥有一个独立账户的玩家。住址、电子邮箱地址、电话号码、支付方式（相同借记卡/信用卡/银行账户号码）IP地址、同一网络环境等将可以作为判定是否独立玩家的条件。</p>
+        <p>9.对于发现任何有违背、欺骗、或利用规则和条款进行非法获利的会员，东赢电竞保留在任何时候都可以停止、取消优惠或索回已支付的全部优惠的权利。</p>
+        <p>10.东赢电竞有权延长、缩短、终止，或者修改此活动！此活动最终解释权归东赢电竞所有。</p>
+    </div>
+</div>
+</body>
+@@include('html-foot.html')
+<script type="text/javascript">
+    function getQueryString(name) {
+        var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+        var r = window.location.search.substr(1).match(reg);
+        if(r!=null)return  unescape(r[2]); return null;
+    }
+    var moneyBoxRecord=null;
+    var queryToken = getQueryString("token");
+    var headCode = getQueryString("headCode");
+    var menuCode = getQueryString("menuCode");
+    $(document).ready(function() {
+        mui.init();
+        // 点击确认的时候关闭模态层
+        mui(".mui-bar-nav").on('tap', '.mui-pull-left', function () {
+            window.location.href = "/index.html";
+        });
+        if (headCode === 'show') {
+            $('.mui-bar.mui-bar-nav').show();
+            $('.content').css('margin-top', '44px');
+        } else if (headCode === 'hide') {
+            $('.mui-bar.mui-bar-nav').hide();
+        }
+        if (menuCode === 'hide') {
+            $('#menu_nav').hide();
+        }
+        if (queryToken == null || queryToken === '') {
+            queryToken = wap_get_user().token;
+        }
+        if((queryToken===null || queryToken===undefined || queryToken==='') && wap_is_user_notexist()) {
+            fun_alertMsg("请登入后再操作", function() {
+                window.location.href="/index.html";
+            });
+        } else {
+            moneyBoxInit();
+        }
+        $('#money_box_lottery_btn').click(function() {
+            moneyBoxLottery();
+        });
+        $('#money_box_get_btn').click(function() {
+            getMemeberBoxBonus();
+        });
+
+    });
+
+    function moneyBoxInit() {
+        $('#recordBody').empty();
+        $('#recordBody').html("<tr><td colspan='3'>loading...</td></tr>");
+        $.ajax({
+            dataType: "jsonp",
+            url:event_site_host() + "/ptweb/moneyBox/init",
+            type:"POST",
+            data:{'token': queryToken},
+            dataType: 'json',
+            success:function(d){
+                if (d.code == 0) {
+                    $('#recordBody').empty();
+                    if(d.data.records && d.data.records.length) {
+                        moneyBoxRecord=d.data.records;
+                        showRecordPageItem();
+                        showRecordTableBody(1);
+                    } else {
+                        $('#recordBody').html("<tr><td colspan='3'>暂无数据</td></tr>");
+                    }
+                    $('#money_box_amount').html(d.data.amount.toFixed(2));
+                } else {
+                    fun_alertMsg(d.message, function() {});
+                    wap_if_session_out(d.code);
+                }
+            },
+            error:function(jqXHR, textStatus, errorThrown){
+                wap_check_ajaxerror(jqXHR);
+                fun_alertMsg('零钱宝初始化失败，请稍后重试', function() {});
+            }
+        });
+    }
+
+
+    function showRecordPageItem() {//加载lottery分页div
+        if(moneyBoxRecord.length>5){
+            var size=Math.ceil(moneyBoxRecord.length/5);
+            $('#record_page').html('');
+            var  appendHtml='<div class="page-item lottery_prev"><</div>'
+                +'<div class="page-item lottery_item active">'+1+'</div>';
+            for(var i=1;i<size;i++){
+                appendHtml+='<div class="page-item lottery_item">'+(i+1)+'</div>';
+            }
+            appendHtml+='<div class="page-item lottery_next">></div>';
+            $('#record_page').html(appendHtml);
+            $('.lottery_item').click(function(){
+                showRecordTableBody($(this).html());
+                $('.lottery_item').removeClass('active');
+                $(this).addClass('active');
+            });
+            $('.lottery_prev').click(function(){
+                var index=parseInt(''+$('.lottery_item.active').html());
+                if(index!=1){
+                    showRecordTableBody(index-1);
+                    $('.lottery_item').removeClass('active');
+                    $('.lottery_item:nth-child('+index+')').addClass('active');
+                }
+            });
+            $('.lottery_next').click(function(){
+                var index= parseInt(''+$('.lottery_item.active').html());
+                var maxIndex=Math.ceil(moneyBoxRecord.length/5);
+                if(index!=maxIndex){
+                    showRecordTableBody(index+1);
+                    $('.lottery_item').removeClass('active');
+                    $('.lottery_item:nth-child('+(index+2)+')').addClass('active');
+                }
+            });
+        }
+    }
+    function showRecordTableBody(index) {
+        $('#recordBody').html('');
+        $.each(moneyBoxRecord, function(i,v){
+            if(i>=(index-1)*5 && i<5*index){
+                var statusStr='<td class="green">已领取</td>';
+                $('#recordBody').append('<tr><td>' + v.date +'</td><td>' + v.bouns + '</td>' + statusStr );
+            }
+        });
+    }
+
+    function moneyBoxLottery() {
+        $.ajax({
+            dataType: "jsonp",
+            url:event_site_host() + "/ptweb/memberBoxLottery",
+            type:"POST",
+            data:{'token': queryToken},
+            dataType: 'json',
+            success:function(d){
+                if (d.code == 0) {
+                    fun_alertMsg("恭喜获得"+d.data.bonus.toFixed(2)+"元奖金，已存入零钱宝，感谢您的支持！",function () {
+                        moneyBoxInit();
+                    })
+                } else {
+                    fun_alertMsg(d.message, function() {});
+                    wap_if_session_out(d.code);
+                }
+            },
+            error:function(jqXHR, textStatus, errorThrown){
+                wap_check_ajaxerror(jqXHR);
+                fun_alertMsg('零钱宝抽奖失败，请稍后重试', function() {});
+            }
+        });
+    }
+
+    function getMemeberBoxBonus() {
+        $.ajax({
+            dataType: "jsonp",
+            url:event_site_host() + "/ptweb/getMemeberBoxBonus",
+            type:"POST",
+            data:{'token': queryToken},
+            dataType: 'json',
+            success:function(d){
+                if (d.code == 0) {
+                    fun_alertMsg("恭喜获得"+d.data.bonus.toFixed(2)+"元奖金，感谢您的支持！",function () {
+                        moneyBoxInit();
+                    })
+                } else {
+                    fun_alertMsg(d.message, function() {});
+                    wap_if_session_out(d.code);
+                }
+            },
+            error:function(jqXHR, textStatus, errorThrown){
+                wap_check_ajaxerror(jqXHR);
+                fun_alertMsg('零钱宝领取失败，请稍后重试', function() {});
+            }
+        });
+    }
+</script>
+</html>

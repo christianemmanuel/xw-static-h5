@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html class="ui-page-login">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<title>修改密码</title>
+	<!--标准mui.css-->
+	<link href="/mui/css/mui.min.css" rel="stylesheet" />
+	<link href="/style/css/main.css" rel="stylesheet" />
+	<link href="/style/css/index.css" rel="stylesheet" />
+	<!-- 加载JavaScript -->
+	<script type="text/javascript" src="/style/js/jquery-3.2.1.min.js"></script>
+	<script type="text/javascript" src="/style/layer/layer.js"></script>
+	<script type="text/javascript" src="/style/js/Validform_v5.3.2_min.js"></script>
+	<script type="text/javascript" src="/style/js/common.js"></script>
+	<script type="text/javascript" src="/style/js/md5.js"></script>
+	<script type="text/javascript" src="/mui/js/mui.min.js"></script>
+	<script type="text/javascript" src="/style/js/jquery.cookie.js"></script>
+	<style>
+		.ui-page-login,
+		body {
+			width: 100%;
+			height: 100%;
+			margin: 0px;
+			padding: 0px;
+            background: #fff;
+		}
+        .mui-input-row span{
+            color: #FF8C00;
+            padding-left: 5px;
+        }
+		.mui-content{height: 100%;padding: 10px 10px;}
+		.area {
+			margin: 20px auto 0px auto;
+		}
+		.mui-input-group {
+			margin-top: 10px;
+			background-color: #d2d2de;
+		}
+		.mui-input-group label {
+			width: 40%;
+			text-align: left;
+			padding: 0 10px;
+			line-height: 1.3rem;
+		}
+		.mui-input-group input{
+			line-height: 1.3rem;
+		}
+		.mui-input-row label~input,
+		.mui-input-row label~select,
+		.mui-input-row label~textarea {
+			width: 60%;
+		}
+		.login_header a{
+			position: absolute;
+			top: 20px;
+		}
+		.login_header a:active{color: #FF8C00;}
+		.login_header .mui-icon-left-nav{
+			left: 15px;
+		}
+		.mui-input-row .mui-input-password ~ .mui-icon-eye.mui-active{
+			color:#FF8C00;
+		}
+		.mui-btn {
+			padding: 10px;
+		}
+		.mui-input-group .mui-input-row {
+			margin: 10px 0px;
+			background-color: white;
+			height: 1.3rem;
+		}
+	</style>
+</head>
+
+<body>
+<div class="mui-off-canvas-wrap">
+	<div class="mui-inner-wrap">
+		<!-- 主体页面begin -->
+		<header class="mui-bar mui-bar-nav">
+			<a href="/wap/personal/personal_main.html" class="mui-icon mui-icon-back mui-pull-left"></a>
+			<h1 class="mui-title" id="header_title">修改密码</h1>
+		</header>
+		<div class="mui-content" >
+			<form id='login-form' class="mui-input-group">
+				<div class="mui-input-row mui-password">
+					<label><span class="mui-icon"></span> <span>*</span>旧密码</label>
+					<input id='oldPassword' type="password" class="mui-input-password" placeholder="旧密码"><span class="mui-icon mui-icon-eye"></span>
+				</div>
+				<div class="mui-input-row mui-password">
+					<label><span class="mui-icon"></span> <span>*</span>新密码</label>
+					<input id='password' type="password" class="mui-input-password" placeholder="新密码"><span class="mui-icon mui-icon-eye"></span>
+				</div>
+				<div class="mui-input-row mui-password">
+					<label><span class="mui-icon"></span> <span>*</span>确认密码</label>
+					<input id="plainPassword" type="password" class="mui-input-password" placeholder="确认新密码"><span class="mui-icon mui-icon-eye"></span>
+				</div>
+			</form>
+			<div style="margin-top: 20px;">
+				<div id='updatePwdBtn' class="form_sumbit_btn">修改密码</div>
+			</div>
+		</div>
+		<!-- 主体页面end -->
+	</div>
+</div>
+<script>
+    var loginMember = wap_get_user();
+    $(function(){
+        $("#updatePwdBtn").click(function(e){
+            e.preventDefault();
+            var oldPassword = $("#oldPassword").val().trim();
+            var password = $("#password").val().trim();
+            var plainPassword = $("#plainPassword").val().trim();
+            if (oldPassword.length == 0) {
+                fun_alertMsg('请输入旧密码！', function() {});
+                return;
+            } else if (password.length == 0){
+                fun_alertMsg('请输入新密码！', function() {});
+                return;
+            } else if (password.length < 6){
+                fun_alertMsg('新密码不能小于6位！', function() {});
+                return;
+            } else if(!/^[a-zA-Z0-9]*$/.test(password)){
+                fun_alertMsg('新密码必须为字母数字组合！', function() {});
+                return;
+            } else if (plainPassword.length == 0){
+                fun_alertMsg('请输入确认新密码！', function() {});
+                return;
+            } else if (password != plainPassword){
+                fun_alertMsg('两次输入密码必须一致！', function() {});
+                return;
+            }
+            mui($('#loginBtn')).button('loading');
+            $.ajax({
+                url:wap_site_host() + "/session/member/password",
+                type:"POST",
+                data:{"oldPassword":hex_md5(oldPassword).toUpperCase(), "password":hex_md5(password).toUpperCase(), "plainPassword":plainPassword, 'token':loginMember.token},
+                dataType: 'json',
+                success:function(d){
+                    if (d.code == 0) {
+                        mui($('#loginBtn')).button('reset');
+                        fun_alertMsg('密码修改成功。', function() {
+                        	$.ajax({
+                                dataType: "jsonp",
+                                url:wap_site_host() + "/session/member/logout",
+                                type:"GET",
+                                data:{'token':loginMember.token},
+                                dataType: 'json',
+                                success:function(d){
+                                    wap_logout();
+                                    window.location.href = "/index.html";
+                                },
+                                error:function(e){
+                                    wap_logout();
+                                    window.location.href = "/index.html";
+                                }
+                            });
+                        });
+                    } else {
+                        fun_alertMsg(d.message, function() {});
+                        mui($('#loginBtn')).button('reset');
+                        wap_if_session_out(d.code);
+                    }
+                },
+                error:function(jqXHR, textStatus){
+                    wap_check_ajaxerror(jqXHR);
+                    fun_alertMsg('修改密码异常！', function() {});
+                    mui($('#loginBtn')).button('reset');
+                }
+            });
+        });
+    });
+</script>
+</body>
+@@include('html-foot.html')
+</html>

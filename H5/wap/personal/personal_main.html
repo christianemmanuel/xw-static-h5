@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html class="ui-page-login">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<title>个人中心</title>
+	<!--标准mui.css-->
+	<link href="/mui/css/mui.min.css" rel="stylesheet" />
+	<link href="/mui/css/mui-icons-extra.css" rel="stylesheet" />
+	<link href="/style/plugins/layui/css/layui.css" rel="stylesheet" />
+	<link href="/style/css/main.css" rel="stylesheet" />
+	<link href="/style/css/index.css" rel="stylesheet" />
+	<link href="/style/css/personal-info.css" rel="stylesheet" />
+
+	<!-- 加载JavaScript -->
+	<script type="text/javascript" src="/style/js/jquery-3.2.1.min.js"></script>
+	<script type="text/javascript" src="/style/layer/layer.js"></script>
+	<script type="text/javascript" src="/style/js/Validform_v5.3.2_min.js"></script>
+	<script type="text/javascript" src="/style/js/common.js"></script>
+	<script type="text/javascript" src="/mui/js/mui.min.js"></script>
+	<script type="text/javascript" src="/style/js/jquery.cookie.js"></script>
+	<script type="text/javascript" src="/style/js/clipboard.min.js"></script>
+	<script type="text/javascript" src="/style/plugins/layui/layui.js"></script>
+	<style>
+
+	</style>
+</head>
+<body>
+<div class="mui-content personal">
+	<div class="profile">
+		<div class="mui-row">
+			<img class="personal_icon" src="../../images/personal/profile-img0.png">
+            <!--<img class="edit" src="https://xwsr2.16fass88.com/resources/wap_new/images/new-layout/edit.png">-->
+			<img class="personal_icon" id="vipImg" src="../../images/personal/profile-img1.png" onerror="javascript:this.src='../../images/personal/profile-img1.png'">
+			<div class="personal_login">
+				<span id="personal_login_name">xxx</span>
+				<span><img id="personal_vip_img" src="../../images/vip/vip_text_1.png" ></span>
+				<br>
+				<span id="dayCount">您已经加入东赢xxx天</span>
+				<div>
+					<div class="layui-progress" style="width: 80%;display: inline-block;">
+						<div class="layui-progress-bar"  style="width: 1%;background-color: #edce73"></div>
+					</div>
+					<span class="next_vip_level">vip1</span>
+				</div>
+				<span id="leftCredit">升级还需要xxx元存款</span>
+			</div>
+		</div>
+	</div>
+
+	<div class="personal_container">
+		<div class="personal_details">
+			<div class="mui-row personal_moeny">
+				<span class="personal_moeny_text">中心钱包：</span><br>
+				<span class="personal_moeny_amount">0.00</span>
+			</div>
+			<div class="mui-row">
+				<div class="mui-col-xs-3" onclick="fun_openUrl('/wap/deposit/deposit_index.html')"><img src="/images/index/deposit_icon.png"><span>存款</span></div>
+				<div class="mui-col-xs-3" onclick="fun_openUrl('/wap/withdrawal/withdrawal_index.html')"><img src="/images/index/withdrawal_icon.png"><span>取款</span></div>
+				<div class="mui-col-xs-3" onclick="fun_openUrl('/wap/transfer/transfer_index.html')"><img src="/images/index/transfer_icon.png"><span>转账</span></div>
+				<div class="mui-col-xs-3" onclick="fun_openUrl('/wap/vip/dy_vip.html')"><img src="/images/index/vip_icon.png"><span>VIP详情</span></div>
+			</div>
+		</div>
+		<div class="personal_menu">
+			<div class="personal_menu_title"><img src="../../images/personal/personal_menu_title_icon.png">我的功能</div>
+			<div class="personal_menu_list">
+				<div><a class="menu_icon_record" onclick="fun_openUrl('/wap/records/records_index.html')">交易记录</a></div>
+				<div><a class="menu_icon_bouns" onclick="fun_openUrl('/wap/helpbonus/hb_index.html')">优惠领取</a></div>
+				<div><a class="menu_icon_info" onclick="fun_openUrl('/wap/personal/personal_info.html')">个人信息</a></div>
+				<div><a class="menu_icon_password" onclick="fun_openUrl('/wap/personal/updatePwd.html')">修改密码</a></div>
+				<div><a class="menu_icon_bank" onclick="fun_openUrl('/wap/bank/bank_index.html')">银行信息</a></div>
+				<div><a class="menu_icon_download" onclick="fun_openUrl('/wap/download/d_index.html')">下载中心</a></div>
+				<div><a class="menu_icon_notice" onclick="fun_openUrl('/wap/system-notice/sn_index.html')">系统公告</a></div>
+				<div><a class="menu_icon_mail" onclick="fun_openUrl('/wap/station-letter/sl_index.html')">站内信(0)</a></div>
+				<div><a class="menu_icon_agent" onclick="window.open('https://partner.dyvip90.com','_blank')">加盟</a></div>
+			</div>
+		</div>
+		<div class="personal_logout" onclick="fun_login_out()">退出登录</div>
+	</div>
+</div>
+
+</body>
+@@include('html-foot.html')
+<script type="text/javascript">
+    $("#menu_nav a.bar-active").removeClass("bar-active")
+    $("#menu_nav a:nth-child(5)").addClass("bar-active")
+</script>
+<script>
+    var loginMember = wap_get_user();
+    $(document).ready(function() {
+        initPage();
+        $(".edit").click(function(){
+            $('.overlay').show();
+            $('.overlay-bg').show();
+        });
+        $(".overlay-bg").click(function(){
+            $('.overlay').hide();
+            $('.overlay-bg').hide();
+        });
+        //previewLoad();
+    });
+    function initPage(){
+        fun_checkLoginStatus(null);
+        /*$('#vipDomain').html('专属网址：<a style="top: 0px; color:white" href="' + loginMember.userDomain + '">' +
+            loginMember.userDomain +'</a>');*/
+        $('#personal_login_name').text(fun_filterTxt(loginMember.loginName.toLowerCase()));
+        /*$('#vip_level_num').text(fun_filterTxt(loginMember.vipLevel));*/
+        if(loginMember.vipLevel>1){
+            $('#personal_vip_img').attr("src", '/images/vip/vip_text_'+(loginMember.vipLevel-1)+'.png');
+		}else{
+            $('#personal_vip_img').attr("src", '');
+		}
+        //$("#vipImg").attr("src",loginMember.faceImg);
+        loadNewMessageCount();
+        loadBalance();
+        loadVipInfo();
+        //checkAgent();
+    }
+    function loadVipInfo(){
+        $.ajax({
+            type:"POST",
+            url: wap_site_host() + "/session/member/vipInfo?token="+wap_get_user().token,
+            success:function(d){
+                if(d.code==0){
+                    $('#dayCount').html('您已经加入东赢'+d.data.regDays+'天');
+                    $('#leftCredit').html('升级还需要'+d.data.leftCredit+'元存款');
+                    var percent=d.data.percent+"%"
+                    $('.layui-progress-bar').css({"width":percent});
+                    if(d.data.vipStauts==1){//0 正常 1 保级 2降级
+                        $('.next_vip_level').text('VIP'+(loginMember.vipLevel)+'(保级)');
+					}else if (d.data.vipStauts==2){
+                        $('.next_vip_level').text('VIP'+(loginMember.vipLevel)+'(降级)');
+					}else{
+                        $('.next_vip_level').text('VIP'+(loginMember.vipLevel));
+					}
+                }
+            }
+        });
+	}
+    function loadNewMessageCount(){
+        $.ajax({
+            type:"POST",
+            url: wap_site_host() + "/session/message/accountMessage/getNewMessageCount?token="+wap_get_user().token,
+            success:function(resultData){
+                if(resultData.code==0 && resultData.data.count>0){
+                    $('.menu_icon_mail').text('站内信('+resultData.data.count+')');
+                }
+            }
+        });
+    }
+    function loadBalance() {
+        if (wap_is_user_notexist()) {
+            wap_need_login();
+        }else {
+            $('.personal_moeny_amount').html('0.00');
+            $.ajax({
+                dataType: "jsonp",
+                url: wap_site_host() + "/session/balance/main",
+                type: "GET",
+                data: {"token": wap_get_user().token},
+                dataType: 'json',
+                success: function (resultData) {
+                    if (resultData.code == 0) {
+                        $('.personal_moeny_amount').html(resultData.data);
+                    }else {
+                        fun_alertMsg(resultData.message, function() {});
+                        wap_if_session_out(resultData.code);
+                    }
+                },
+                error: function (jqXHR, textStatus) {
+                    wap_check_ajaxerror(jqXHR);
+                    fun_toast('获取主钱包失败，请稍后重试');
+                }
+            });
+        }
+    }
+    //退出
+	function  fun_login_out() {
+        fun_confirmMsg('确认要退出登录吗？',function(){
+            $.ajax({
+                dataType: "jsonp",
+                url:wap_site_host() + "/session/member/logout",
+                type:"GET",
+                data:{'token':loginMember.token},
+                dataType: 'json',
+                success:function(d){
+                    wap_logout();
+                    window.location.href = "/index.html";
+                },
+                error:function(e){
+                    wap_logout();
+                    window.location.href = "/index.html";
+                }
+            });
+        },function(){});
+    }
+
+    /*function checkAgent() {
+        $.ajax({
+            dataType: "jsonp",
+            url:wap_site_host() + "/session/member/getAgentInfo",
+            type:"GET",
+            data:{'token': wap_get_user().token},
+            success:function(d) {
+                if (d.code == 0) {
+                    if(!d.data.exit){
+                        $('#agent_div').show();
+                    }else{
+                        $('#agent_div').hide();
+                    }
+                }else {
+                    fun_alertMsg(d.message, function() {});
+                    wap_if_session_out(d.code);
+                }
+            },
+            error:function(jqXHR, textStatus, errorThrown){
+                wap_check_ajaxerror(jqXHR);
+                fun_alertMsg('查询是否注册代理异常！', function() {});
+            }
+        });
+    }*/
+    function registerAgent() {
+        fun_confirmMsg('是否要快速注册代理',function (){
+            $.ajax({
+                dataType: "jsonp",
+                url:wap_site_host() + "/session/member/registerAgent",
+                type:"GET",
+                data:{'token': wap_get_user().token},
+                success:function(d) {
+                    if (d.code == 0) {
+                        var agentCode= fun_filterTxt(d.data.agentCode);
+                        var agentUrl= fun_filterTxt(d.data.agentUrl);
+                        fun_alertMsg('代理注册成功<br>您的专属推广码为：'+agentCode+'<br>推广链接：'+agentUrl+'<br>在[个人资料]里面可以看见您的推广码和推广链接', function() {
+                            window.location.href="/wap/personal/personal_info.html";
+                        });
+                    }else {
+                        fun_alertMsg(d.message, function() {});
+                        wap_if_session_out(d.code);
+                    }
+                },
+                error:function(jqXHR, textStatus, errorThrown){
+                    wap_check_ajaxerror(jqXHR);
+                    fun_alertMsg('注册代理异常！', function() {});
+                }
+            });
+        },function () {})
+    }
+    
+    function  change_face_img(div) {
+		var img_src=$("#vipImg").attr("src");
+		var div_src=$(div).find('img:last').attr("src");
+		if(img_src==div_src)
+		    return;
+        fun_confirmMsg('是否要更换头像',function (){
+            $.ajax({
+                dataType: "jsonp",
+                url:wap_site_host() + "/session/member/updateFaceImg",
+                type:"POST",
+                data:{'faceImgName':div_src,'token': wap_get_user().token},
+                success:function(d) {
+                    if (d.code == 0) {
+                        $("#vipImg").attr("src",div_src);
+                        loginMember.faceImg=div_src;
+                        wap_set_user(loginMember);
+                    }else {
+                        fun_alertMsg(d.message, function() {});
+                        wap_if_session_out(d.code);
+                    }
+                },
+                error:function(jqXHR, textStatus, errorThrown){
+                    wap_check_ajaxerror(jqXHR);
+                    fun_alertMsg('更新头像异常！请刷新重试', function() {});
+                }
+            });
+        },function () {})
+    }
+    function previewLoad(){
+        fun_alertMsg("敬请期待", function() {});
+        /*$("#img_input").change(function (e) {
+            fun_alertMsg("敬请期待", function() {});
+            var file=e.target.files[0];
+            var max_size=1024*1024*3;//3MB
+            if(file.size>max_size){
+                fun_alertMsg("图片大小不能超过3MB", function() {});return;
+            }
+            var reader=new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload=function (e) {
+                $('#pre_image').attr("src", e.target.result);
+                /!*var cropper = new Cropper(image, {
+                    aspectRatio: 1,
+                    viewMode: 1,
+                    ready: function () {
+                        croppable = true;
+                    }
+                })*!/;
+                //$('.overlay').hide();
+                //$('#preview_div').show();
+            };
+        });*/
+    }
+
+    function upload() {
+        var upload = document.getElementById('img_input');
+        var image = upload.files[0];
+        var max_size=1024*1024*3;//3MB
+        var compress_size=1024*1024;//1MB
+        if(image.size>max_size){
+            fun_alertMsg("图片大小不能超过3MB", function() {});return;
+        }
+        var uploadFormData = new FormData($('#img_form')[0]);
+        if(image.size>compress_size) {
+            fc_photoCompress(image, { quality: 0.2 }, function(base64Codes){
+                var bl = fc_convertBase64UrlToBlob(base64Codes);
+                uploadFormData = new FormData(); // FormData 对象
+                uploadFormData.append("file", bl, "file_"+Date.parse(new Date())+".jpg"); // 文件对象
+                uploadFile(uploadFormData);
+            });
+        }else{
+            uploadFile(uploadFormData);
+        }
+    }
+
+    function uploadFile(uploadFormData){
+        $.ajax({
+            url: "https://a2d33xko.edu432.com/upload",
+            type: "POST",
+            data: uploadFormData,
+            contentType:false,
+            cache: false,
+            processData:false,
+            dataType:'json',
+            success:function (d) {
+                if (d.code == 0) {
+                    saveFileInfo("https://a2d33xko.edu432.com/img/"+d.data.url);
+                }else if(d.code===1){
+                    fun_alertMsg(d.errMsg, function() {window.location.reload();});
+                }else {
+                    fun_alertMsg(d.errMsg, function() {});
+                }
+            },
+            error:function(jqXHR){
+                fun_toast('请求失败，请稍后重试');
+            }
+        });
+    }
+    function saveFileInfo(url){
+        $.ajax({
+            dataType: "jsonp",
+            url:wap_site_host() + "/session/member/updateFaceImg",
+            type:"POST",
+            data:{'faceImgName':url,'token': wap_get_user().token},
+            success:function(d) {
+                if (d.code == 0) {
+                    $("#vipImg").attr("src",url);
+                    loginMember.faceImg=url;
+                    wap_set_user(loginMember);
+                }else {
+                    fun_alertMsg(d.message, function() {});
+                    wap_if_session_out(d.code);
+                }
+            },
+            error:function(jqXHR, textStatus, errorThrown){
+                wap_check_ajaxerror(jqXHR);
+                fun_alertMsg('更新头像异常！请刷新重试', function() {});
+            }
+        });
+    }
+</script>
+</html>

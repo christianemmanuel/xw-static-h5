@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<title>东赢</title>
+	<!--标准mui.css-->
+	<link href="/mui/css/mui.min.css" rel="stylesheet" />
+	<link href="/mui/css/common.css" rel="stylesheet" />
+	<!--扩展图标-->
+	<link href="/mui/css/mui-icons-extra.css" rel="stylesheet" />
+	<link href="/style/css/main.css" rel="stylesheet" />
+	<link href="/style/css/index.css" rel="stylesheet" />
+	<!-- 加载JavaScript -->
+	<script type="text/javascript" src="/style/js/jquery-3.2.1.min.js"></script>
+	<script type="text/javascript" src="/style/layer/layer.js"></script>
+	<script type="text/javascript" src="/style/js/Validform_v5.3.2_min.js"></script>
+	<script type="text/javascript" src="/style/js/common.js"></script>
+	<script type="text/javascript" src="/mui/js/mui.min.js"></script>
+	<script type="text/javascript" src="/style/js/jquery.cookie.js"></script>
+	<script type="text/javascript" src="/style/js/clipboard.min.js"></script>
+</head>
+<body class="mui-ios mui-ios-9 mui-ios-9-1">
+	<header id="fail_header" class="mui-bar mui-bar-nav">
+		<a class="mui-icon mui-icon-back mui-pull-left" href="/index.html">返回</a>
+		<h1 class="mui-title" style="color: #ffffff;">客服</h1>
+	</header>
+    <div class="mui-content">
+    	<div class="mui-input-row"><img src="https://xwsr2.16fass88.com/resources/wap_new/images/kefu.jpg" style="width: 100%;" id="csImg"></div>
+		<div style="background: white;padding: 10px;">
+			<div class="color-red-card">
+				<div class="mui-card" style="padding: 5px 20px;">
+					<div class="mui-card-content" id="csContent">
+						<span>欢迎访问东赢</span><br>
+						<span>我们的官网是: https://www.xw228.com</span><br>
+						<span>东赢返水高达2.0%天天自助领取，20%救援金，奖金高达8888元</span><br>
+					</div>
+				</div>
+			</div>
+		</div>
+    	<ul class="mui-table-view">
+			<!--<li class="mui-table-view-cell mui-collapse">
+				<a class="mui-navigate-right"><img src="https://xwsr2.16fass88.com/resources/wap_new/images/icon_qq.png" width="25px" style="vertical-align: middle;margin-right: 5px;">QQ</a>
+				<ul class="mui-table-view mui-table-view-chevron">
+					<li class="mui-table-view-cell" style="text-align: left;">
+						<span id="cs_qqnumber" style="display: inline-block;float: left">QQ：3007292272</span><button style="color: white; background-color: #f0ad4e; padding: 0;float: left;margin-left: 5px;" id="cs_qqnumber_btn"></button>
+					</li>
+				</ul>
+			</li>-->
+			<li class="mui-table-view-cell">
+				<a class="mui-navigate-right" href="https://kwsz.28sa6ywqc.com/chatserver/chatwindow.aspx?planId=5&siteId=100016502" target="_blank" id="live_url">
+					<img src="https://kzqz.changliangcj.com/resources/wap_new/images/icon_custom.png" width="25px" style="vertical-align: middle;margin-right: 5px;">在线客服
+				</a>
+			</li>
+		</ul>
+	</div>
+</body>
+@@include('html-foot.html')
+<script type="text/javascript">
+    $("#menu_nav a.bar-active").removeClass("bar-active")
+    $("#menu_nav a:nth-child(2)").addClass("bar-active")
+</script>
+<script type="text/javascript">
+	
+	mui.init();
+	//mui("#slider").slider({interval:3000});
+	
+	$(document).ready(function() {
+        $("#menu_nav a.bar-active").removeClass("bar-active")
+        $("#menu_nav a:nth-child(3)").addClass("bar-active")
+		loadInfos();
+		initCsInfo();
+	});
+ 	
+
+	function loadInfos(){
+		$.ajax({
+			dataType: "jsonp",
+			crossDomain: true,
+			url:wap_site_host()+'/rest/api/otherSetting',
+			success:function(resultData){
+				if(resultData.code==0){
+					var data = JSON.parse(resultData.data);
+					/*$('#cs_qqnumber').html('客服QQ：'+data.qqnumber);*/
+					/*$('#wx_img').attr('src',data.wechatimg);*/
+					$('#live_url').attr('href',data.liveurl);
+                   /* var appendHtml='<a class="cs_qqnumber_btn_a" data-clipboard-text="'+fun_filterTxt(data.qqnumber)+'">复制</a>';
+                    $('#cs_qqnumber_btn').append(appendHtml);
+                    var clipboard = new Clipboard('.cs_qqnumber_btn_a');
+                    clipboard.on('success', function(e) { fun_toast('复制成功'); });
+                    clipboard.on('error', function(e) { fun_toast('复制失败'); });*/
+				}
+			}
+		});
+	}
+	function initCsInfo(){
+		$.ajax({
+			dataType: "jsonp",
+			crossDomain: true,
+			url:wap_site_host()+'/rest/api/csInfo',
+			success:function(resultData){
+				if(resultData.code==0){
+					var data = JSON.stringify(resultData.data);
+					$('#csContent').html(resultData.data['cs']);
+					//addScriptTag(resultData.data['url']);
+					$("#csImg").attr('src',resultData.data['img']);
+				}
+			}
+		});
+	}
+</script>
+</html>

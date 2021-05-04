@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>东赢 - 老虎机</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+	<!--标准mui.css-->
+	<link href="/mui/css/mui.min.css" rel="stylesheet" />
+	<link href="/mui/css/common.css" rel="stylesheet" />
+	<link href="/style/css/index.css" rel="stylesheet" />
+	<!--扩展图标-->
+	<link href="/mui/css/mui-icons-extra.css" rel="stylesheet" />
+	<link href="/style/css/main.css" rel="stylesheet" />
+	<style type="text/css">
+		.mui-table-view-cell .mui-media-body{float: left;}
+		.title-nav{
+			background: #F0EFF4;
+			text-align: center;
+			height: 38px;
+			line-height: 38px;
+			vertical-align: middle;
+		}
+		.title-nav img{
+			margin-right: 15px;
+			vertical-align: middle;
+		}
+		.mui-table-view.mui-grid-view .mui-table-view-cell .mui-media-body{
+			font-size: 13px;
+		}
+	</style>
+</head>
+<body style="padding: 0px;">
+<!--侧滑菜单容器-->
+<div class="mui-off-canvas-wrap">
+	<div class="mui-inner-wrap">
+		<!-- 主体页面begin -->
+		<header class="mui-bar mui-bar-nav">
+			<a href="/index.html" class="mui-icon mui-icon-back mui-pull-left"></a>
+			<h1 class="mui-title" id="header_title">老虎机</h1>
+		</header>
+		<div class="mui-content" style="height: 100%;">
+			<div id="slider2" class="mui-slider">
+				<div class="mui-slider-group">
+					<div id="item1mobile" class="mui-slider-item mui-control-content mui-active">
+						<div id="scroll1" class="mui-scroll-wrapper">
+							<div class="mui-scroll">
+								<ul class="mui-table-view mui-grid-view mui-grid-9" style="background: white;">
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- 主体页面end -->
+	</div>
+</div>
+</body>
+<!-- 加载JavaScript -->
+<script type="text/javascript" src="/style/js/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="/style/layer/layer.js"></script>
+<script type="text/javascript" src="/style/js/common.js"></script>
+<script type="text/javascript" src="/mui/js/mui.min.js"></script>
+<script type="text/javascript" src="/style/js/jquery.cookie.js"></script>
+@@include('html-foot.html')
+<script type="text/javascript">
+    $(document).ready(function(){
+        mui.init();
+        $.ajax({
+            dataType: "jsonp",
+            url:wap_site_host()+'/rest/api/platforms',
+            success:function(resultData){
+                if(resultData.code==0){
+                    var laoHuJiHtml='',zhenRenHtml='',tiyuHtml='',buYuHtml='';
+                    _setStorageData('_all_app_plat', JSON.stringify(resultData.data));
+                    if(resultData.data.length<5){$('.mui-control-content').css('min-height','112px') }
+                    else if(resultData.data.length>4&&resultData.data.length<9){$('.mui-control-content').css('min-height','224px') }
+                    else if(resultData.data.length>8&&resultData.data.length<13){$('.mui-control-content').css('min-height','336px') }
+                    else if(resultData.data.length>13&&resultData.data.length<118){$('.mui-control-content').css('min-height','448px') }
+                    $.each(resultData.data,function(n, value){
+                        if(value.platformNameEn != 'OPUS'&&value.platformCode!='TCG') {
+                            var cnName = '', enName = '';
+                            if(value.appPname) {
+                                cnName = value.appPname;
+                                enName = value.platformNameEn;
+                            }else {
+                                cnName = value.platformNameEn;
+                            }
+                            /*if(value.platformCode=="NPT"){ cnName = 'SW老虎机'; }*/
+
+                            if(value.platformCode=="XJ"){
+                                var appendHtml = '<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3"\
+    							onclick="goSport()" >';
+                            }else{
+                                if(value.redirectUrl=='null'||value.redirectUrl==undefined){
+                                    var appendHtml = '<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3"\
+    								onclick="openPlatform('+value.id+',\''+fun_filterTxt(value.platformNameEn)+'\',this)" >';
+                                }else{
+                                    var appendHtml = '<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3"\
+    								onclick="goToUrl(\''+value.redirectUrl+'\')" >';
+                                }
+                            }
+                            appendHtml = appendHtml + '<a href="javascript:void(0);">\
+    							<span class="mui-icon icon-'+fun_filterTxt((enName.length=='')? value.platformNameEn: enName)+'"></span>\
+                                <div class="mui-media-body">'+fun_filterTxt(cnName)+'</div></a></li>'
+
+                            if(value.ptype == 0){
+                                laoHuJiHtml+=appendHtml;
+                            }else if(value.ptype == 1){
+                                zhenRenHtml+=appendHtml;
+                            }else if(value.ptype == 2){
+                                tiyuHtml+=appendHtml;
+                            }else{
+                                buYuHtml+=appendHtml;
+                            }
+                        }
+                    });
+                    tiyuHtml+='<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3"\
+    							onclick="goXj_dzjj()" >\
+								<a href="javascript:void(0);">\
+								<span class="mui-icon icon-xj_dzjj"></span>\
+								<div class="mui-media-body">电子竞技</div></a></li>';
+                    laoHuJiHtml+='<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3"\
+    							onclick="window.location.href=\'/wap/new-page/fishing.html\'" >\
+								<a href="javascript:void(0);">\
+								<span class="mui-icon icon-fish"></span>\
+								<div class="mui-media-body">捕鱼</div></a></li>'
+                    $('#scroll1 ul').html(laoHuJiHtml);
+                }
+            }
+        });
+    });
+    function openPlatform(id,platformNameEn,dom_a){
+        _setStorageData('_select_plat_id', id);
+        _setStorageData('_select_plat_name_en', platformNameEn);
+        window.location.href = "/wap/plat-game/pg_index.html";
+    }
+    function goToUrl(redirectUrl) {
+        if (wap_is_user_notexist()) {
+            fun_alertMsg('请登录后再操作','系统提示');
+        } else {
+            window.location.href = redirectUrl+'&token='+wap_get_user().token;
+        }
+    }
+</script>
+</html>

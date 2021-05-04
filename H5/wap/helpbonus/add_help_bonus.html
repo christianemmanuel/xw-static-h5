@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html class="ui-page-login">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<title>东赢 - 救援金</title>
+	<!--标准mui.css-->
+	<link href="/mui/css/mui.min.css" rel="stylesheet" />
+	<link href="/mui/css/mui-icons-extra.css" rel="stylesheet" />
+	<link href="/style/css/main.css" rel="stylesheet" />
+	<link href="/style/css/index.css" rel="stylesheet" />
+	<!-- 加载JavaScript -->
+	<script type="text/javascript" src="/style/js/jquery-3.2.1.min.js"></script>
+	<script type="text/javascript" src="/style/layer/layer.js"></script>
+	<script type="text/javascript" src="/style/js/Validform_v5.3.2_min.js"></script>
+	<script type="text/javascript" src="/style/js/common.js"></script>
+	<script type="text/javascript" src="/mui/js/mui.min.js"></script>
+	<script type="text/javascript" src="/style/js/jquery.cookie.js"></script>
+	<style>
+        body{
+            background: #fff;
+        }
+		td, th {
+			display: table-cell;
+			vertical-align: inherit;
+			padding:6px 0;
+			color: #746AF0;
+			background-color: #fff;
+			border: 1px solid #ccc;
+		}
+		li {
+			list-style: none;
+		}
+    </style>
+</head>
+<body>
+	<div class="login_header">
+		<h1 class="mui-title" style="margin:0px;    padding-top: 10px;">
+			<a class="mui-icon mui-icon-left-nav" href="/wap/helpbonus/hb_index.html" style="margin:10px;color: #fff;position:fixed;top:5px;left:0;"></a>救援金
+		</h1>
+		<img src="../../images/new_dy_big_head.png" style="width: 100%;display: block;">
+	</div>
+	<div class="mui-content">
+		<div style="padding-top:20px;">
+			<div class="mui-row" style="margin-bottom: 10px;">
+				<div class="mui-col-xs-4 mui-col-sm-4"></div>
+				<div class="mui-col-xs-4 mui-col-sm-4">
+					<button type="button" id='yesterdayHelp' onclick="submitHelpBonus()" class="submit_btn" data-loading-text="领取中...">申请救援金</button>
+				</div>
+				<div class="mui-col-xs-4 mui-col-sm-4"></div>
+			</div>
+		</div>
+		<div>
+			<div style="line-height: 30px;text-align: center;border-bottom:1px solid #ccc;">救援金，全天候开放申请！</div>
+			<div style="padding: 5px 10px;">
+				<div style="background:linear-gradient(90deg, #7abdfc 0%, #2d74f6 100%);border-radius: 8px;padding: 20px 10px;text-align: center;color: #fff;">
+					东赢20%救援金，助您反败为胜,奖金高达8888元
+				</div>
+			</div>
+		</div>
+		<div>
+			<div style="line-height: 30px;text-align: center;border-bottom:1px solid #ccc;">活动内容</div>
+			<div style="padding: 5px 10px;">
+				<table width="100%" style="text-align: center;margin: 10px auto;" border="1">
+					<tr>
+						<th>单次领取救援金时负盈利</th>
+						<th>奖金额度</th>
+						<th>账户余额</th>
+					</tr>
+					<tr>
+						<td>≥200</td>
+						<td>15%</td>
+						<td rowspan="5">0≤余额≤5元</td>
+					</tr>
+					<tr>
+						<td>≥500</td>
+						<td>16%</td>
+					</tr>
+					<tr>
+						<td>≥1000</td>
+						<td>17%</td>
+					</tr>
+					<tr>
+						<td>≥3000</td>
+						<td>18%</td>
+					</tr>
+					<tr>
+						<td>≥5000</td>
+						<td>20%</td>
+					</tr>
+				</table>
+				<table width="100%" style="text-align: center;margin: 10px auto;" border="1">
+					<tr>
+						<th>等级</th>
+						<th>每日领取次数</th>
+						<th>当日最高奖金</th>
+					</tr>
+					<tr>
+						<td>VIP1-VIP3</td>
+						<td>3次</td>
+						<td>3000</td>
+					</tr>
+					<tr>
+						<td>VIP4-VIP6</td>
+						<td>5次</td>
+						<td>3888</td>
+					</tr>
+					<tr>
+						<td>VIP7</td>
+						<td>8次</td>
+						<td>5888</td>
+					</tr>
+					<tr>
+						<td>VIP8</td>
+						<td>10次</td>
+						<td>6888</td>
+					</tr>
+					<tr>
+						<td>VIP9-VIP10</td>
+						<td>无限次</td>
+						<td>8888</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+		<div>
+			<div style="line-height: 30px;text-align: center;border-bottom:1px solid #ccc;">优惠条件</div>
+			<div style="padding: 5px 10px 20px;">
+				<div style="background: #fe42b2;background:linear-gradient(90deg, #7abdfc 0%, #2d74f6 100%);border-radius: 8px;padding: 20px 20px;">
+					<div style="background-color: #fff;border-radius: 8px;padding: 10px 0;">
+						<ol style="padding-right: 15px;">
+							<li style="list-style: decimal;">只要您当天负盈利达到200元，0&le;账户余额&le;5元即可申请。</li>
+							<li style="list-style: decimal;">救援金与首存不共享。</li>
+							<li style="list-style: decimal;">救援金经审核后，系统将自动派发到您到主账户。</li>
+						</ol>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+@@include('html-foot.html')
+<script>
+    //var loginMember = wap_get_user();
+    var queryToken = getQueryString("token");
+    var menuCode = getQueryString("menuCode");
+    var headCode = getQueryString("headCode");
+
+    $(document).ready(function(){
+        if(menuCode==='hide'){
+            $('#menu_nav').hide();
+        }
+        if(headCode === 'hide') {
+			$('.mui-title').hide();
+		}
+        if(queryToken == null || queryToken === '') {
+            queryToken = wap_get_user().token;
+        }
+        if((queryToken===null || queryToken===undefined || queryToken==='') && wap_is_user_notexist()) {
+            fun_alertMsg("请登入后再操作", function() {
+                window.location.href="/index.html";
+            });
+        }
+    });
+    function getQueryString(name) {
+        var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+        var r = window.location.search.substr(1).match(reg);
+        if(r!=null)return  unescape(r[2]); return null;
+    }
+    function submitHelpBonus() {
+        mui($('#yesterdayHelp')).button('loading');
+        $.ajax({
+            url:wap_site_host() + "/session/helpbonus/member/help-bonus",
+            type:"GET",
+            crossDomain: true,
+            data:{'token':queryToken},
+            dataType: 'json',
+            success:function(d){
+                if (d.code == 0) {
+                    fun_alertMsg('提交成功', function() { window.location.href='/wap/helpbonus/hb_index.html' });
+                    mui($('#yesterdayHelp')).button('reset');
+                } else {
+                    fun_alertMsg(d.message, function() {});
+                    wap_if_session_out(d.code);
+                    mui($('#yesterdayHelp')).button('reset');
+                }
+            },
+            error:function(jqXHR, textStatus){
+                wap_check_ajaxerror(jqXHR);
+                fun_alertMsg('提交转运金异常！', function() {});
+                mui($('#yesterdayHelp')).button('reset');
+            }
+        });
+    }
+</script>
+</html>

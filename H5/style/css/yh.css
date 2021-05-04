@@ -1,0 +1,137 @@
+.yhTitle{
+	padding-top: 46px;
+	background-color: rgba(255, 255, 255, 0.95);
+}
+.yhTitle h1{
+	text-align: center;
+	line-height: 1rem;
+	height: 1rem;
+	font-size: 0.5rem;
+	margin-top: 0;
+}
+.yhTab{
+	width: 100%;
+	padding: 0 0rem;
+	box-sizing: border-box;
+	text-align: center;
+	height: 1rem;
+}
+.yhTab a{
+	height: .778rem;
+	width: 20%;
+	border-radius: .6rem;
+	font-size: .305rem;
+	color: #3a3a3a;
+	line-height: .778rem;
+}
+.yhTab a.on{
+	color: #3e5cc0;
+	background: url(../../images/tab_bg.png) bottom no-repeat;
+	background-size: 0.4rem 0.2rem;
+}
+.yhList ul li .img1, .yhList ul li a, .yhTab a{
+	display: inline-block;
+	float: left;
+}
+.yhList{
+	font-family: 宋体;
+	font-size: 13px;
+	width: 100%;
+	overflow: hidden;
+	margin-bottom: 2rem;
+}
+.yhList h2 {
+	font-size: 18px;
+}
+.yhList ul{
+	width: 100%;
+	overflow: hidden;
+	list-style: none;
+	margin: 0;
+	padding: 0 0.4rem;
+}
+.yhList ul li{
+	width: 100%;
+	padding: .15rem 0;
+	float: left;
+	box-sizing: border-box;
+}
+.yhList ul li .img1{
+	width: 100%;
+	display: inline-block;
+	float: left;
+	height: 2.41rem;
+	padding: 0px 3px;
+	position: absolute;
+	bottom: 4px;
+}
+.yhList ul li a{
+	display: inline-block;
+	float: left;
+	width: 15.74%;
+	height: 100%;
+}
+.yhList ul li a img{
+	width: 100%;
+	height: 100%;
+}
+.card-info {
+	display: none;
+	margin-top: 5px;
+	padding: 10px 20px;
+	background: white;
+}
+.card-info p{
+	color: #3a3a3a;
+}
+.card-pad{
+	background: url(../../images/yh_bg.png) bottom no-repeat;
+	width: 100%;
+	height: 3.2rem;
+	background-size: 100%;
+	font-size: 0.32rem;
+	position: relative;
+	line-height: 0.54rem;
+}
+.card-pad .pad-left{
+	margin-left: 3px;
+	color: #3a3a3a;
+}
+.card-pad .pad-right{
+	float: right;
+	margin-right: 3px;
+	color: #3e5cc0;
+}
+.card-pad .pad-title{
+	position: absolute;
+	width: 100%;
+	top: 3px;
+}
+.card-pad .pad-label{
+	position: absolute;
+	bottom: 10px;
+	color: white;
+	left: -2px;
+	height: 0.9rem;
+	width: 1.5rem;
+	font-size: 0.3rem;
+	line-height: 0.9rem;
+}
+.card-pad .pad-label.label-new{
+	background: url(../../images/yh_label_new.png) no-repeat;
+	background-size: 100%;
+}
+.card-pad .pad-label.label-daily{
+	background: url(../../images/yh_label_daily.png) no-repeat;
+	background-size: 100%;
+}
+.card-pad .pad-label.label-long{
+	background: url(../../images/yh_label_long.png) no-repeat;
+	background-size: 100%;
+}
+.card-info table {
+	font-size: 13px;
+	font-family: 宋体;
+	border-right: 1px solid #505050;
+	text-align: center;
+}

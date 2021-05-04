@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html class="ui-page-login">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<title>完善联系方式</title>
+	<!--标准mui.css-->
+	<link href="/mui/css/mui.min.css" rel="stylesheet" />
+	<link href="/style/css/main.css" rel="stylesheet" />
+	<link href="/style/css/index.css" rel="stylesheet" />
+	<!-- 加载JavaScript -->
+	<script type="text/javascript" src="/style/js/jquery-3.2.1.min.js"></script>
+	<script type="text/javascript" src="/style/layer/layer.js"></script>
+	<script type="text/javascript" src="/style/js/Validform_v5.3.2_min.js"></script>
+	<script type="text/javascript" src="/style/js/common.js"></script>
+	<script type="text/javascript" src="/style/js/md5.js"></script>
+	<script type="text/javascript" src="/mui/js/mui.min.js"></script>
+	<script type="text/javascript" src="/style/js/jquery.cookie.js"></script>
+	<style>
+		.ui-page-login,
+		body {
+			width: 100%;
+			height: 100%;
+			margin: 0px;
+			padding: 0px;
+		}
+		.compulsory-tip {
+			color: red;
+			padding-left: 5px;
+		}
+		.mui-content{padding: 10px;}
+		.area {
+			margin: 20px auto 0px auto;
+		}
+		.mui-input-group {
+			margin-top: 10px;
+		}
+		.mui-input-group:first-child {
+			margin-top: 20px;
+		}
+		.mui-input-group label {
+			width: 30%;
+			text-align: left;
+			padding: 0 10px;
+			line-height: 40px;
+		}
+		.mui-input-row label~input,
+		.mui-input-row label~select,
+		.mui-input-row label~textarea {
+			width: 70%;
+		}
+		.login_header a{
+			position: absolute;
+			top: 20px;
+		}
+		.login_header a:active{color: #efeff4;}
+		.login_header .mui-icon-left-nav{
+			left: 15px;
+		}
+		.mui-content-padded {
+			margin: 25px 0px;
+		}
+		.telCode {
+			top: 2px;
+			right: 5px;
+			height: 35px;
+			width: 80px;
+			display: block;
+			font-size: 14px;
+			cursor: pointer;
+			line-height: 35px;
+			text-align: center;
+			position: absolute;
+			text-decoration: none;
+			border-radius: 5px;
+			background-color: rgb(20, 110, 202);
+			color: #fff;
+		}
+		.telCode.disable{
+			background-color: grey;
+			color: white;
+		}
+	</style>
+</head>
+
+<body>
+<div class="login_header">
+	<h1 class="mui-title" style="margin:0px;padding-top: 10px;">
+		<a class="mui-icon mui-icon-left-nav" href="/wap/personal/personal_info.html"></a>
+	</h1>
+	<img src="https://xwsr2.16fass88.com/resources/wap_new/images/new_person_top_bg.png" style="width: 100%;display: block;">
+	<img src="../../images/new_dy_big_head.png" style="width: 100%;display: block;" onclick="return false">
+</div>
+
+<div class="mui-content">
+	<form id='login-form' class="mui-input-group">
+		<div class="mui-input-row">
+			<label>电话<span class="compulsory-tip">*</span></label>
+			<input id='telephone' type="text" class="mui-input-clear mui-input" placeholder="请输入联系电话">
+		</div>
+		<div class="mui-input-row" style="margin-top: 5px">
+			<label>验证码<span class="compulsory-tip">*</span></label>
+			<input type="text" id="validCode" maxlength="4" class="mui-input" placeholder="请输入手机验证码">
+			<div class="telCode" onclick="sendValidateCode()">发送验证码</div>
+			<input id="randomCodeId" type="hidden">
+		</div>
+	</form>
+	<div class="mui-content-padded">
+		<div id='updateTelephone' class="form_sumbit_btn">修改联系电话</div>
+	</div>
+</div>
+<script>
+    var loginMember = wap_get_user();
+    $(function(){
+
+        $("#updateTelephone").click(function(e){
+            e.preventDefault();
+            var telephone = $("#telephone").val().trim();
+            var validCode = $("#validCode").val().trim();
+            var codeId = $("#randomCodeId").val().trim();
+            if(!checkMobile(telephone)){
+                fun_alertMsg('请输入正确的联系电话', function() {});
+                return;
+            }
+            if (validCode.length == 0) {
+                fun_alertMsg('请输入验证码！');
+                return;
+            }
+           $.ajax({
+                url:wap_site_host() + "/session/member/updateMemberInfo",
+                type:"POST",
+                data:{"telephone":telephone,'code': validCode,"codeId":codeId, 'token':loginMember.token},
+                dataType: 'json',
+                success:function(d){
+                    if (d.code == 0) {
+                        loginMember.telephone=telephone;
+                        wap_set_user(loginMember);
+                        fun_alertMsg('联系电话修改成功。', function() {
+                            window.location.href = "/wap/personal/personal_info.html";
+                        });
+                    } else {
+                        fun_alertMsg(d.message, function() {});
+                        wap_if_session_out(d.code);
+                    }
+                },
+                error:function(jqXHR, textStatus){
+                    wap_check_ajaxerror(jqXHR);
+                    fun_alertMsg('修改联系电话异常！', function() {});
+                }
+            });
+        });
+    });
+
+    function sendValidateCode(){
+        var telephone = $("#telephone").val().trim();
+        if(telephone.length == 11 && checkMobile(telephone)) {
+            $.ajax({
+                dataType: "jsonp",
+                url: wap_site_host() + '/member/getRegVVerficationCode?phone=' + telephone,
+                success: function (d) {
+                    if (d.code == 0) {
+                        $('#randomCodeId').val(d.data);
+                        refreshCutDown(60);
+                        fun_alertMsg('验证码发送成功,请检查手机短信', function () {});
+                    } else {
+                        refreshCutDown(10);
+                        fun_alertMsg(d.message, function (){});
+                    }
+                }, error: function () {
+                    refreshCutDown(10);
+                    fun_alertMsg('发送验证码失败，请稍后重试！', function (){});
+                }
+            });
+        }else{
+            fun_alertMsg('请输入正确的手机号码！', function() {});
+        }
+    }
+    function refreshCutDown(sec) {
+        $(".telCode").text(sec+'s');
+        $(".telCode").addClass('disable');
+        $(".telCode").removeAttr("onclick","");
+        var interval = setInterval(function () {
+            sec --;
+            if (sec <= 0){
+                $(".telCode").text("验证");
+                $(".telCode").removeClass('disable');
+                $(".telCode").attr("onclick","sendValidateCode()");
+                clearInterval(interval);
+            } else {
+                $(".telCode").text(sec + 's');
+            }
+        }, 1000);
+    }
+    function checkMobile(phone) {
+        return /^1[0-9]{10}$/.test(phone);
+    }
+</script>
+</body>
+@@include('html-foot.html')
+</html>

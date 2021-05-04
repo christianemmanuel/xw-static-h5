@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+	<title>合营</title>
+	<link rel="stylesheet" href="/style/css/swiper.min.css">
+    <link href="/style/plugins/layui/css/layui.css" rel="stylesheet" />
+	<link rel="stylesheet" href="/style/css/fullpage.css">
+	<link rel="stylesheet" href="/style/css/agent.css">
+
+    <script type="text/javascript" src="/style/js/jquery-3.2.1.min.js"></script>
+	<script type="text/javascript" src="/style/js/swiper.min.js"></script>
+	<script src="/style/plugins/layui/layui.all.js"></script>
+	<script src="/style/js/fullpage.js" type="text/javascript" ></script>
+	<script src="/style/js/md5.js" type="text/javascript" ></script>
+	<script src="/style/js/common.js" type="text/javascript" ></script>
+
+</head>
+<body style="background-color: #fff;">
+<div class="full_page" id="fullpage">
+	<div class="section">
+        <div class="box_bj" style="background: url('/images/agent/bg01.png'); background-size: contain;">
+        </div>
+        <div class="main">
+            <img class="title" src="https://xwsr2.16fass88.com/resources/wap_new/images/agent/title.png">
+            <img class="text" src="https://xwsr2.16fass88.com/resources/wap_new/images/agent/text.png">
+            <button class="join_btn" id="open_win" onclick="openAgent('https://ag.xw533.com/agentRecord/toregist')">加入我们</button>
+            <button class="join_btn" id="open_win_login" style="margin-top:30px;" onclick="openAgent('https://ag.xw533.com/login.jsp')">登录</button>
+            <button class="join_btn" style="margin-top:30px;" onclick="contactUs('/agent.html#page4')">联系我们</button>
+        </div>
+		<!--  第一屏 -->
+		<!--<div class="main" id="main">-->
+			<!--<div class="ju_txt" style="position: relative; top: 50px;z-index: 18999; margin: 0px auto"></div>-->
+			<!--<div class="ju_txt2" style="position: relative;top: 106px;margin: 0px auto;display: block"></div>-->
+			<!--<button class="join_btn" id="open_win" onclick="openAgent('https://ag.xw533.com/agentRecord/toregist')">加入我们</button>-->
+			<!--<button class="join_btn" id="open_win_login" style="margin-top:30px;" onclick="openAgent('https://ag.xw533.com/login.jsp')">登录</button>-->
+			<!--<button class="join_btn" style="margin-top:30px;" onclick="contactUs('/agent.html#page4')">联系我们</button>-->
+		<!--</div>-->
+		<!--<div id="canvas"></div>-->
+		<!--  第一屏 end-->
+	</div>
+    <div class="section">
+		<div class="box_bj" style="background: url('/images/agent/bg02.jpg')center center no-repeat; background-size: contain;">
+		</div>
+	</div>
+	<div class="section">
+		<div class="box_bj" style="background: url('/images/agent/bg03.jpg')center center no-repeat; background-size: contain;">
+			<div class="dl_w">
+			</div>
+		</div>
+	</div>
+	<div class="section">
+		<div class="box_bj  con" style="background: url('/images/agent/bg04.jpg')center center no-repeat; background-size: contain;">
+			<div class="div4">
+				<div class="textBox">
+					<div class="leftBox"><img src="https://xwsr2.16fass88.com/resources/wap_new/images/agent/logo.png"><p>联系我们</p></div>
+					<div class="rightBox">
+						<p class="pTitle">合营部电邮</p>
+						<p class="p1">affiliate@dyvip99.com</p>
+						<p class="pTitle">合营QQ</p>
+						<p class="p1">3002955150 <span>（工作时间：14:00-23:00）</span></p>
+						<p class="pTitle">合营Style</p>
+						<p class="p1">live:9731af88cfa1d75<br><img src="https://xwsr2.16fass88.com/resources/wap_new/images/agent/skype.png" style="width: 10%;"><span>（点击图标以联系，联系时请提供用户名）</span></p>
+						<p class="pTitle">合营微信</p>
+						<p class="p1">YJG683613</p>
+						<img src="https://xwsr2.16fass88.com/resources/wap_new/images/agent/qrcode.png" width="154" class="codeImg">
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="hideAll"></div>
+</body>
+@@include('html-foot.html')
+<script>
+$(function () {
+	$('#fullpage').fullpage({
+		anchors: ['page1', 'page2', 'page3','page4'],
+		menu: '#menu',
+		'navigation': true,
+	});
+	//
+
+	$("#pj-lunbo").Carousel({
+		'play':'true', //是否循环播放
+		'prevButton':'#prev', //左按钮
+		'nextButton':'#next',  //右按钮
+		'playTimer':'2000',
+		'auto':'true'   //是否自动播放
+
+	});
+});
+function openAgent(url) {
+    window.open(url,'_blank')
+}
+function contactUs(url) {
+    window.location.href=url;
+}
+</script>
+</html>

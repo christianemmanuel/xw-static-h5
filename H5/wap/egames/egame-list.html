@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>东赢电子竞技-投注记录</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+
+	<!--标准mui.css-->
+	<link href="/mui/css/mui.min.css" rel="stylesheet" />
+	<link href="/mui/css/common.css" rel="stylesheet" />
+	<!--扩展图标-->
+	<link href="/mui/css/mui-icons-extra.css" rel="stylesheet" />
+	<link href="/style/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+	<link href="/style/css/main.css" rel="stylesheet" />
+	<link href="/style/css/egame.css" rel="stylesheet" />
+	<link href="/style/css/index.css" rel="stylesheet" />
+</head>
+<body style="padding: 0px;">
+<!--侧滑菜单容器-->
+<div id="offCanvasWrapper" class="mui-off-canvas-wrap mui-draggable">
+	<div class="mui-inner-wrap mui-transitioning">
+		<!-- 主体页面begin -->
+		<header class="mui-bar mui-bar-nav">
+			<h1 class="mui-title" id="header_title">电子竞技-投注记录</h1>
+		</header>
+		<div id="offCanvasContentScroll" class="mui-content mui-scroll-wrapper" style="height: 100%;-webkit-overflow-scrolling:touch;overflow:scroll;">
+			<div class="mui-scroll">
+				<div class="bet-tab">
+					<span class="unsettled active">未结算投注记录</span>
+					<span class="settled">已结算投注记录</span>
+				</div>
+				<div class="bet-date"></div>
+				<div class="game-content"></div>
+			</div>
+		</div>
+		<!-- 主体页面end -->
+	</div>
+</div>
+</body>
+<!-- 加载JavaScript -->
+<script type="text/javascript" src="/style/js/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="/style/layer/layer.js"></script>
+<script type="text/javascript" src="/style/js/common.js"></script>
+<script type="text/javascript" src="/mui/js/mui.min.js"></script>
+<script type="text/javascript" src="/style/js/jquery.cookie.js"></script>
+<script type="text/javascript" src="/style/plugins/bootstrap/js/bootstrap.min.js"></script>
+<script src="/style/js/numeral.min.js"></script>
+<script type="text/javascript" src="/style/plugins/moment/moment.js"></script>
+@@include('html-foot.html')
+<script type="text/javascript">
+    mui.init();
+    function getQueryString(name) {
+        var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+        var r = window.location.search.substr(1).match(reg);
+        if(r!=null)return  unescape(r[2]); return null;
+    }
+    var userToken = getQueryString("token");
+    var sessionId = getQueryString("sessionId");
+    var loadingStr = '<table class="table table-hover bet-table"><tbody><tr><td style="text-align: center;">加载中...</td></tr></tbody></table>';
+    var totalPage=0;
+    var nowPageNo = 1;
+    if ((userToken==null || userToken==='') && wap_is_user_notexist()) {
+        wap_go_login('请登录后再操作');
+    }else {
+        if (userToken == null || userToken === '') {
+            userToken = wap_get_user().token;
+        }
+    }
+    $(function(){
+        initBetDate();
+        initUnsettledDatas();
+        mui('.bet-tab').on('tap','.unsettled',function(){
+            $(this).addClass('active').siblings('span').removeClass('active');
+            initUnsettledDatas();
+        });
+        mui('.bet-tab').on('tap','.settled',function(){
+            $(this).addClass('active').siblings('span').removeClass('active');
+            showSettled(1);
+        });
+        document.getElementById("offCanvasContentScroll").addEventListener("scrollbottom",function(e){
+			if($('.settled').hasClass('active')){// 如果当前是已结算
+			    if(nowPageNo+1<=totalPage){
+                    showSettled(nowPageNo+1);
+				}
+			}
+        });
+    });
+    function initBetDate(){
+        $.ajax({
+            url: wap_site_host() +'egames/init',
+            type: "GET",
+            success:function(httpResult){
+                if(httpResult.code==0){
+                    var weekHtml = '';
+                    $.each(httpResult.data.lastWeeks,function(index,object){
+                        var dateStr = object.replace('月','-').replace('日','');
+                        if(index==0){
+                            weekHtml+= '<span class="active today">'+dateStr+'</span>';
+                        }else{
+                            weekHtml+= '<span>'+dateStr+'</span>';
+                        }
+                    });
+					$('.bet-date').html(weekHtml);
+                    mui('.bet-date').on('tap','span',function(){
+                        $(this).addClass('active').siblings('span').removeClass('active');
+                        showSettled(1);
+                    });
+                }
+            }, error:function(e){ }
+        });
+    }
+    function initUnsettledDatas(){
+        $('.bet-date').hide();
+        $('.game-content').html(loadingStr);
+        $.ajax({
+            url: wap_site_host() +'session/egames/betList?token='+userToken,
+            data:{'sessionId':sessionId},
+            type: "GET",
+            success:function(httpResult){
+                if(httpResult.code==0){
+                    var betListStr = '<table class="table table-hover bet-table">\
+								<tbody>';
+                    $.each(httpResult.data,function(index,betInfo){
+                        if(betInfo.cn.indexOf('Overwatch')!=-1|| betInfo.cn.indexOf('DOTA2')!=-1|| betInfo.cn.indexOf('英雄联盟')!=-1||
+                            betInfo.cn.indexOf('王者荣耀')!=-1 || betInfo.cn.indexOf('King Of Glory')!=-1||
+                            betInfo.cn.indexOf('反恐精英')!=-1 || betInfo.cn.indexOf('CS:GO')!=-1||
+                            betInfo.cn.indexOf('星际争霸')!=-1 || betInfo.cn.indexOf('StarCraft II')!=-1||
+                            betInfo.cn.indexOf('绝地求生')!=-1 || betInfo.cn.indexOf('暴雪英霸')!=-1 ||
+                            betInfo.cn.indexOf('炉石传说')!=-1 || betInfo.cn.indexOf('魔兽争霸')!=-1){
+
+                            betListStr +='<tr><td colspan="3" style="background: #2765A0;color: white;">'+betInfo.cn+'</td></tr>';
+                            betListStr +='<tr><td style="width: 90px;">投注时间：</td><td colspan="2">'+betInfo.pdtStr+'</td></tr>';
+                            betListStr +='<tr><td>游戏类型：</td><td colspan="2">'+betInfo.gameType+'</td></tr>';
+                            betListStr +='<tr><td>盘口：</td><td>'+betInfo.homeName+' VS '+betInfo.awayName+'</td><td style="width: 150px;">'+betInfo.cn+'</td></tr>';
+                            betListStr +='<tr><td>投注内容：</td><td colspan="2">\
+                                									<div>'+betInfo.id+'</div>\
+                        											<div style="color: #31A0E3;">'+betInfo.snName+'</div>\
+															</td></tr>';
+                            betListStr +='<tr><td>投注金额：</td><td colspan="2" >'+betInfo.s+'</td></tr>';
+                            betListStr +='<tr><td>赔率：</td><td colspan="2" >'+betInfo.odStr+'</td></tr>';
+                            betListStr +='<tr><td>中奖金额：</td><td colspan="2" >'+betInfo.ep+'</td></tr>';
+                            betListStr +='<tr><td>状态：</td><td colspan="2" style="color: #78D051;">未结算</td></tr>';
+
+                        }
+                    });
+                    if(httpResult.data.length==0){
+                        betListStr+= '<tr><td style="text-align: center;">暂无数据</td></tr>';
+					}
+                    betListStr+= '</tbody></table>';
+					$('.game-content').html(betListStr);
+                    mui('.mui-scroll-wrapper').scroll().reLayout();
+                }else {
+                    fun_alertMsg(httpResult.msg, function() {});
+                    wap_if_session_out(httpResult.code);
+                }
+            }, error:function(jqXHR, textStatus, errorThrown){
+                wap_check_ajaxerror(jqXHR);
+                fun_alertMsg('查询失败！', function() {});
+            }
+        });
+    }
+    function showSettled(pageNo){
+        var pageSize = 10;
+        $('.bet-date').show();
+        if(pageNo==1){ $('.game-content').html(loadingStr); }
+        var activeDateStr = $('.bet-date .active').html();
+        activeDateStr = moment().format('YYYY')+'-'+activeDateStr;
+        $.ajax({
+            url: wap_site_host() +'session/record/sportBetRecord?token='+userToken,
+            type: "GET",
+            data:{'start':activeDateStr,'end':activeDateStr,'pageNumber':pageNo,'pageSize':pageSize},
+            success:function(httpResult){
+                if(httpResult.code==0){
+                    var appendHtml = pageNo==1 ? '<table class="table table-hover bet-table"><tbody>':'';
+                    $.each(httpResult.data.records,function(index,obj) {
+                        var leagueName = obj.leagueName;
+                        if(leagueName.indexOf('Overwatch')!=-1|| leagueName.indexOf('DOTA2')!=-1|| leagueName.indexOf('英雄联盟')!=-1||
+                            leagueName.indexOf('王者荣耀')!=-1 || leagueName.indexOf('King Of Glory')!=-1||
+                            leagueName.indexOf('反恐精英')!=-1 || leagueName.indexOf('CS:GO')!=-1||
+                            leagueName.indexOf('星际争霸')!=-1 || leagueName.indexOf('StarCraft II')!=-1||
+                            leagueName.indexOf('绝地求生')!=-1 || leagueName.indexOf('暴雪英霸')!=-1 ||
+                            leagueName.indexOf('炉石传说')!=-1 || leagueName.indexOf('魔兽争霸')!=-1){
+
+                            appendHtml +='<tr><td colspan="3" style="background: #2765A0;color: white;">'+leagueName+'</td></tr>';
+                            appendHtml +='<tr><td style="width: 90px;">投注时间：</td><td colspan="2">'+fun_timeFormat(obj.settleTime)+'</td></tr>';
+                            appendHtml +='<tr><td>游戏类型：</td><td colspan="2">'+obj.betType+'</td></tr>';
+                            appendHtml +='<tr><td>盘口：</td><td>'+fun_filterTxt(obj.matchName)+'</td>' +
+								'<td style="width: 150px;">'+fun_filterTxt(obj.selection+' '+obj.handicap+' @ '+obj.odds)+getOddsTypeStr(obj.oddsType)+'</td></tr>';
+                            appendHtml +='<tr><td>投注内容：</td><td colspan="2">\
+                                									<div>'+obj.id+'</div>\
+                        											<div style="color: #31A0E3;">'+fun_filterTxt(obj.betType)+'</div>\
+															</td></tr>';
+                            appendHtml +='<tr><td>投注金额：</td><td colspan="2" >'+fun_filterTxt(obj.betAmount)+'</td></tr>';
+                            appendHtml +='<tr><td>赔率：</td><td colspan="2" >'+fun_filterTxt(obj.odds)+'</td></tr>';
+                            appendHtml +='<tr><td>中奖金额：</td><td colspan="2" >'+obj.returnAmount+'</td></tr>';
+                            appendHtml +='<tr><td>状态：</td><td colspan="2" style="color: #78D051;">已结算</td></tr>';
+
+                        }
+                    });
+                    if(httpResult.data.totalCount<=0){
+                        appendHtml+= '<tr><td style="text-align: center;">暂无数据</td></tr>';
+                    }else{
+                        nowPageNo = pageNo;
+					}
+                    if(pageNo==1){
+                        appendHtml+= '</tbody></table>';
+                        $('.game-content').html(appendHtml);
+					}else{
+                        $('.game-content tbody').append(appendHtml);
+					}
+                    totalPage = httpResult.data.totalCount/pageSize;
+                    if(httpResult.data.totalCount%pageSize>0) {
+                        totalPage++;
+                    }
+                }else{
+                    fun_alertMsg('查询失败：'+httpResult.message, '系统提示', function() {});
+                    wap_if_session_out(httpResult.code);
+                }
+            }, error:function(jqXHR, textStatus, errorThrown){ wap_check_ajaxerror(jqXHR); }
+        });
+    }
+    function getOddsTypeStr(oddsType){
+        if(oddsType==1){
+            return "【欧洲盘】";
+        }else if(oddsType==2){
+            return "【香港盘】";
+        }else if(oddsType==3){
+            return "【马来盘】";
+        }else if(oddsType==4){
+            return "【印尼盘】";
+        }
+        return "";
+    }
+</script>
+</html>

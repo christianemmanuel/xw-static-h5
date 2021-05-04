@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <title>东赢 - 真人救援金</title>
+    <link rel="stylesheet" href="/style/plugins/bootstrap/css/bootstrap.min.css">
+    <link href="/mui/css/mui.min.css" rel="stylesheet" />
+    <link href="/mui/css/mui-icons-extra.css" rel="stylesheet" />
+    <link href="/style/css/main.css" rel="stylesheet" />
+    <link href="/style/css/index.css" rel="stylesheet" />
+    <link rel="stylesheet" href="/style/css/rescueBonu.css">
+
+    <script type="text/javascript" src="/style/js/adaptive.js"></script>
+    <script type="text/javascript" src="/style/js/jquery-3.2.1.min.js"></script>
+    <script src="/style/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/style/js/common.js"></script>
+    <script type="text/javascript" src="/mui/js/mui.min.js"></script>
+    <script type="text/javascript" src="/style/js/lodash.js"></script>
+    <script src="/style/plugins/tweenMax/TweenMax.min.js" type="text/javascript" ></script>
+    <script type="text/javascript" src="../../style/js/jquery.cookie.js"></script>
+</head>
+<body>
+<header class="mui-bar mui-bar-nav" style="padding-left: 15px;padding-right: 15px;display: none;">
+    <a class="mui-icon mui-icon-left-nav mui-pull-left" style="text-decoration: none; color: white;"></a>
+    <h1 class="mui-title" style="color: #ffffff;">真人救援金</h1>
+</header>
+<div class="rescue-bonu-container">
+    <div class="top-banner"></div>
+    <div class="rescue-bonu-content margin-center">
+        <div class="receive-container">
+            <img src="/images/promo/rescueBonu/icon_wallet.png" style="width: 3rem;">
+            <button class="receive-btn">领取</button>
+        </div>
+        <h3 style="font-size: 16px;">领取记录</h3><br/>
+        <table class="rescue-tab margin-center record-tab">
+            <thead>
+            <tr>
+                <th>领取时间</th>
+                <th>奖金金额</th>
+            </tr>
+            </thead>
+            <tbody id="recordBody">
+            <tr>
+                <td colspan="2">暂无记录</td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="page-list" id="record_page">
+            <div class="page-item">&lt;</div>
+            <div class="page-item active">1</div>
+            <!--<div class="page-item">2</div>-->
+            <div class="page-item">&gt;</div>
+        </div>
+        <div class="title-box">
+            <img src="/images/promo/rescueBonu/title_txt_content.png" style="width: 10rem;">
+        </div>
+        <div class="poker-tab hide">
+            <table class="rescue-tab margin-center">
+                <tr>
+                    <th>负盈利</th>
+                    <th>奖金</th>
+                    <th>流水要求</th>
+                </tr>
+                <tr>
+                    <td>500元</td>
+                    <td>18元</td>
+                    <td rowspan="8">1倍</td>
+                </tr>
+                <tr>
+                    <td>1000元</td>
+                    <td>28元</td>
+                </tr>
+                <tr>
+                    <td>5000元</td>
+                    <td>128元</td>
+                </tr>
+                <tr>
+                    <td>10000元</td>
+                    <td>288元</td>
+                </tr>
+                <tr>
+                    <td>20000元</td>
+                    <td>888元</td>
+                </tr>
+                <tr>
+                    <td>50000元</td>
+                    <td>1888元</td>
+                </tr>
+                <tr>
+                    <td>100000元</td>
+                    <td>3888元</td>
+                </tr>
+                <tr>
+                    <td>150000元</td>
+                    <td>6888元</td>
+                </tr>
+            </table>
+        </div>
+        <div class="live-tab hide">
+            <table class="rescue-tab margin-center">
+                <tr>
+                    <th>负盈利</th>
+                    <th>奖金</th>
+                    <th>流水要求</th>
+                </tr>
+                <tr>
+                    <td>&ge;3000</td>
+                    <td>68元</td>
+                    <td rowspan="4">1倍</td>
+                </tr>
+                <tr>
+                    <td>&ge;8000</td>
+                    <td>118元</td>
+                </tr>
+                <tr>
+                    <td>&ge;20000</td>
+                    <td>288元</td>
+                </tr>
+                <tr>
+                    <td>&ge;100000</td>
+                    <td>1588元</td>
+                </tr>
+            </table>
+        </div>
+        <ul class="rule-list poker-tab hide">
+            <li>当日累积存款500元或以上，并在棋牌场馆中累计负盈利500或以上，即可申请棋牌转运金，棋牌转运金仅需完成一倍流水即可提款。</li>
+            <li>负盈利结算时间为每日00:00:00-23:59:59，转运金需手动领取，领取时间为次日00:00:00-23:59:59，指定时间未领取视为弃权。</li>
+            <li>每位有效玩家、每一手机号码、电子邮箱、相同银行卡、每一个IP地址、每一台电脑者只能享受一次优惠，如发现有违规者我们将保留无限期审核扣回红利及所产生的利润权利。</li>
+            <li>东赢官方对本活动保有最终解释权。</li>
+        </ul>
+        <ul class="rule-list live-tab hide">
+            <li>负盈利只统计AG BBIN 欧博真人场馆，统计时间每周一00：00至周日24:00（北京时间）以结算时间为准。</li>
+            <li>满足条件者可于次周二到活动页面领取上一周奖金，领取有效期周二00：00至周日24:00，逾期者视为放弃。</li>
+            <li>此优惠与任意优惠共享,奖金只需1倍流水即可。</li>
+            <li>此优惠促销只适用于拥有一个独立账户的玩家。住址、电子邮箱地址、电话号码、支付方式（相同借记卡/信用卡/银行账户号码）IP地址、同一网络环境等将可以作为判定是否独立玩家的条件。</li>
+            <li>对于发现任何有违背、欺骗、或利用规则和条款进行非法获利的会员，东赢电竞保留在任何时候都可以停止、取消优惠或索回已支付的全部优惠的权利。</li>
+            <li>东赢有权延长、缩短、终止，或者修改此活动！此活动最终解释权归东赢电竞所有。</li>
+        </ul>
+    </div>
+</div>
+</body>
+@@include('html-foot.html')
+<script type="text/javascript">
+    function getQueryString(name) {
+        var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+        var r = window.location.search.substr(1).match(reg);
+        if(r!=null)return  unescape(r[2]); return null;
+    }
+    var queryToken = getQueryString("token");
+    var headCode = getQueryString("headCode");
+    var menuCode = getQueryString("menuCode");
+    var bonuType = getQueryString("type");
+    var lotteryRecord=null;
+    $(document).ready(function() {
+        mui.init();
+        // 点击确认的时候关闭模态层
+        mui(".mui-bar-nav").on('tap','.mui-pull-left',function(){
+            window.location.href="/wap/helpbonus/hb_index.html";
+        });
+        bonuType=bonuType == null?'live':bonuType;
+        if(headCode==='show'){
+            $('.mui-bar.mui-bar-nav').show();
+            $('.rescue-bonu-container').css('margin-top','44px');
+        } else if(headCode === 'hide') {
+            $('.mui-bar.mui-bar-nav').hide();
+        }
+        if(menuCode==='hide'){
+            $('#menu_nav').hide();
+        }
+        if(queryToken == null || queryToken === '') {
+            queryToken = wap_get_user().token;
+        }
+        $('.top-banner').addClass(bonuType);
+        $('.' + bonuType + '-tab').removeClass('hide');
+        $('.receive-btn').one('click', submitBonu);
+        if(queryToken) {
+            loadRecords();
+        }
+    });
+    function submitBonu() {
+        if(!queryToken) {
+            fun_alertMsg('请登入后再操作', function() {
+                $('.receive-btn').one('click', submitBonu);
+            });
+            return;
+        }
+        $.ajax({
+            url: event_site_host() + "/ptweb/HelpBouns/"+bonuType,
+            type: "POST",
+            data: {token: queryToken},
+            dataType: 'json',
+            success: function (d) {
+                if (d.code == 0) {
+                    fun_alertMsg("恭喜获得"+d.data.amount.toFixed(2)+"元奖金，感谢您的支持",function () {
+                        loadRecords();
+                    })
+                } else {
+                    fun_alertMsg(d.message, function() {});
+                }
+            },
+            complete: function() {
+                $('.receive-btn').one('click', submitBonu);
+            }
+        });
+    }
+    function loadRecords() {
+        if(!queryToken) {
+            fun_alertMsg('请登入后再操作', function() {});
+            return;
+        }
+        $('#recordBody').empty();
+        $('#recordBody').html("<tr><td colspan='2'>loading...</td></tr>");
+        $.ajax({
+            url: event_site_host() + "/ptweb/helpBounsRecordList/"+bonuType,
+            type: "POST",
+            data: {token: queryToken},
+            dataType: 'json',
+            success: function (d) {
+                if (d.code == 0) {
+                    $('#recordBody').empty();
+                    if(d.data.records && d.data.records.length) {
+                        lotteryRecord=d.data.records;
+                        showRecordPageItem();
+                        showRecordTableBody(1);
+                    }else {
+                        $('#recordBody').html("<tr><td colspan='2'>暂无数据</td></tr>");
+                    }
+                } else {
+                    fun_alertMsg(d.message, function() {});
+                }
+            }
+        });
+    }
+
+    function showRecordPageItem() {//加载lottery分页div
+        if(lotteryRecord.length>5){
+            var size=Math.ceil(lotteryRecord.length/5);
+            $('#record_page').html('');
+            var  appendHtml='<div class="page-item lottery_prev"><</div>'
+                +'<div class="page-item lottery_item active">'+1+'</div>';
+            for(var i=1;i<size;i++){
+                appendHtml+='<div class="page-item lottery_item">'+(i+1)+'</div>';
+            }
+            appendHtml+='<div class="page-item lottery_next">></div>';
+            $('#record_page').html(appendHtml);
+            $('.lottery_item').click(function(){
+                showRecordTableBody($(this).html());
+                $('.lottery_item').removeClass('active');
+                $(this).addClass('active');
+            });
+            $('.lottery_prev').click(function(){
+                var index=parseInt(''+$('.lottery_item.active').html());
+                if(index!=1){
+                    showRecordTableBody(index-1);
+                    $('.lottery_item').removeClass('active');
+                    $('.lottery_item:nth-child('+index+')').addClass('active');
+                }
+            });
+            $('.lottery_next').click(function(){
+                var index= parseInt(''+$('.lottery_item.active').html());
+                var maxIndex=Math.ceil(lotteryRecord.length/5);
+                if(index!=maxIndex){
+                    showRecordTableBody(index+1);
+                    $('.lottery_item').removeClass('active');
+                    $('.lottery_item:nth-child('+(index+2)+')').addClass('active');
+                }
+            });
+        }
+    }
+    function showRecordTableBody(index) {
+        $('#recordBody').html('');
+        $.each(lotteryRecord, function(i,v){
+            if(i>=(index-1)*5 && i<5*index){
+                $('#recordBody').append('<tr><td>' + v.date + '</td><td>' + v.bouns.toFixed(2) + '</td></tr>' );
+            }
+        });
+    }
+</script>
+</html>

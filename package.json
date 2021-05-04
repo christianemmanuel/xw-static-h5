@@ -1,0 +1,34 @@
+{
+  "name": "xw-client-wap",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/H5/index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "del": "^3.0.0",
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^4.0.0",
+    "gulp-browserify": "^0.5.1",
+    "gulp-cache": "^1.0.1",
+    "gulp-clean": "^0.3.2",
+    "gulp-concat": "^2.6.1",
+    "gulp-file-include": "^2.0.1",
+    "gulp-imagemin": "^4.0.0",
+    "gulp-jshint": "^2.0.4",
+    "gulp-livereload": "^3.8.1",
+    "gulp-minify-css": "^1.2.4",
+    "gulp-notify": "^3.0.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-rev": "^8.1.0",
+    "gulp-rev-collector": "^1.2.3",
+    "gulp-ruby-sass": "^2.1.1",
+    "gulp-sequence": "^1.0.0",
+    "gulp-uglify": "^3.0.0",
+    "gulp-zip": "^4.0.0",
+    "run-sequence": "^2.2.0"
+  }
+}

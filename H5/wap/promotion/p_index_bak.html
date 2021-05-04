@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>东赢优惠活动</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	
+	<!--标准mui.css-->
+	<link href="/mui/css/mui.min.css" rel="stylesheet" />
+	<link href="/mui/css/common.css" rel="stylesheet" />
+	<link href="/style/css/index.css" rel="stylesheet" />
+	<!--扩展图标-->
+	<link href="/mui/css/mui-icons-extra.css" rel="stylesheet" />
+	<link href="/style/css/main.css" rel="stylesheet" />
+</head>
+<body style="padding: 0px;">
+	<!--侧滑菜单容器-->
+	<div id="offCanvasWrapper" class="mui-off-canvas-wrap mui-draggable">
+		<div class="mui-inner-wrap mui-transitioning">
+			<!-- 主体页面begin -->
+			<header class="mui-bar mui-bar-nav">
+				<a href="/index.html" class="mui-icon mui-icon-back mui-pull-left">返回</a>
+				<h1 class="mui-title" id="header_title">优惠活动</h1>
+			</header>
+			<div id="offCanvasContentScroll" class="mui-content mui-scroll-wrapper" style="height: 100%;-webkit-overflow-scrolling:touch;overflow:scroll;">
+				
+			</div>
+			<!-- 主体页面end -->
+		</div>
+	</div>
+</body>
+<!-- 加载JavaScript -->
+<script type="text/javascript" src="/style/js/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="/style/layer/layer.js"></script>
+<script type="text/javascript" src="/style/js/common.js"></script>
+<script type="text/javascript" src="/mui/js/mui.min.js"></script>
+<script type="text/javascript" src="/style/js/jquery.cookie.js"></script>
+@@include('html-foot.html')
+<script type="text/javascript">
+    $("#menu_nav a.bar-active").removeClass("bar-active")
+    $("#menu_nav a:nth-child(2)").addClass("bar-active")
+	$(document).ready(function(){
+		mui(".mui-bar-nav").on('tap','.mui-pull-left',function(){
+			window.location.href="/index.html";
+		});
+		$('#offCanvasContentScroll').html('<iframe src="'+wap_site_host()+'/rest/api/promotionList" style="border: 0px;width: 100%;height:100%;"></iframe>');
+	});
+	window.addEventListener("message", function(event) {
+
+        window.location.href="/wap/promotion/electronic_member_event.html";
+	},false);
+</script>
+</html>

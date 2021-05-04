@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html class="ui-page-login">
+	<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<title>优惠申请</title>
+	<!--标准mui.css-->
+	<link href="/mui/css/mui.min.css" rel="stylesheet" />
+	<link href="/mui/css/mui-icons-extra.css" rel="stylesheet" />
+	<link rel="stylesheet" type="text/css" href="/style/plugins/mobileSelect/css/mobileSelect.css">
+	<link href="/style/css/main.css" rel="stylesheet" />
+		<link href="/style/css/index.css" rel="stylesheet" />
+		<link href="/style/dropload/dropload.css" rel="stylesheet">
+	<!-- 加载JavaScript -->
+	<script type="text/javascript" src="/style/js/jquery-3.2.1.min.js"></script>
+	<script type="text/javascript" src="/style/layer/layer.js"></script>
+	<script type="text/javascript" src="/style/js/common.js"></script>
+	
+	<script type="text/javascript" src="/mui/js/mui.min.js"></script>
+	<script type="text/javascript" src="/style/js/city.data.js"></script>
+	<script type="text/javascript" src="/style/js/jquery.cookie.js"></script>
+	<script type="text/javascript" src="/style/plugins/mobileSelect/js/mobileSelect.min.js"></script>
+		<script type="text/javascript" src="/style/dropload/dropload.min.js"></script>
+	<style>
+        .mui-content{
+			background-image: url(https://xwsr2.16fass88.com/resources/web_h5/images/center/redBox_bg.jpg);
+			background-repeat: no-repeat;
+		}
+		.mui-input-row label{font-size: 13px;}
+		.box{
+			background-image: url(https://xwsr2.16fass88.com/resources/web_h5/images/center/systemRedBox_bg.png);
+			background-repeat: no-repeat;
+			background-size: 350px 350px;
+			height: 350px;
+			width: 350px;
+			margin: 84px auto 0;
+		}
+		.wenzi{
+			padding-top: 182px;
+			font-family: MicrosoftYaHei-Bold;
+			font-size: 16px;
+			font-weight: normal;
+			font-stretch: normal;
+			line-height: 24px;
+			letter-spacing: 1px;
+			color: #fce273;
+			text-align: center;
+		}
+	</style>
+</head>
+
+<body>
+	<header class="mui-bar mui-bar-nav" style="padding-left: 15px;padding-right: 15px;display: none;">
+		<a class="mui-icon mui-icon-left-nav mui-pull-left" style="text-decoration: none; color: white;"></a>
+		<h1 class="mui-title" style="color: #ffffff;">免费红包</h1>
+	</header>
+	<div class="mui-content">
+		<div onclick="getbox()" class="box">
+			<div class="wenzi">限时领取20000名</div>
+		</div>
+	</div>
+</body>
+@@include('html-foot.html')
+<script>
+function getQueryString(name) {
+	var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+	var r = window.location.search.substr(1).match(reg);
+	if(r!=null)return  unescape(r[2]); return null;
+}
+var queryToken = getQueryString("token");
+var headCode = getQueryString("headCode");
+$(document).ready(function() {
+    mui.init();
+    mui(".mui-bar-nav").on('tap','.mui-pull-left',function(){
+        window.location.href="/wap/helpbonus/hb_index.html";
+    });
+    if(headCode==='show'){
+        $('.mui-bar.mui-bar-nav').show();
+    }else{
+        $('.mui-content').css('padding-top','0');
+	}
+    if ((queryToken===null || queryToken===undefined || queryToken==='') && wap_is_user_notexist()) {
+        wap_go_login('请登录后再操作');
+    }else{
+        if(queryToken===null || queryToken===undefined || queryToken===''){
+            queryToken = wap_get_user().token;
+        }
+	}
+
+});
+function getbox(){
+    $.post(event_site_host()+ '/ptweb/systemRedbox', {"token": queryToken}, function(data){
+        if(data.code == 0) {
+            layer.alert("恭喜您获得50元东赢幸运红包，祝您好运连连");
+        } else {
+            layer.alert(data.message);
+        }
+    }, "JSON");
+}
+</script>
+</html>

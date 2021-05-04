@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>东赢 - 彩票</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+	<!--标准mui.css-->
+	<link href="/mui/css/mui.min.css" rel="stylesheet" />
+	<link href="/mui/css/common.css" rel="stylesheet" />
+	<link href="/style/css/index.css" rel="stylesheet" />
+	<!--扩展图标-->
+	<link href="/mui/css/mui-icons-extra.css" rel="stylesheet" />
+	<link href="/style/css/main.css" rel="stylesheet" />
+	<style type="text/css">
+		.mui-table-view-cell .mui-media-body{float: left;}
+		.title-nav{
+			background: #F0EFF4;
+			text-align: center;
+			height: 38px;
+			line-height: 38px;
+			vertical-align: middle;
+		}
+		.title-nav img{
+			margin-right: 15px;
+			vertical-align: middle;
+		}
+
+	</style>
+</head>
+<body style="padding: 0px;">
+<!--侧滑菜单容器-->
+<div class="mui-off-canvas-wrap">
+	<div class="mui-inner-wrap">
+		<!-- 主体页面begin -->
+		<header class="mui-bar mui-bar-nav">
+			<a href="/wap/new-page/lottery.html" class="mui-icon mui-icon-back mui-pull-left"></a>
+			<h1 class="mui-title" id="header_title">IG彩票</h1>
+		</header>
+		<div class="mui-content" style="height: 100%;overflow: scroll; padding-bottom: 25%;">
+			<div class="mui-content-padded">
+				<ul class="mui-table-view mui-grid-view" style="background: white;border: 0px;">
+					<li class="mui-table-view-cell mui-media mui-col-xs-6 mui-col-sm-6" style="border: none;" onclick="goToUrl('/ptweb/playGame?gameCode=PJ&pid=42&pfCode=IG')">
+						<img src="https://xwsr2.16fass88.com/resources/wap_new/images/gf.png" style="float: left;height: 60px">
+						<p style="line-height: 60px">传统彩票</p>
+					</li>
+					<li class="mui-table-view-cell mui-media mui-col-xs-6 mui-col-sm-6" style="border: none;" onclick="goToUrl('/ptweb/playGame?gameCode=HK&pid=42&pfCode=IG')">
+						<img src="https://xwsr2.16fass88.com/resources/wap_new/images/hk.png" style="float: left;height: 60px">
+						<p style="line-height: 60px">香港六合彩</p>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<!-- 主体页面end -->
+	</div>
+</div>
+</body>
+<!-- 加载JavaScript -->
+<script type="text/javascript" src="/style/js/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="/style/layer/layer.js"></script>
+<script type="text/javascript" src="/style/js/common.js"></script>
+<script type="text/javascript" src="/mui/js/mui.min.js"></script>
+<script type="text/javascript" src="/style/js/jquery.cookie.js"></script>
+@@include('html-foot.html')
+<script type="text/javascript">
+    $(document).ready(function(){
+        mui.init();
+    });
+    function goToUrl(redirectUrl) {
+        if (wap_is_user_notexist()) {
+            fun_alertMsg('请登录后再操作','系统提示');
+        } else {
+            //window.location.href = redirectUrl+'&token='+wap_get_user().token;
+            window.open(event_site_host() + redirectUrl +'&token='+wap_get_user().token);
+        }
+    }
+</script>
+</html>

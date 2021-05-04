@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<title>东赢 - 周末奖金</title>
+	<!--标准mui.css-->
+	<link href="/mui/css/mui.min.css" rel="stylesheet" />
+	<link href="/mui/css/mui-icons-extra.css" rel="stylesheet" />
+	<link href="/style/css/main.css" rel="stylesheet" />
+	<link href="/style/css/index.css" rel="stylesheet" />
+	<!-- 加载JavaScript -->
+	<script type="text/javascript" src="/style/js/jquery-3.2.1.min.js"></script>
+	<script type="text/javascript" src="/style/layer/layer.js"></script>
+	<script type="text/javascript" src="/style/js/Validform_v5.3.2_min.js"></script>
+	<script type="text/javascript" src="/style/js/common.js"></script>
+	<script type="text/javascript" src="/mui/js/mui.min.js"></script>
+	<script type="text/javascript" src="/style/js/jquery.cookie.js"></script>
+    <style>
+		td, th {
+			display: table-cell;
+			vertical-align: inherit;
+			padding:6px 0;
+			color: #746AF0;
+			background-color: #fff;
+			border: 1px solid #ccc;
+		}
+		li {
+			list-style: none;
+		}
+    </style>
+</head>
+<body>
+	<div class="login_header">
+		<h1 class="mui-title" style="margin:0px;">
+			<a class="mui-icon mui-icon-left-nav" href="/wap/helpbonus/hb_index.html" style="margin:10px;color:#dc1717;position:fixed;top:5px;left:0;"></a>
+		</h1>
+		<img src="https://xwsr2.16fass88.com/resources/wap_new/images/new_person_top_bg.png" style="width: 100%;display: block;">
+		<img src="../../images/new_dy_big_head.png" style="width: 100%;display: block;">
+	</div>
+	<div class="mui-content">
+		<div style="padding-top: 30px;">
+			<div class="mui-row" style="margin-bottom: 20px;">
+				<div class="mui-col-xs-1 mui-col-sm-1"></div>
+				<div class="mui-col-xs-4 mui-col-sm-4">
+					<button type="button" data-loading-text='提交中...' id='yesterdayHelp' onclick="submitHelp(1)" class="submit_btn">周六奖金</button>
+				</div>
+				<div class="mui-col-xs-2 mui-col-sm-2"></div>
+				<div class="mui-col-xs-4 mui-col-sm-4">
+					<button type="button" data-loading-text='提交中...' id='todayHelp' onclick="submitHelp(2)" class="submit_btn">周日奖金</button>
+				</div>
+				<div class="mui-col-xs-1 mui-col-sm-1"></div>
+			</div>
+		</div>
+		<div>
+			<div style="line-height: 30px;text-align: center;border-bottom:1px solid #ccc;">每一个周末，领两份周奖金</div>
+			<div style="padding: 5px 10px;">
+				<div style="background: #a760e4;background:linear-gradient(to right, #a760e4, #704df2);border-radius: 8px;padding: 20px 10px;text-align: center;color: #fff;">
+					每一个周末，领两份周奖金
+					<table width="95%" style="text-align: center;margin: 10px auto;" border="1">
+						<tr>
+							<th>周一至周五累计存款</th>
+							<th>周六奖金</th>
+							<th>周日奖金</th>
+						</tr>
+						<tr>
+							<td>≥500</td>
+							<td>10</td>
+							<td>18</td>
+						</tr>
+						<tr>
+							<td>≥1500</td>
+							<td>28</td>
+							<td>38</td>
+						</tr>
+						<tr>
+							<td>≥5000</td>
+							<td>108</td>
+							<td>128</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+		</div>
+		<div>
+			<div style="line-height: 30px;text-align: center;border-bottom:1px solid #ccc;">优惠条件</div>
+			<div style="padding: 5px 10px;">
+				<div style="background: #fe42b2;background:linear-gradient(to right, #fe42b2, #fe374e);border-radius: 8px;padding: 20px 20px;">
+					<div style="background-color: #fff;border-radius: 8px;padding: 10px 0;">
+						<ol style="padding-right: 15px;">
+							<li style="list-style: decimal;">成功领取周六奖金并在当天完成任意一笔存款，即可在次日（周日）继续免费领取“周日礼金”！。</li>
+							<li style="list-style: decimal;">礼金只能在当日领取，逾期视为自动放弃；即“周六礼金”只能周六当日领取，“周日礼金”只能周日当天领取。</li>
+							<li style="list-style: decimal;">此活动奖金仅需12倍流水即可申请提款，仅限老虎机游戏。</li>
+						</ol>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+@@include('html-foot.html')
+<script type="text/javascript" charset="UTF-8">
+	var loginMember = wap_get_user();
+	var buttonArray = ['#yesterdayHelp', '#todayHelp'];
+	function submitHelp(bonusType) {
+		/*mui.confirm('确认要提交周末奖金申请吗？', '系统提示', function(result) {
+			if(result.index == 1) {
+				var mbtn = mui(buttonArray[bonusType - 1]);
+				mbtn.button('loading');
+				$.ajax({
+			        url:"https://wett.5ct5mm555.com/ptweb/weekendBonus",
+			        type:"POST",
+			        crossDomain: true,
+			        data : {type : bonusType, token : loginMember.token},
+			        dataType: 'json',
+			        success:function(data){
+		                fun_alertMsg(data.msg, function() { window.location.href='/wap/helpbonus/hb_index.html' });
+			        },
+			        error:function(jqXHR, textStatus){
+			            wap_check_ajaxerror(jqXHR);
+			            fun_alertMsg('提交周末奖金异常！', function() {});
+			        },
+			        complete:function() {
+			        	mbtn.button('reset');
+			        }
+			    });
+			}
+		});*/
+	}
+</script>
+</html>

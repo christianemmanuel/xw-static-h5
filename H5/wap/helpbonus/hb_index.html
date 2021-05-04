@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>东赢 - 优惠领取区</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<!--标准mui.css-->
+	<link href="/mui/css/mui.min.css" rel="stylesheet" />
+	<link href="/mui/css/common.css" rel="stylesheet" />
+	<!--扩展图标-->
+	<link href="/mui/css/mui-icons-extra.css" rel="stylesheet" />
+	<link href="/style/css/main.css" rel="stylesheet" />
+	<link href="/style/css/index.css" rel="stylesheet" />
+	<style type="text/css">
+		body, html {
+			/*background: #efeff4;*/
+		}
+		.mui-grid-view.mui-grid-9 {
+			border-top: 0px;
+			border-left: 0px;
+			background-color: white;
+			padding: 5px 5px;
+			width: 95%;
+			margin: 0 auto;
+		}
+		.mui-table-view-cell img{
+			width: 1.3rem;
+		}
+		.mui-grid-view.mui-grid-9 .mui-table-view-cell {
+			border-right: 0px;
+			border-bottom: 1px solid #ddd;
+			font-weight: bold;
+		}
+		.mui-content {
+			padding-top: 5px;
+		}
+	</style>
+</head>
+<body style="padding: 0px;">
+<!-- 主体页面begin -->
+<header class="mui-bar mui-bar-nav">
+	<a class="mui-icon mui-icon-back mui-pull-left" href="/wap/personal/personal_main.html"></a>
+	<h1 class="mui-title" id="header_title">优惠领取区</h1>
+</header>
+<div class="mui-content help_bonus_content">
+	<ul class="mui-table-view mui-grid-view mui-grid-9" id="promotion">
+		<!--<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4">
+			<a href="/wap/promotion/antiEpidemic.html" style="padding: 0px;">
+				<img src="../../images/promo/ae/rk.png" width="50px">
+				<div class="mui-media-body" style="margin: 0px;">抗疫礼金</div>
+			</a>
+		</li>-->
+		<!--<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4">-->
+		<!--<a href="javascript:getCheckInPrivilege()" style="padding: 0px;">-->
+		<!--<img src="https://kzqz.changliangcj.com/resources/wap_new/images/cion_checkin.png" width="50px">-->
+		<!--<div class="mui-media-body" style="margin: 0px;">签到奖金</div>-->
+		<!--</a>-->
+		<!--</li>-->
+		<!--<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4">
+			<a href="/wap/promotion/redpacket_everyday.html?headCode=show" style="padding: 0px;" target="_blank">
+				<img src="https://kzqz.changliangcj.com/resources/web_h5/images/center/hb_rain.png" width="50px">
+				<div class="mui-media-body" style="margin: 0px;">红包雨</div>
+			</a>
+		</li>-->
+		<!--<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4">
+			<a href="/wap/promotion/lol_s10.html?headCode=show" style="padding: 0px;" target="_blank">
+				<img src="https://kzqz.changliangcj.com/resources/web_h5/images/center/lol_s10.png?1" width="50px">
+				<div class="mui-media-body" style="margin: 0px;">LOL世界赛奖池</div>
+			</a>
+		</li>-->
+	</ul>
+</div>
+<!-- 主体页面end -->
+</body>
+<!-- 加载JavaScript -->
+<script type="text/javascript" src="/style/js/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="/style/layer/layer.js"></script>
+<script type="text/javascript" src="/style/js/common.js"></script>
+<script type="text/javascript" src="/mui/js/mui.min.js"></script>
+<script type="text/javascript" src="/style/js/jquery.cookie.js"></script>
+@@include('html-foot.html')
+<script type="text/javascript">
+    $(document).ready(function(){
+        mui.init();
+        initUI();
+        loadPromotion();
+
+    });
+
+    function initUI(){
+        var menuCode = getQueryParam("menuCode");
+        var headCode = getQueryParam("headCode");
+        if(menuCode && menuCode == 'hide'){
+            $('.mui-bar').hide();
+        }else{
+            $('.mui-bar').show();
+        }
+
+        if(headCode && headCode == 'hide'){
+            $('#menu_nav').hide();
+        }else{
+            $('#menu_nav').show();
+        }
+
+    }
+    function loadPromotion(){
+        var location_url=window.document.referrer;
+        var locatin_domain=location_url.substr(0,location_url.indexOf('/wap'));
+        $.ajax({
+            dataType: "jsonp",
+            url:wap_site_host() + "/rest/api/hotPromotions",
+            type:"GET",
+            success:function(resultData){
+                if (resultData.code == 0) {
+                    if(resultData.data==null)
+                        return;
+                    var listData = JSON.parse(resultData.data.replace(/\\/g,''));
+                    var appendHtml='';
+                    $.each(listData.items,function(n, v){
+                        var _title = fun_filterTxt(v.itemTitle);
+                        var _url=fun_filterTxt(v.itemUrl);
+                        if(_url.indexOf('/wap')>0){
+                            _url=locatin_domain+_url.substr(_url.indexOf('/wap'),_url.length);
+                        }
+                        if(v.itemP1 === 'evt') {
+							appendHtml+='<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4">'+
+									'<div onclick="sendPostUrl(\'' + _url + '\')" style="padding: 0px;" target="_blank">'+
+									'<img src="'+v.itemIcon+'" width="55px">'+
+									'<div class="mui-media-body" style="margin: 0px;">'+_title+'</div>'+
+									'</div>'+
+									'</li>';
+						} else {
+							appendHtml+='<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4">'+
+									'<a href="'+_url+'?token='+wap_get_user().token+'&headCode=show" style="padding: 0px;" target="_blank">'+
+									'<img src="'+v.itemIcon+'" width="55px">'+
+									'<div class="mui-media-body" style="margin: 0px;">'+_title+'</div>'+
+									'</a>'+
+									'</li>';
+						}
+                    });
+                    $('#promotion').append(appendHtml);
+                } else {
+                    fun_alertMsg(resultData.message, function() {});
+                }
+            },
+            error:function( jqXHR, textStatus){
+                fun_toast('请求失败，请稍后重试');
+            }
+        });
+    }
+    function getAppDepositBonu() {
+        if (wap_is_user_notexist()) {
+            wap_need_login();
+        }else{
+            $.ajax({
+                type:"POST",
+                url:wap_site_host()+'/session/appDepositPrivilege/apply?token='+wap_get_user().token,
+                success:function(resultData){
+                    if(resultData.code==0){
+                        fun_alertMsg(resultData.msg, function() {});
+                    }else {
+                        fun_alertMsg(resultData.msg, function() {});
+                        wap_if_session_out(resultData.code);
+                    }
+                },
+                error:function(jqXHR, textStatus){
+                    wap_check_ajaxerror(jqXHR);
+                    fun_alertMsg('网络异常！', function() {});
+                }
+            });
+        }
+    }
+	function sendPostUrl(u) {
+		if (wap_is_user_notexist()) {
+			wap_need_login();
+		}else{
+			fun_toast('请求提交中...');
+			$.ajax({
+				type:"POST",
+				url: u +'?token='+wap_get_user().token,
+				success:function(resultData){
+					if(resultData.code==0){
+						fun_alertMsg(resultData.message, function() {});
+					}else {
+						fun_alertMsg(resultData.message, function() {});
+						wap_if_session_out(resultData.code);
+					}
+				},
+				error:function(jqXHR, textStatus){
+					wap_check_ajaxerror(jqXHR);
+					fun_alertMsg('网络异常！', function() {});
+				}
+			});
+		}
+	}
+</script>
+</html>

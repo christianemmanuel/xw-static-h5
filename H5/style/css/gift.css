@@ -1,0 +1,186 @@
+body{
+    font-family: "Microsoft Yahei","微软雅黑", STXihei, "华文细黑", sans-serif !important;
+    margin: 0 auto;
+    padding: 0;
+}
+img{
+    display: block;
+    margin: 0 auto;
+    width: 100%;
+}
+.row{
+    margin: 0;
+}
+.container{
+    padding: 0;
+}
+.top{
+    background: url(/images/gift/bg1.jpg) center no-repeat;
+    background-size: cover;
+    font-size: 14px;
+    padding: 30px 15px 0;
+}
+.title{
+    width: 45%;
+}
+.gift{
+    text-align: center;
+    padding: 20px 0 5px;
+}
+.gift p{
+    margin: 10px 0;
+}
+.gift .col-4{
+    padding: 5px;
+}
+.gift a{
+    color: #0c76ff !important;
+}
+.modal.show .modal-dialog{
+    margin: 0;
+}
+.modal-content{
+    background: transparent;
+    padding-top: 50%;
+    border-bottom: 0;
+}
+.modal-content img{
+    width: 50%;
+}
+.modal-header .close {
+    padding: 0;
+    margin: 0 auto;
+}
+.modal-header .close img{
+    width: 70%;
+}
+.modal-backdrop.show {
+    opacity: 0;
+}
+.p30-container{
+    display: flex;
+    background: url(/images/gift/bar.png) no-repeat;
+    background-size: cover;
+    margin-top: -13%;
+}
+.modal-header{
+    border-bottom: 0;
+}
+.p30{
+    width: 20%;
+}
+.p30 , .ipad{
+    padding: 15% 0 10%;
+}
+.ipad{
+    width: 33%;
+}
+.betting p{
+    color: #463d47;
+    margin: 0;
+    line-height: 25px;
+    width: 100%;
+}
+.betting .blue{
+    color: #0f71f8;
+}
+
+.table-bet tbody{
+    text-align: left;
+}
+.table-bet tr td {
+    line-height: 38px;
+    padding-bottom: 0;
+}
+.table-bet td .amount {
+    font-size: 14px;
+    color: #463d47;
+}
+.table-bet td .prize {
+    font-size: 12px;
+    color: #463d47;
+    line-height: 24px;
+    border: 1px solid #110b13;
+    padding: 0 10px;
+    cursor: pointer;
+}
+.table-bet td .prize.inactive {
+    border: 1px solid #d2d0d6;
+    background: #f1f1f1;
+}
+.table-bet td .inactive {
+    color: #959199;
+}
+.betting .btn-primary {
+    line-height: 30px;
+    width: 105px;
+    background-color: #1270f3;
+    border-radius: 5px;
+    font-size: 12px;
+    color: #ffffff;
+    padding: 0;
+    border: none;
+    margin: 5px auto;
+}
+.gray , .orange{
+    width: 100%;
+    margin: 0 auto;
+    text-align: center;
+}
+/*.gray .btn-primary{*/
+    /*background-color: #c9c9c9;*/
+/*}*/
+/*.orange .btn-primary{*/
+    /*background-color: #ffa10c;*/
+/*}*/
+
+.gift-footer {
+    margin: 10px auto 0;
+    width: 100%;
+}
+.gift-footer .click .view-tnc {
+    font-size: 10px;
+    letter-spacing: 3px;
+    margin-bottom: 5px;
+}
+.gift-footer .click .arrow-down img{
+    width: 20%;
+}
+.tnc-bg {
+    background: url(/images/gift/bg2.jpg)top no-repeat;
+    background-size: cover;
+    margin: 0 auto;
+}
+.tnc-bg .tnc-content{
+    padding: 20px 10px 30px;
+}
+.tnc-bg .tnc-head {
+    font-size: 14px;
+    color: #ffffff;
+    font-weight: bold;
+}
+.tnc-bg .tnc-body {
+    font-size: 12px;
+    color: #ffffff;
+    margin-bottom: 15px;
+}
+.tnc-bg .tnc-body ul {
+    padding: 0;
+    margin: 0;
+}
+.tnc-bg .tnc-body ul li {
+    line-height: 20px;
+    margin-bottom: 15px;
+}
+@media only screen and (max-width: 375px) {
+    .top , .table-bet td .amount{
+        font-size: 12px;
+    }
+    .table-bet td .prize{
+        font-size: 10px;
+    }
+}
+.gift a:hover, .gift a {
+    text-decoration: none !important;
+    cursor: pointer;
+}

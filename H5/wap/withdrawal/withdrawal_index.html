@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html style="background-color: #d2d2de;">
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<title>东赢 - 提款</title>
+	<!--标准mui.css-->
+	<link href="/mui/css/mui.min.css" rel="stylesheet" />
+	<link href="/mui/css/common.css" rel="stylesheet" />
+	<!--扩展图标-->
+	<link href="/mui/css/mui-icons-extra.css" rel="stylesheet" />
+	<link rel="stylesheet" type="text/css" href="/style/plugins/mobileSelect/css/mobileSelect.css">
+	<link href="/style/css/main.css" rel="stylesheet" />
+    <link href="/style/css/index.css" rel="stylesheet" />
+    <link href="/style/css/withdrawal.css" rel="stylesheet" />
+	<!-- 加载JavaScript -->
+	<script type="text/javascript" src="/style/js/jquery-3.2.1.min.js"></script>
+	<script type="text/javascript" src="/style/layer/layer.js"></script>
+	<script type="text/javascript" src="/style/js/Validform_v5.3.2_min.js"></script>
+	<script type="text/javascript" src="/style/js/common.js"></script>
+	<script type="text/javascript" src="/mui/js/mui.min.js"></script>
+	<script type="text/javascript" src="/style/js/jquery.marquee.min.js"></script>
+	<script type="text/javascript" src="/style/js/jquery.cookie.js"></script>
+	<script type="text/javascript" src="/style/plugins/mobileSelect/js/mobileSelect.min.js"></script>
+	<style type="text/css">
+		.plat-list-row label{
+			padding: 0px;
+			vertical-align: middle;
+            text-align: center;
+		}
+		.plat-list-row span{
+			vertical-align: middle;
+			font-size: 15px;
+		}
+		.plat-list-row img{
+			vertical-align: middle;
+			margin-right: 5px;
+		}
+		.list-cell{
+			width: 25%;
+			float: left;
+            padding: 10px 0 15px 0;
+            display: grid;
+		}
+		.mui-table-view-cell.mui-active{background: #efeff4;}
+		.compulsory-tip {
+			color: red;
+			padding-left: 5px;
+		}
+		.mui-bar-nav~.mui-content{padding-bottom: 50px;}
+		.mui-input-group .mui-input-row {
+			margin-top: 0px;
+			font-weight: bold;
+		}
+		.mui-table-view .mui-icon{
+			color: white;
+			font-size: 20px;
+		}
+
+		.mui-table-view-cell:after{
+            right: 10px;
+            left: 10px;
+            height: 1px;
+            padding: 0 5px;
+		}
+		input[type=button]{
+			width: 82px;
+			margin-top: 5px;
+			color: #2ac845;
+			border: 1px solid #2ac845;
+		}
+		input[type=button].disable{
+			color: black;
+			border: 1px solid grey;
+		}
+        .wallt_cell{
+            width: 50%;
+            padding: 0 0px;
+            float: left;
+            border-right: 1px solid #c8c7cc;
+        }
+        .wallt_cell img{
+            display: inline-block;
+            float: left;
+            margin-top: 9px;
+            margin-right: 15px;
+            width: 0.6rem;
+        }
+        .wallt_cell label{
+            display: grid;
+            background-color: rgb(237, 238, 244);
+            width: 80px;
+            float: left;
+            text-align: left;
+        }
+        .wallt_cell #div_wallet{
+            font-weight: 600;
+        }
+        .refresh_cell{
+            width: 50%;
+            height: 30px;
+            text-align: center;
+            float: left;
+        }
+        .refresh_cell label{
+            margin-top: 8px;
+            display: block;
+            text-align: center;
+            margin-right: 20px;
+        }
+        .refresh_cell img{
+            margin-right: 15px;
+            width: 0.6rem;
+        }
+        .show_list_btn span{
+            font-size: 12px;
+        }
+        .mui-input-group .mui-input-row:after{
+            height: 1px;
+        }
+	</style>
+</head>
+<body class="mui-ios mui-ios-9 mui-ios-9-1">
+<header id="fail_header" class="mui-bar mui-bar-nav" style="background-color: #4fb2ff;">
+	<a class="mui-icon mui-icon-back mui-pull-left" href="/index.html"></a>
+	<h1 class="mui-title" style="color: #ffffff;">取款</h1>
+	<!--<a  id="checkAllBalance" class=" mui-pull-right" style="display: flex; position: absolute; right: 3%; z-index: 5;font-size: 16px" onclick="refreshAll()">
+        <p class="refresh">刷新</p>
+        <p class="refresh-icon">
+            <span  class="mui-icon mui-icon-loop" style="margin-left: -5px;">
+            </span>
+        </p>
+    </a>-->
+</header>
+<div class="mui-content withdrawl" style="margin-bottom: 76px;">
+    <ul class="mui-table-view" style=" clear:right;">
+        <li class="mui-table-view-cell">
+            <div class="plat-list-row wallt_cell">
+                <img src="../../images/wallet.png">
+                <label><span>中心钱包</span><span id="div_wallet" onclick="refreshMain($('#div_wallet'))">点击刷新</span></label>
+            </div>
+            <div class="plat-list-row refresh_cell" id="checkAllBalance" onclick="refreshAll()">
+                <label><img src="../../images/refresh@3x.png"><span>一键刷新</span></label>
+            </div>
+        </li>
+        <li class="mui-table-view-cell">
+            <div class="plat-list-row list-cell" onclick="checkBalance($('#XJ_div'),'XJ')" >
+                <label><span>东赢体育</span></label>
+                <label class="refresh_btn"><span id="XJ_div">刷新</span></label>
+            </div>
+           <!-- <div class="plat-list-row list-cell" onclick="checkBalance($('#marlin_div'),'Marlin')" >
+                <label><span>东赢电竞</span></label>
+                <label class="refresh_btn"><span id="marlin_div">刷新</span></label>
+            </div>-->
+            <div class="plat-list-row list-cell" onclick="checkBalance($('#RG_div'),'RG')" >
+                <label><span>RG电竞</span></label>
+                <label class="refresh_btn"><span id="RG_div">刷新</span></label>
+            </div>
+            <div class="plat-list-row list-cell" onclick="checkBalance($('#PT_div'),'PT')">
+                <label><span>PT电子</span></label>
+                <label class="refresh_btn"><span id="PT_div">刷新</span></label>
+            </div>
+            <div class="plat-list-row list-cell" onclick="checkBalance($('#SW_div'),'SW')" >
+                <label><span>SW电子</span></label>
+                <label class="refresh_btn"><span id="SW_div">刷新</span></label>
+            </div>
+        </li>
+        <li class="mui-table-view-cell" style="display: none">
+            <div class="plat-list-row list-cell" onclick="checkBalance($('#MG_PLUS_div'),'MG_PLUS')">
+                <label><span>MG电子</span></label>
+                <label class="refresh_btn"><span id="MG_PLUS_div">刷新</span></label>
+            </div>
+            <div class="plat-list-row list-cell" onclick="checkBalance($('#CQ_div'),'CQ')" >
+                <label><span>CQ电子</span></label>
+                <label class="refresh_btn"><span id="CQ_div">刷新</span></label>
+            </div>
+            <div class="plat-list-row list-cell" onclick="checkBalance($('#AG_div'),'AG')" >
+                <label><span>AG厅</span></label>
+                <label class="refresh_btn"><span id="AG_div">刷新</span></label>
+            </div>
+            <div class="plat-list-row list-cell" onclick="checkBalance($('#AllBet_div'),'AllBet')" >
+                <label><span>欧博厅</span></label>
+                <label class="refresh_btn"><span id="AllBet_div">刷新</span></label>
+            </div>
+        </li>
+        <li class="mui-table-view-cell" style="display: none">
+            <div class="plat-list-row list-cell" onclick="checkBalance($('#TCG_div'),'TCG')">
+                <label><span>TCG彩票</span></label>
+                <label class="refresh_btn" ><span id="TCG_div">刷新</span></label>
+            </div>
+            <div class="plat-list-row list-cell" onclick="checkBalance($('#BBIN_div'),'BBIN')" >
+                <label><span>BBIN</span></label>
+                <label class="refresh_btn"><span id="BBIN_div">刷新</span></label>
+            </div>
+            <div class="plat-list-row list-cell" onclick="checkBalance($('#KY_div'),'KY')" >
+                <label><span>开元棋牌</span></label>
+                <label class="refresh_btn"><span id="KY_div">刷新</span></label>
+            </div>
+            <div class="plat-list-row list-cell" onclick="checkBalance($('#TX_div'),'TX')" >
+                <label><span>大唐棋牌</span></label>
+                <label class="refresh_btn"><span id="TX_div">刷新</span></label>
+            </div>
+        </li>
+        <li class="mui-table-view-cell" style="display: none">
+            <div class="plat-list-row list-cell" onclick="checkBalance($('#GPS_div'),'GPS')" >
+                <label><span>中途岛</span></label>
+                <label class="refresh_btn"><span id="GPS_div">刷新</span></label>
+            </div>
+            <div class="plat-list-row list-cell" onclick="checkBalance($('#ICG_div'),'ICG')" >
+                <label><span>ICG捕鱼</span></label>
+                <label class="refresh_btn"><span id="ICG_div">刷新</span></label>
+            </div>
+        </li>
+        <li class="mui-table-view-cell show_list_btn" onclick="showList()">
+            <div class="plat-list-row" style="text-align: center">
+                <label><span>显示所有场馆</span><img style="width: 12px;margin: 0 5px;" src="../../images/arrow_down.png?2"></label>
+            </div>
+        </li>
+    </ul>
+    <div class="bank-tab">
+        <div class="page-tab" id="way-img">
+           <!--<section tab="1" class="tab-active">
+                <img src="../../images/BANK.png" alt="" srcset="">
+                <p>银行卡</p>
+            </section>
+            <!--<section tab="2">
+                <img src="../../images/BANK_USDT.png" alt="" srcset="">
+                <p>USDT</p>
+            </section>-->
+        </div>
+        <div class="bank-container">
+            <div class="mui-input-group" style="padding-bottom: 10px;box-shadow: 3px 3px 3px 0 rgba(149, 151, 156, 0.75);">
+                <div class="mui-row transfer-select" style="padding: 10px">
+                    <div class="mui-col-xs-3"><span style="font-size: 15px;line-height: 30px;margin-left: 10px;">提款银行:</span></div>
+                    <div class="mui-col-xs-9">
+                        <span class="mui-navigate-right card-select" id="_bankCardId">请选择已绑定卡号</span>
+                        <input id="bankCardId" type="hidden" value="">
+                    </div>
+                </div>
+                <div class="mui-input-row transfer-form" style="height: auto">
+                    <p>提款金额</p>
+                    <div class="mui-textfield">
+                        <span style="color: #3a5dbf;font-size: 26px;">￥</span>
+                        <input style="font-size: 20px;border-bottom: 1px solid #afa2a2;width: 5.2rem;" type="text" placeholder="0.00" id="money">
+                        <button class="mui-btn"  onclick="maxMoney()" style="box-shadow: 3px 3px 3px 0 rgba(56, 87, 204, 0.75);">全额提款</button>
+                    </div>
+                    <div id="withdraw-limit" style="text-align: center;line-height: 1.5;color: #8f8f94;font-size: 14px;padding-top: 10px;"></div>
+                </div>
+            </div>
+            <div class="mui-content-padded">
+                <div class="transfer_btn submitBtn" style="margin: 0 auto;box-shadow: 5px 5px 5px 0 rgba(66,91,186,.75);">提交</div>
+            </div>
+            <div style="color: #ed4938;padding-left: 10px;">
+                比赛结束后系统会核对比分和同步派彩，请您耐心等待5-10分钟，感谢您的理解与支持！<br>
+                若提款失败请查看站内信提示的失败原因！
+            </div>
+        </div>
+        <div class="usdt-container" style="background-color: #edeef4;margin-top: 10px">
+            <!--<section class="usdt-row">
+                <label for="">币种：</label>
+                <input type="text" placeholder="USDT" value="USDT">
+            </section>-->
+            <div class="usdt-row">
+                <label for="protocols">可用协议：</label>
+                <input class="rate" type="text" id="protocols" value="" readonly>
+            </div>
+            <section class="usdt-row">
+                <label for="_digitalCardId">钱包地址：</label>
+                <div class="mui-col-xs-9" style="display: inline-block;width: 70%;">
+                    <span class="mui-navigate-right card-select" id="_digitalCardId">请选择钱包</span>
+                    <!--<input type="text" id="_digitalCardId" value="请选择钱包">-->
+                    <input id="digitalCardId" type="hidden" value="">
+                </div>
+            </section>
+
+            <section class="usdt-row">
+                <label for="rate">实时汇率：</label>
+                <input class="rate" type="text" id="rate" value="" readonly>
+            </section>
+            <section class="draw-content">
+                <div class="draw-text">提款金额：</div>
+                <div class="max-money">
+                    <span class="draw-icon">￥</span>
+                    <input type="text" id="usdtAmount" placeholder="请输入RMB金额">
+                    <button onclick="usdtMaxMoney()">最大金额</button>
+                </div>
+                <p id="usdt-limit"></p>
+                <p id="usdt-today-limit"></p>
+                <!--<p>每天00-07点期间500元起，其他时间段200元起</p>-->
+            </section>
+            <section class="usdt-row">
+                <label for="preview-account">预计到账：</label>
+                <input class="rate" type="text" id="preview-account" value="0 USDT" readonly>
+            </section>
+            <div style="color: #ed4938;padding-left: 10px;font-size: 0.36rem;">
+                <span>温馨提示：比赛结束后系统会核对比分和同步派彩，请您耐心等待5-10分钟，感谢的理解与支持您！</span><br>
+                <span>若提款失败请查看站内信提示的失败原因！</span>         
+            </div>
+        </div>
+        <button class="draw-button submitBtn usdtSubmit">立即提款</button>
+    </div>
+	<!--<div class="mui-input-row bottom-line" id="records_title">
+		<span>最近三笔提款记录</span>
+	</div>
+	<ul class="mui-table-view" id="view_records" style="display: block;margin-top: 0px;"></ul>-->
+</div>
+</body>
+@@include('html-foot.html')
+<script type="text/javascript">
+    mui.init();
+    //var bankArray = new Array();
+    var bankCards;
+    var _bankSelect;
+    var _digitalSelect;
+    var protocolStatus = {};
+    $(document).ready(function() {
+        fun_checkLoginStatus(null);
+        loadBanks();
+        loadWithdrawalLowerAndLimit();
+        loadRecords();
+        refreshMain($('#div_wallet'));
+        $('.submitBtn').click(function(){
+            var bankCardId = $.trim($("#bankCardId").val());
+            var money = $.trim($("#money").val());
+            if($(this).hasClass("usdtSubmit")){
+                bankCardId = $.trim($("#digitalCardId").val());
+                money = $.trim($("#usdtAmount").val());
+            }
+            if(bankCardId==null||bankCardId==''||bankCardId==undefined){
+                if($(this).hasClass("usdtSubmit")){
+                    fun_toast('请选择提款钱包地址!');return;
+                }else{
+                    fun_toast('银行账户不能为空!');return;
+                }
+
+            }
+            if (parseInt(money) < 0 || isNaN(money)) {
+                fun_toast('提款金额不符合规范!');return;
+            }else if(money == null || money == ""){
+                fun_toast('请输入提款金额!');return;
+            }
+            var postUrl = wap_site_host()+"/session/balance/withdrawals?amount="+money+"&cardId="+bankCardId+"&osname=PHONE";
+            submitForm(postUrl);
+        });
+
+        $("#usdtAmount").on("input", function(){
+            let data = $(".tab-active").data("data");
+            let number = Math.floor( floatdivide($(this).val(),data.withdrawRate) * 100 ) / 100;
+            $("#preview-account").val(number + " " + data.name.toUpperCase());
+        });
+    });
+    function refreshMain($dom_div_wallet){
+        checkBalance($dom_div_wallet,'main');
+    }
+    function submitForm(url){
+        $.ajax({
+            url: url,
+            type:"POST",
+            data:{"token":wap_get_user().token},
+            dataType: 'json',
+            success:function(d){
+                if (d.code == 0) {
+                    fun_toast('提交成功!');
+                    $('#bankCardId').val('');
+                    $('#_bankCardId').html('');
+                    mui($('#submitBtn')).button('reset');
+                } else {
+                    fun_toast(d.message);
+                    mui($('#submitBtn')).button('reset');
+                    wap_if_session_out(d.code);
+                }
+            },
+            error:function(jqXHR, textStatus){
+                wap_check_ajaxerror(jqXHR);
+                fun_toast('提交异常！');
+                mui($('#submitBtn')).button('reset');
+            }
+        });
+    }
+    function loadWithdrawalLowerAndLimit(){
+        $.ajax({
+            dataType: "jsonp",
+            url:wap_site_host() + "/session/record/withdrawalLowerAndLimit?token="+wap_get_user().token,
+            type:"GET",
+            dataType: 'json',
+            success:function(resultData){
+                if (resultData.code == 0) {
+                    $('#withdraw-limit').html('单笔提款：'+parseNumber(resultData.data.withdrawLower)+'元 - '+parseNumber(resultData.data.withdrawLimit)+'元<br>单日可提款：' + parseNumber(resultData.data.dayTotalLimit) + '元，剩余：' + parseNumber(resultData.data.dayLeaveCount) + '次');
+                    $('#usdt-limit').html('单笔限额：' + parseNumber(resultData.data.digitalCurrencyWithdrawLower) + '元 - ' + parseNumber(resultData.data.digitalCurrencyWithdrawLimit) + '元');
+                    $('#usdt-today-limit').html('今日可提款：' +parseNumber(resultData.data.dayTotalLimit)+ '元 , 剩余：' + parseNumber(resultData.data.dayLeaveCount) +'次');
+                } else {
+                    fun_alertMsg(resultData.message, '系统提示', function() {});
+                    wap_if_session_out(resultData.code);
+                }
+            },
+            error:function( jqXHR, textStatus){
+                wap_check_ajaxerror(jqXHR);
+                fun_alertMsg('请求失败，请稍后重试',function(){});
+            }
+        });
+    }
+    function loadDigitCurrnecyType(){
+        $.ajax({
+            dataType: "jsonp",
+            url: wap_site_host() + "/session/bank/getDigitalCurrency?token=" + wap_get_user().token,
+            type: "GET",
+            dataType: 'json',
+            success: function (resultData) {
+                if (resultData.code == 0) {
+                    var rmbWay = "        <section  way=\"rmb\">" +
+                        "            <p  class=\"way-icon way-active\"><img src=\"../../images/BANK.png\" alt=\"\" srcset=\"\"></p>" +
+                        "            <p>银行卡</p>" +
+                        "        </section>";
+                    $("#way-img").append(rmbWay);
+
+
+                    $.each(resultData.data.digitalCurrency, function(index,value){
+                        for(var i=0 ; i<value.protocols.length ; i++){
+                            protocolStatus[value.protocols[i]] = value.protocolStatuses[i];
+                        }
+                        $("#way-img").append("<section  id=\"digitalCurrenyData"+value.id+"\" way=\"digitalCurreny\">" +
+                            "            <p class=\"way-icon\"><img src=\"../../images/BANK_"+value.name.toUpperCase()+".png\" alt=\"\" srcset=\"\"></p>" +
+                            "            <p>"+value.name.toUpperCase()+"</p>" +
+                            "        </section>");
+                        $("#digitalCurrenyData" + value.id).data("data",value);
+                    });
+
+                    $('#way-img>section').click(function(){
+                        var bankWay = $(this).attr('way');
+                        let data = $(this).data("data");
+                        $(this).addClass('tab-active');
+                        $(this).siblings("section").removeClass('tab-active');
+                        if(bankWay==="digitalCurreny"){
+                            $('.bank-container').hide();
+                            $('.usdt-container').show();
+                            $('.draw-button').show();
+
+                            var bankArray = new Array();
+                            $.each(bankCards, function (n, value) {
+                                if(value.digitalCurrncyId == data.id && protocolStatus[value.digitalCurrncyProtocol] != 0) {
+                                    bankArray.push({
+                                        'code': value.id,
+                                        'value': fun_filterTxt(value.bankName + "(" + value.digitalCurrncyProtocol +")" + ' - ' + value.cardNum)
+                                    });
+                                }
+                            });
+                            _digitalSelect.updateWheel(0,bankArray);
+                            var openProtocol='';
+                            for(var i in protocolStatus) {
+                                if(protocolStatus[i]!=0)
+                                    openProtocol+=i+",";
+                            }
+                            $("#protocols").val(openProtocol.substr(0,openProtocol.length-1));
+                            $("#rate").val("1.00 "+data.name+" ≈ "+data.withdrawRate+" RMB");
+                            $("#usdtAmount").val('');
+                            $("#preview-account").val("0 " + data.name.toLocaleUpperCase());
+                        }else if(bankWay==="rmb"){
+                            $('.bank-container').show();
+                            $('.usdt-container').hide();
+                            $('.draw-button').hide();
+
+                            var bankArray = new Array();
+                            $.each(bankCards, function (n, value) {
+                                if(value.digitalCurrncyId == 0) {
+                                    bankArray.push({
+                                        'code': value.id,
+                                        'value': fun_filterTxt(value.bankName + ' - ' + value.cardNum)
+                                    });
+                                }
+                            });
+                            _bankSelect.updateWheel(0,bankArray);
+                        }
+                    });
+
+                    $('#way-img>section').first().click();
+                }
+            },
+            error: function (jqXHR, textStatus) {
+                wap_check_ajaxerror(jqXHR);
+                fun_alertMsg('请求失败，请稍后重试', '系统提示', function () {
+                });
+            }
+        });
+    }
+    function loadBanks(){
+        $.ajax({
+            dataType: "jsonp",
+            url:wap_site_host() + "/session/bankcard/use?token="+wap_get_user().token,
+            type:"GET",
+            dataType: 'json',
+            success:function(resultData){
+                if (resultData.code == 0) {
+                    bankCards = resultData.data;
+                    if(bankCards.length<=0){ fun_alertMsg('请先绑定银行卡再进行提款操作', '系统提示', function() {window.location.href="/wap/bank/add-card.html"}); return;}
+                    $('#_bankCardId').html('请选择银行账号');
+                    _bankSelect = new MobileSelect({
+                        trigger: '#_bankCardId',
+                        wheels: [ {data: [{"code":-1,"value":"请选择银行账号"}]} ],
+                        transitionEnd:function(indexArr, data){  },
+                        callback:function(indexArr, data){
+                            $('#bankCardId').val(fun_filterTxt(data[0].code));
+                            $('#_bankCardId').html(fun_filterTxt(data[0].value));
+                        }
+                    });
+
+                    $('#_digitalCardId').html('请选择钱包');
+                    _digitalSelect = new MobileSelect({
+                        trigger: '#_digitalCardId',
+                        wheels: [{data: [{"code":-1,"value":"请选择钱包"}]}],
+                        transitionEnd: function (indexArr, data) {
+                        },
+                        callback: function (indexArr, data) {
+                            $('#digitalCardId').val(fun_filterTxt(data[0].code));
+                            $('#_digitalCardId').html(fun_filterTxt(data[0].value));
+                        }
+                    });
+
+                    loadDigitCurrnecyType();
+                } else {
+                    fun_alertMsg(resultData.message, '系统提示', function() {});
+                    wap_if_session_out(resultData.code);
+                }
+            },
+            error:function( jqXHR, textStatus){
+                wap_check_ajaxerror(jqXHR);
+                fun_toast('请求失败，请稍后重试');
+            }
+        });
+    }
+    function loadRecords(){
+        $.ajax({
+            dataType: "jsonp",
+            url:wap_site_host() + "/session/record/withdrawals",
+            type:"GET",
+            data:{"lastTime":null, "length":3,"token":wap_get_user().token},
+            dataType: 'json',
+            success:function(resultData){
+                if (resultData.code == 0) {
+                    var listData = resultData.data;
+                    var appendHtml='';
+                    $.each(listData,function(n, v){
+                        var payDoneTime = fun_timeFormat(v.payDate);
+                        payDoneTime = (payDoneTime=='') ? '未完成' : payDoneTime;
+                        appendHtml+='<li class="mui-table-view-cell mui-media" data-commit_date="'+fun_timeFormat(v.withdrawDate)+'">\
+							<div class="mui-input-row"><label>金额</label><label style="width: 65%;">'+v.amount+'</label></div>\
+							<div class="mui-input-row"><label>提款状态</label><label style="width: 65%;">'+fun_filterTxt(v.status)+'</label></div>\
+							<div class="mui-input-row"><label>提交时间</label><label style="width: 65%;">'+fun_timeFormat(v.withdrawDate)+'</label></div>\
+							<div class="mui-input-row"><label>完成时间</label><label style="width: 65%;">'+payDoneTime+'</label></div>\
+						</li>';
+                    });
+                    if(appendHtml==''){
+                    }else{
+                        $('#records_title').show();
+                        $('#view_records').show().html(appendHtml);
+                    }
+                } else {
+                    fun_alertMsg(resultData.message, '系统提示', function() {});
+                    wap_if_session_out(resultData.code);
+                }
+            },
+            error:function( jqXHR, textStatus){
+                wap_check_ajaxerror(jqXHR);
+                fun_toast('请求失败，请稍后重试');
+            }
+        });
+    }
+    function refreshAll() {
+        refreshMain($('#div_wallet'));
+        checkBalance($('#PT_div'),'PT');
+        checkBalance($('#MG_PLUS_div'),'MG_PLUS');
+        checkBalance($('#AllBet_div'),'AllBet');
+        checkBalance($('#AG_div'),'AG');
+        checkBalance($('#CQ_div'),'CQ');
+        checkBalance($('#XJ_div'),'XJ');
+        checkBalance($('#TCG_div'),'TCG');
+        checkBalance($('#BBIN_div'),'BBIN');
+        checkBalance($('#KY_div'),'KY');
+        checkBalance($('#TX_div'),'TX');
+        checkBalance($('#RG_div'),'RG');
+        checkBalance($('#SW_div'),'SW');
+        checkBalance($('#GPS_div'),'GPS');
+        checkBalance($('#ICG_div'),'ICG');
+        refreshCutDown();
+    }
+    function checkBalance(domLi,type){
+        $(domLi).html('加载中...');
+        $.ajax({
+            dataType: "jsonp",
+            url:wap_site_host() + "/session/balance/"+type,
+            type:"GET",
+            data:{"token":wap_get_user().token},
+            dataType: 'json',
+            success:function(resultData){
+                if (resultData.code == 0) {
+                    $(domLi).html('￥'+resultData.data.toFixed(2));
+                    if(type!='main'){
+                        $(domLi).parent().css({"background-color": "#edeef4"});
+                        $(domLi).parent().css({"color":"#357bf5"});
+                    }
+                }else if(resultData.code == 5001){
+                    $(domLi).html('<font color="red">维护中</font>');
+                    if(type!='main'){
+                        $(domLi).parent().css({"background-color": "#5b80e7"});
+                    }
+                } else {
+                    if(type!='main'){
+                        $(domLi).html('刷新');
+                        $(domLi).parent().css({"background-color": "#5b80e7"});
+                        $(domLi).parent().css({"color":"#fff"});
+                    }
+                    fun_alertMsg(resultData.message, '系统提示', function() {});
+                    wap_if_session_out(resultData.code);
+                }
+            },
+            error:function( jqXHR, textStatus){
+                $(domLi).html('刷新');
+                wap_check_ajaxerror(jqXHR);
+                fun_toast('请求失败，请稍后重试');
+            }
+        });
+    }
+    function refreshCutDown() {
+        var sec=10;
+        $(".refresh_cell span").text('请稍等'+sec+'秒');
+        $("#checkAllBalance").addClass('disable');
+        $("#checkAllBalance").removeAttr("onclick","");
+        $(".refresh_cell img").hide();
+        var interval = setInterval(function () {
+            sec --;
+            if (sec <= 0){
+                $(".refresh_cell span").text("一键刷新");
+                $("#checkAllBalance").removeClass('disable');
+                $("#checkAllBalance").attr("onclick","refreshAll()");
+                $(".refresh_cell img").show();
+                clearInterval(interval);
+            } else {
+                $(".refresh_cell span").text('请稍等'+sec + '秒');
+            }
+        }, 1000);
+    }
+
+    function maxMoney(){
+        var money=$("#div_wallet").text();
+        var max = $.trim(money.substr(1,money.length-1));
+        if(parseInt(max) > 0){
+            $('#money').val(parseInt(max));
+        }
+    }
+    function usdtMaxMoney(){
+        var money=$("#div_wallet").text();
+        var max = $.trim(money.substr(1,money.length-1));
+        if(parseInt(max) > 0){
+            $('#usdtAmount').val(parseInt(max));
+            var data = $(".tab-active").data("data");
+            var number = Math.floor( floatdivide(parseInt(max),data.withdrawRate) * 100 ) / 100;
+            $("#preview-account").val(number + " " + data.name.toUpperCase());
+        }
+    }
+    function showList(){
+        $('.mui-table-view li:nth-child(3)').slideDown();
+        $('.mui-table-view li:nth-child(4)').slideDown(1000);
+        $('.mui-table-view li:nth-child(5)').slideDown(2000);
+        $('.show_list_btn span').text('收起所有场馆');
+        $('.show_list_btn img').css({"transform":"rotate(180deg)"});
+        $(".show_list_btn").attr("onclick","hideList()");
+    }
+
+    function hideList() {
+        $('.mui-table-view li:nth-child(3)').slideUp();
+        $('.mui-table-view li:nth-child(4)').slideUp();
+        $('.mui-table-view li:nth-child(5)').slideUp();
+        $('.show_list_btn span').text('显示所有场馆');
+        $('.show_list_btn img').css({"transform":"rotate(0deg)"});
+        $(".show_list_btn").attr("onclick","showList()");
+    }
+
+    function parseNumber(numStr) {
+        if(typeof  numStr === 'number')
+            numStr = numStr + '';
+        return numStr.replace(/\d+?(?=(?:\d{3})+$)/img, "$&,");
+    }
+
+    function floatdivide(arg1, arg2) {
+        let t1 = 0,
+            t2 = 0,
+            r1, r2;
+        try {
+            t1 = arg1.toString().split(".")[1].length;
+        } catch (e) {}
+        try {
+            t2 = arg2.toString().split(".")[1].length;
+        } catch (e) {}
+        r1 = Number(arg1.toString().replace(".", ""));
+        r2 = Number(arg2.toString().replace(".", ""));
+        return (r1 / r2) * Math.pow(10, t2 - t1);
+    }
+</script>
+</html>

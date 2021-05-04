@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>东赢 - 捕鱼达人</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+	<!--标准mui.css-->
+	<link href="/mui/css/mui.min.css" rel="stylesheet" />
+	<link href="/mui/css/common.css" rel="stylesheet" />
+	<link href="/style/css/index.css" rel="stylesheet" />
+	<!--扩展图标-->
+	<link href="/mui/css/mui-icons-extra.css" rel="stylesheet" />
+	<link href="/style/css/main.css" rel="stylesheet" />
+	<style type="text/css">
+		.mui-table-view-cell .mui-media-body{float: left;}
+		.title-nav{
+			background: #F0EFF4;
+			text-align: center;
+			height: 38px;
+			line-height: 38px;
+			vertical-align: middle;
+		}
+		.title-nav img{
+			margin-right: 15px;
+			vertical-align: middle;
+		}
+		.plat-list{
+			display: flex;
+			padding: 10px;
+			color: black;
+			font-size: 12px;
+			background-color: #fff;
+			margin: 5px 5px;
+		}
+		.plat-list .cover{
+			width: 3.7rem;
+		}
+		.plat-list .cover img{
+			width: 3.7rem;
+		}
+		.plat-list .info{
+			width: 5.8rem;
+			margin-left: 0.36rem;
+		}
+		.plat-list .info span{
+			font-size: 18px;
+			font-weight: bold;
+		}
+		.plat-list label{
+			background: url(../../images/fish_game_play.png) no-repeat;
+			background-size: 100%;
+			width: 1.7rem;
+			height: 0.6rem;
+			display: block;
+			float: right;
+		}
+	</style>
+</head>
+<body style="padding: 0px;">
+<!--侧滑菜单容器-->
+<div class="mui-off-canvas-wrap">
+	<div class="mui-inner-wrap">
+		<!-- 主体页面begin -->
+		<header class="mui-bar mui-bar-nav">
+			<a href="/index.html" class="mui-icon mui-icon-back mui-pull-left"></a>
+			<h1 class="mui-title" id="header_title">捕鱼达人</h1>
+		</header>
+		<div class="mui-content" style="height: 100%;overflow: scroll;">
+			<div>
+				<a href="javascript:openGame('6', 5)" class="plat-list">
+					<div class="cover">
+						<img src="https://xwsr2.16fass88.com/resources/wap_new/images/fish1.png">
+					</div>
+					<div class="info">
+						<span>AG捕鱼王</span>
+						<div>
+							首款捕鱼游戏，重磅出击！借助自然之力称霸海洋世界！
+						</div>
+						<label></label>
+					</div>
+				</a>
+				<a href="javascript:openGame('cmf0001', 53)" class="plat-list">
+					<div class="cover">
+						<img src="https://xwsr2.16fass88.com/resources/wap_new/images/buyu_game6.png">
+					</div>
+					<div class="info">
+						<span>ICG龙珠捕鱼</span>
+						<div>
+							深海3D逼真视效，时时爆机，千倍炮台，万炮齐发，满屏金币！
+						</div>
+						<label></label>
+					</div>
+				</a>
+				<!--<a href="javascript:openGame('cmt0001', 53)" class="plat-list">
+					<div class="cover">
+						<img src="https://xwsr2.16fass88.com/resources/wap_new/images/buyu_game5.png">
+					</div>
+					<div class="info">
+						<span>ICG神魔塔防</span>
+						<div>
+							每天金币领不停，游戏页面萌萌哒~ 动起你的小爪子，快把金币带回家！
+						</div>
+						<label></label>
+					</div>
+				</a>-->
+				<a href="javascript:playGameWithUrl('/ptweb/gpsGame')" class="plat-list">
+					<div class="cover">
+						<img src="https://xwsr2.16fass88.com/resources/wap_new/images/buyu_game4.png">
+					</div>
+					<div class="info">
+						<span>决战中途岛</span>
+						<div>
+							首款战机游戏，重磅出击，时时爆机，满屏金币！
+						</div>
+						<label></label>
+					</div>
+				</a>
+			</div>
+		</div>
+		<!-- 主体页面end -->
+	</div>
+</div>
+</body>
+<!-- 加载JavaScript -->
+<script type="text/javascript" src="/style/js/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="/style/layer/layer.js"></script>
+<script type="text/javascript" src="/style/js/common.js"></script>
+<script type="text/javascript" src="/mui/js/mui.min.js"></script>
+<script type="text/javascript" src="/style/js/jquery.cookie.js"></script>
+@@include('html-foot.html')
+<script type="text/javascript">
+    $(document).ready(function(){
+        mui.init();
+        mui('#allGame_list ul').on('tap','li',function(){
+            var pid = $(this).data('pid');
+            var gameCode = $(this).data('game_code');
+            openGame(gameCode,pid);
+        });
+    });
+    function openPlatform(id,platformNameEn,dom_a){
+        _setStorageData('_select_plat_id', id);
+        _setStorageData('_select_plat_name_en', platformNameEn);
+        window.location.href = "/wap/plat-game/pg_index.html";
+    }
+    function openGame(gameCode,pid){
+        if (wap_is_user_notexist()) {
+            wap_need_login();
+        } else {
+            var token = wap_get_user().token;
+            window.open('https://wett.5ct5mm555.com/ptweb/playGame?gameCode='+gameCode+'&pid='+pid+'&token='+token,'_blank');
+        }
+    }
+	function playGameWithUrl(redirectUrl) {
+		if (wap_is_user_notexist()) {
+			fun_alertMsg('请登录后再操作','系统提示');
+		} else {
+			if(redirectUrl=='/ptweb/playELottery'){
+				window.open(event_site_host() + redirectUrl +'?gameCode=Game_List&token='+wap_get_user().token);
+			}else{
+				window.open(event_site_host() + redirectUrl +'?token='+wap_get_user().token);
+			}
+
+		}
+	}
+</script>
+</html>

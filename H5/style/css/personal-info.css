@@ -1,0 +1,203 @@
+body {
+    font: 17px "Microsoft Yahei","微软雅黑", STXihei, "华文细黑", sans-serif !important;
+    margin: 0 auto;
+    padding: 0;
+}
+header{
+    padding: 25px 20px 10px;
+    color: #363636;
+}
+header img{
+    width: 12%;
+    float: right;
+}
+.personal{
+    background-size: contain;
+    background-color: #d2d2de;
+    height: 20rem;
+}
+
+.personal .personal_container {
+    margin: 0 .31rem;
+    height: 9.5rem;
+    width: 95%;
+    background-color: #ffffff00;
+}
+.personal_moeny{
+    padding: 0.5rem 0.6rem 0.8rem 0.6rem;
+    text-align: left;
+}
+.personal_moeny_amount{
+    font-size: 0.7rem;
+}
+.profile{
+    display: block;
+    height: 3.69rem;
+    background: url("../../images/personal/personal_bg.png");
+    background-size: 100%;
+}
+.profile .personal_icon{
+    width: 1.68rem;
+    position: absolute;
+    top: 1rem;
+    left: 0.37rem;
+}
+.profile .personal_login{
+    color: #fff;
+    line-height: .4rem;
+    height: 1.68rem;
+    font-size: .33rem;
+    width: 4.5rem;
+    position: absolute;
+    top: 1.1rem;
+    left: 2.5rem;
+}
+.personal_login #personal_vip_img{
+    height: 0.31rem;
+}
+.profile .edit{
+    position: absolute;
+    right: 37%;
+    bottom: 0;
+    width: 7%;
+    z-index: 2;
+}
+
+.personal .details-container .details-box{
+    top: 0;
+}
+.personal .details{
+    top: 10%;
+    width: 85%;
+}
+.personal .details .vip, .personal .details .mui-col-xs-3{
+    text-align: right;
+}
+.personal .personal_details{
+    height: 4.05rem;
+    text-align: center;
+    margin: -.5rem auto;
+    color: #000;
+    font-size: .32rem;
+    background: url("../../images/personal/personal_details_bg.png");
+    background-size: 100%;
+}
+.personal .personal_details img{
+    height: .8rem;
+    vertical-align: middle;
+    margin-top: -5px;
+    margin-right: 5px;
+}
+.personal_menu_title{
+    padding-top: 0.2rem;
+    font-size: 0.4rem;
+}
+.personal_menu_title img{
+    margin-right: 10px;
+    height: 0.5rem;
+}
+.personal_menu{
+    margin-top: 0.7rem;
+    height: 7.7rem;
+    background: url("../../images/personal/personal_menu_bg.png");
+    background-size: 100%;
+}
+.personal_menu_list{
+    padding-top: .3rem;
+    padding-left: .1rem;
+}
+.personal_menu_list div{
+    width: 32%;
+    text-align: center;
+    margin-bottom: .5rem;
+    display: inline-block;
+}
+.personal_menu_list a{
+    height: 1.2rem;
+    display: inline-block;
+    width: 100%;
+    line-height: 2.9rem;
+    font-size: .3rem;
+    color: black;
+}
+.menu_icon_record{
+    background: url("../../images/personal/menu_record.png") center top no-repeat;
+    background-size: 33%;
+}
+.menu_icon_bouns{
+    background: url("../../images/personal/menu_bouns.png") center top no-repeat;
+    background-size: 33%;
+}
+.menu_icon_info{
+     background: url("../../images/personal/menu_info.png") center top no-repeat;
+     background-size: 33%;
+}
+.menu_icon_password{
+    background: url("../../images/personal/menu_password.png") center top no-repeat;
+    background-size: 33%;
+}
+.menu_icon_bank{
+    background: url("../../images/personal/menu_bank.png") center top no-repeat;
+    background-size: 33%;
+}
+.menu_icon_download{
+    background: url("../../images/personal/menu_download.png") center top no-repeat;
+    background-size: 33%;
+}
+.menu_icon_notice{
+    background: url("../../images/personal/menu_notice.png") center top no-repeat;
+    background-size: 33%;
+}
+.menu_icon_mail{
+    background: url("../../images/personal/menu_mail.png") center top no-repeat;
+    background-size: 33%;
+}
+.menu_icon_agent{
+    background: url("../../images/personal/menu_agent.png") center top no-repeat;
+    background-size: 33%;
+}
+.personal_logout{
+    height: 1.2rem;
+    background-color: #5b80e7;
+    color: #fff;
+    text-align: center;
+    line-height: 1.2rem;
+    margin-top: 0.3rem;
+}
+.badge {
+    position: absolute;
+    top: -9px;
+    right: 12px;
+    padding: 1px 6px;
+    line-height: 2;
+    border-radius: 10px;
+    background: red;
+    color: #fff;
+    font-size: 7px;
+}
+.image-upload>input {
+    display: none;
+}
+.overlay{
+    background-color: rgba(0, 0, 0, 0.76);
+    border-radius: 24px;
+    padding: 10px;
+    position: absolute;
+    z-index: 4;
+    margin: 8px;
+    top: 33%;
+    display: none;
+}
+.overlay img{
+    width: 100%;
+    padding: 10px;
+}
+.overlay-bg{
+    height: 100vh;
+    width: 100%;
+    position: absolute;
+    z-index: 3;
+    display: none;
+}
+
+

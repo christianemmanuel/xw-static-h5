@@ -1,0 +1,1056 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>东赢电子竞技</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+
+	<!--标准mui.css-->
+	<link href="/mui/css/mui.min.css" rel="stylesheet" />
+	<link href="/mui/css/common.css" rel="stylesheet" />
+	<!--扩展图标-->
+	<link href="/mui/css/mui-icons-extra.css" rel="stylesheet" />
+	<link href="/style/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+	<link href="/style/css/main.css" rel="stylesheet" />
+	<link href="/style/css/egame.css" rel="stylesheet" />
+	<link href="/style/css/index.css" rel="stylesheet" />
+</head>
+<body style="padding: 0px;">
+	<!-- 主体页面begin -->
+	<div class="container">
+		<div class="main-header">
+			<span class="user-icon"></span>
+			<span class="user-name">加载中...</span>
+			<span class="refresh-icon"></span>
+			<span class="user-balance">加载中...</span>
+			<span class="bet-list-btn">投注记录</span>
+		</div>
+		<div style="overflow:hidden;height: 77px;margin-bottom: 5px;">
+			<div class="row game-t">
+				<div class="game-t-cell active">
+					<i class="ico_g_all"></i>
+					<span>全部游戏</span>
+				</div>
+				<div class="game-t-cell">
+					<i class="ico_g_dota"></i>
+					<span>Dota 2</span>
+				</div>
+				<div class="game-t-cell">
+					<i class="ico_g_cs"></i>
+					<span>CS</span>
+				</div>
+				<div class="game-t-cell">
+					<i class="ico_g_cji"></i>
+					<span>绝地求生</span>
+				</div>
+				<div class="game-t-cell">
+					<i class="ico_g_lol"></i>
+					<span>英雄联盟</span>
+				</div>
+				<div class="game-t-cell">
+					<i class="ico_g_kog"></i>
+					<span>王者荣耀</span>
+				</div>
+				<div class="game-t-cell">
+					<i class="ico_g_ow"></i>
+					<span>守望先锋</span>
+				</div>
+				<div class="game-t-cell">
+					<i class="ico_g_hf"></i>
+					<span>暴雪英霸</span>
+				</div>
+				<div class="game-t-cell">
+					<i class="ico_g_lushi"></i>
+					<span>炉石传说</span>
+				</div>
+				<div class="game-t-cell">
+					<i class="ico_g_sc"></i>
+					<span>星际争霸2</span>
+				</div>
+				<div class="game-t-cell">
+					<i class="ico_g_wc"></i>
+					<span>魔兽争霸3</span>
+				</div>
+			</div>
+		</div>
+		<div class="row game-nav">
+			<div class="game_search">
+				<input type="text" placeholder="搜索战队" id="search_txt">
+			</div>
+			<div class="choose-type-list">
+				<div class="choose-type">
+					<span class="zaopan">早盘</span>
+					<span class="gunqiu" style="display: none;">滚球</span>
+				</div>
+				<div class="type-list">
+					<span class="zao-pan">早盘</span>
+					<span class="gun-qiu">滚球</span>
+				</div>
+			</div>
+			<div class="egame-date active">
+				<span class="choose-date"></span>
+				<div class="date-list">
+				</div>
+			</div>
+		</div>
+		<div class="row game-content">
+			<div class="game-none" style="display: none;">
+				<span>- 暂无赛事可投注 -</span>
+			</div>
+			<div class="game-list"><ul class="gunlist"></ul><ul class="zaolist"></ul></div>
+		</div>
+	</div>
+	<div id="data_db" style="display: none;"></div>
+	<div id="data_gun_db" style="display: none;"></div>
+	<!-- 主体页面end -->
+    <!-- Modal -->
+    <div class="modal fade" id="betInfoModal" tabindex="-1" role="dialog" aria-labelledby="betInfoModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<span class="modal-title" id="betInfoModalLabel">投注单</span>
+                </div>
+                <div class="modal-body">
+                </div>
+                <div class="modal-footer">
+                    <button id="submit_btn" type="button" data-loading-text="提交中" class="btn btn-primary">确认投注</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<!-- 加载JavaScript -->
+<script type="text/javascript" src="/style/js/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="/style/layer/layer.js"></script>
+<script type="text/javascript" src="/style/js/common.js"></script>
+<script type="text/javascript" src="/mui/js/mui.min.js"></script>
+<script type="text/javascript" src="/style/js/jquery.cookie.js"></script>
+<script type="text/javascript" src="/style/plugins/bootstrap/js/bootstrap.min.js"></script>
+<script src="/style/js/numeral.min.js"></script>
+@@include('html-foot.html')
+<script type="text/javascript">
+function getQueryString(name) {
+    var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+    var r = window.location.search.substr(1).match(reg);
+    if(r!=null)return  unescape(r[2]); return null;
+}
+var userToken = getQueryString("token");
+var sportToken='',sessionId='';
+if ((userToken==null || userToken==='') && wap_is_user_notexist()) {
+    wap_go_login('请登录后再操作');
+}else {
+    if (userToken == null || userToken === '') {
+        userToken = wap_get_user().token;
+    }
+}
+$('document').ready(function(){
+	initDatas();
+	$('.container').click(function () {
+		$('.type-list').hide();
+	});
+	$('.choose-type-list').click(function(){
+		if($(this).find('.type-list').is(':hidden')){
+			$(this).find('.type-list').show();
+		}else{
+			$(this).find('.type-list').hide();
+		}
+		return false;
+	});
+	$('.type-list span').click(function(){
+		$('.type-list').hide();
+		$('.game-list ul').html('');
+		$('.bet-cart-none').show();
+		$('.bet-cart-list').hide().find('.bet-items').html('');
+		if($(this).hasClass('zao-pan')){
+            loadGunList();
+			loadZaoList();
+			$('.choose-type .zaopan').show().siblings('span').hide();
+		}else{
+			loadGunList();
+			$('.choose-type .gunqiu').show().siblings('span').hide();
+		}
+		return false;
+	});
+	$('.game-t-cell').click(function (){
+		if($(this).hasClass('active')){ return; }
+		$(this).addClass('active').siblings('.game-t-cell').removeClass('active');
+		$('.game-list ul').html('');
+
+		if($('.choose-type .zaopan').is(':visible')){
+            if($('.date-list span:first').hasClass('active')){
+                loadGunList();
+            }
+			loadZaoList();
+		}else{
+			loadGunList();
+		}
+	});
+	$('#isAccept').click(function(){
+		var $isAcceptInput = $(this);
+		var acceptedOpt = $isAcceptInput.is(':checked') ? 2 : 1;
+		$.ajax({
+			url: wap_site_host() + 'session/egames/updateAcceptBetterOdds',
+			type:"POST",
+			data:{ 'acceptedOpt':acceptedOpt,'sessionId':sessionId,'token':userToken },
+			success:function(httpResultStr){
+                if(httpResultStr.code!=null && httpResultStr.code!=0){
+                    layer.alert(httpResultStr.message);
+                    return;
+                }
+				if(httpResultStr=='\"true\"'){
+					return;
+				}
+				layer.alert('设置失败，请稍后重试');
+				$isAcceptInput.attr('checked', !($isAcceptInput.is(':checked')));
+			}, error:function(e){
+				layer.alert('设置失败，请稍后重试');
+				$isAcceptInput.attr('checked', !($isAcceptInput.is(':checked')));
+			}
+		});
+	});
+	$('.choose-date').click(function (){
+	    $('.date-list').show();
+	});
+	$('#search_txt').keyup(function(){
+		var gameType = $('.choose-type .gunqiu').is(':hidden') ? 1 : 2;
+		if(gameType===1 && $('.date-list span:first').hasClass('active')){
+            loadLoaclData($.trim($(this).val()), 2);
+		}
+		loadLoaclData($.trim($(this).val()),gameType);
+	});
+	$('.refresh-icon').click(function(){
+		var $cashSpan = $('.user-balance').html('加载中...');
+		$.ajax({
+			url: wap_site_host() + 'session/egames/userBalance?token='+userToken,
+			type:"POST",
+			success:function(httpResultStr){
+                if(httpResultStr.code!=null && httpResultStr.code!=0){
+                    layer.alert(httpResultStr.message);
+                    return;
+                }
+				$cashSpan.html("RMB "+httpResultStr);
+			}, error:function(e){
+				layer.alert('查询失败，请稍后重试');
+			}
+		});
+	});
+	$('.bet-user-cash .btn').click(function(){
+		layer.open({
+			type: 2,
+			title: false,
+			area: ['1040px', '700px'],
+			closeBtn: 1,
+			shadeClose: true,
+			content: '/egames/betList?sessionId='+sessionId
+		});
+	});
+	$('.btn-clen').click(function(){
+		$('.bet-cart-none').show();
+		$('.bet-cart-list').hide().find('.bet-items').html('');
+	});
+	$('#submit_btn').click(function(){
+        var single_begin = $('.m-bet-body').attr('single_begin');
+        var single_end = $('.m-bet-body').attr('single_end');
+        var betmin = parseInt($('.m-bet-body').attr('betmin'));
+        var betmax = parseInt($('.m-bet-body').attr('betmax'));
+        var betMoney = parseFloat($('#betNum').val());
+        if(betMoney<betmin||betMoney>betmax){
+            $('.m-bet-info div:last').css('color','red');
+            return;
+        }
+        var singleListStr= (single_begin+betMoney+single_end);
+		mui($('#submit_btn')).button('loading');
+		$.ajax({
+			url: wap_site_host() + 'session/egames/bettingGame',
+			type:"POST",
+			data:{ 'singleList':singleListStr,'sessionId':sessionId,'sportToken':sportToken,'token':userToken },
+			success:function(httpResultStr){
+				mui($('#submit_btn')).button('reset');
+                if(httpResultStr.code!=null && httpResultStr.code!=0){
+                    layer.alert(httpResultStr.message);
+                    return;
+                }
+				var str = httpResultStr.replace(new RegExp('\"', 'g'),'').replace(new RegExp('\'', 'g'),'\"');
+				var httpResult = JSON.parse(str);
+				var betList = httpResult.s;
+				if(betList!=null && betList!=='' && betList.length>0){
+                    $('#betInfoModal').modal('hide');
+					var betStr = '<table class="table table-hover bet-table">\
+								<tbody>';
+					$.each(betList,function(index,obj){
+						var canWin = parseFloat(obj.st) * parseFloat(obj.o);
+						var icoStr = '';
+						if(obj.cpn.indexOf('Overwatch')!=-1){
+							icoStr = 'ico-s-ow';
+						}else if(obj.cpn.indexOf('DOTA2')!=-1){
+							icoStr = 'ico-s-dota';
+						}else if(obj.cpn.indexOf('英雄联盟')!=-1){
+							icoStr = 'ico-s-lol';
+						}else if((obj.cpn.indexOf('王者荣耀')!=-1 || obj.cpn.indexOf('King Of Glory')!=-1)){
+							icoStr = 'ico-s-kog';
+						}else if((obj.cpn.indexOf('反恐精英')!=-1 || obj.cpn.indexOf('CS:GO')!=-1)){
+							icoStr = 'ico-s-cs';
+						}else if((obj.cpn.indexOf('星际争霸')!=-1 || obj.cpn.indexOf('StarCraft II')!=-1)){
+							icoStr = 'ico-s-sc';
+						}else if((obj.cpn.indexOf('绝地求生')!=-1)){
+							icoStr = 'ico-s-cji';
+						}else if((obj.cpn.indexOf('暴雪英霸')!=-1)){
+							icoStr = 'ico-s-hf';
+						}else if((obj.cpn.indexOf('炉石传说')!=-1)){
+							icoStr = 'ico-s-lushi';
+						}else if((obj.cpn.indexOf('魔兽争霸')!=-1)){
+							icoStr = 'ico-s-wc';
+						}
+                        betStr +='<tr><td style="width: 90px;">游戏类型：</td><td colspan="2">'+obj.cpn+'</td></tr>';
+                        betStr +='<tr><td>盘口：</td><td>'+obj.hn+' VS '+obj.an+'</td><td style="width: 45px;">'+obj.bn+'</td></tr>';
+                        betStr +='<tr><td>投注内容：</td><td colspan="2" style="color: #31A0E3;">'+obj.sn+'</td></tr>';
+                        betStr +='<tr><td>投注金额：</td><td colspan="2" >'+obj.st+'</td></tr>';
+                        betStr +='<tr><td>赔率：</td><td colspan="2" >'+obj.o+'</td></tr>';
+                        betStr +='<tr><td>投注状态：</td><td colspan="2" >';
+						if(obj.rsl==9999){
+							betStr += '<span style="color:#67FF67">投注成功</span>';
+						}else{
+							betStr += '<span style="color:#FF6767">投注失败:'+switchMsg(httpResult.info)+'</span>';
+						}
+						betStr += '</td></tr>';
+					});
+					betStr+='</tbody></table>';
+					layer.open({
+						type: 1,
+						area: ['300px', '380px'],
+						title: '下注提示',
+						closeBtn: 0,
+						content: betStr,
+						btn: ['确定'],
+						yes: function(index){
+							layer.close(index);
+							$('.bet-cart-none').show();
+							$('.bet-cart-list').hide().find('.bet-items').html('');
+							$('.odds-num.active').removeClass('active');
+						}
+					});
+				}else{
+					layer.alert('下注失败');
+                    $('#betInfoModal').modal('hide');
+				}
+			}, error:function(e){
+				mui($('#submit_btn')).button('reset');
+				layer.alert('下注失败');
+                $('#betInfoModal').modal('hide');
+			}
+		});
+	});
+});
+	function initDatas(){
+    $.ajax({
+        url: wap_site_host() +'session/egames/init?token='+userToken,
+        type: "GET",
+        success:function(httpResult){
+            if(httpResult.code==0){
+                sportToken = httpResult.data.sportToken;
+                sessionId = httpResult.data.sessionId;
+                if(httpResult.data.loginName==null){
+                    layer.alert('数据加载失败，请刷新页面重试');return;
+				}
+                $('.user-name').html('XW'+httpResult.data.loginName);
+                $('.user-balance').html('RMB '+httpResult.data.egameBalance);
+                var weekHtml = '';
+				$.each(httpResult.data.weeks,function(index,object){
+					if(index==0){
+					    $('.choose-date').html(object);
+						weekHtml+= '<span class="active">'+object+'</span>';
+					}else{
+						weekHtml+= '<span>'+object+'</span>';
+					}
+				});
+				$('.egame-date .date-list').html(weekHtml);
+				$('.bet-list-btn').css('background','#78D051').click(function () {
+					window.open('/wap/egames/egame-list.html?sessionId='+sessionId+'&token='+userToken);
+                });
+                $('.date-list span').click(function () {
+                    $('.date-list').hide();
+                    if($(this).hasClass('active')){ return; }
+                    $('.choose-date').html($(this).html());
+                    $(this).addClass('active').siblings('span').removeClass('active');
+                    $('.game-list ul').html('');
+                    if($('.date-list span:first').hasClass('active')){
+                        loadGunList();
+                        $('.egame-date').addClass('active');
+					}else{
+                        $('.egame-date').removeClass('active');
+					}
+                    loadZaoList();
+                });
+                loadGunList();
+                loadZaoList();
+			}else{
+                layer.alert(httpResult.message);
+			}
+        }, error:function(e){ }
+    });
+}
+    function switchMsg(serr){
+        if(serr==null || serr===''){return '';}
+        switch (serr) {
+            case "Two_Sec_Interval":
+                return "投注失败。";
+            case "BS_OddsUpdating":
+                return "赔率更新中...";
+            case "BS_AllFailed":
+                return "投注失败。";
+            case "Bet_Exception":
+                return "赛事盘口已关闭。";
+            case "BS_SelectionClosed":
+                return "盘口已关闭。";
+            case "BS_ExceededComboMaxPayOut":
+                return "超出连串过关最高可赢额。";
+            case "BS_DailyBetLimit":
+                return "超出您的每日投注限额。";
+            case "BS_DailyWinningLimit":
+                return "超出每日赢利限额，请联系客户服务以了解更多信息。";
+            case "BS_ExceedExposure":
+                return "投注失败。 请与客服联系。 误代码：DTL88。";
+            case "BS_ExceedTotalMaxSelection":
+                return "投注失败，投注总限额已超过。";
+            case "BS_ExceedTotalMaxPayout":
+                return "投注失败，支付总限额已超过。";
+            case "BS_ExceedMaxBet":
+                return "超出投注限额。";
+            case "BS_ExceededEPSBetMax":
+                return "您已经超出更高赔率选择的最高投注限额。你仍然可以在常规市场上投注同样的选项。";
+            case "BS_ExceededMaxSelectionCount":
+                return "超出最多选项数额。";
+            case "BS_ExceededSingleBetMax":
+                return "投注额超出单笔投注限额。";
+            case "BS_ExceededSingleEventMax":
+                return "投注额超出该场赛事投注限额。";
+            case "BS_ExceededTotalEventMax":
+                return "超出单场总投注限额。";
+            case "BS_ExceededTotalEventPayOut":
+                return "超出单场总可赢额。";
+            case "Hdp_Changed":
+                return "让球数已变更。";
+            case "Odds_Changed":
+                return "赔率已变更！";
+            case "Score_Changed":
+                return "比分已变更。";
+            case "BS_Has_EPS":
+                return "你已经把赌注押在这复式过关更高赔率的选择上。你仍然可以在常规市场上投注同样的选项。";
+            case "BS_ComboMinBet":
+                return "投注小于最低投注额";
+            case "BS_ExceededMinBet":
+                return "超出单笔最低投注额。";
+            case "BS_ExceededCreditBalance":
+                return "投注额超出您的帐户余额！";
+            case "BS_ExceededDepositBalance":
+                return "投注额超出您的帐户余额。 进入支付页面进行存款。";
+            case "BS_ParlaySameEvent":
+                return "单场赛事只能串一种玩法。";
+            case "BS_Inactived":
+                return "您的账户已经停用，请联系在线客服寻求协助。";
+            case "BS_DifferentEventDate":
+                return "不能在不同的赛事日期下注。";
+            case "BS_EventNotStartedInPlay":
+                return "赛事没有开始滚球投注。";
+            case "BS_DeductExceededTimeout":
+                return "很抱歉，下注失败。请重试或联系在线客服。";
+            case "BS_Suspended":
+                return "您的帐户已被冻结，请与客服联系。";
+            case "BS_ExceededComboWinningAmount":
+                return "您已经达到每日最高派彩。";
+            case "BS_MarketChanged":
+                return "无法继续。请查看您的选项。";
+            case "BS_Login_Bet":
+                return "请登录账户进行投注。 若尚未加入，立即注册。";
+            case "BS_DangerSuccess":
+                return "1个或多个注单在确认中，请检查您的投注状况。";
+            case "BS_DangerBet":
+                return "注单确认中，请检查您的投注状况。";
+            case "BS_Bet_Successed":
+                return "您的注单已被确认。";
+            case "BS_PartialSuccessed":
+                return "1个或多个投注无法进行投注。";
+            case "Hdp_Odds_Changed":
+                return "让球数和赔率已变更。";
+            default:
+                break;
+        }
+        return serr;
+    }
+    function loadZaoList(){
+        $('.egame-date').show();
+        loadGameList(1,'https://xj-mbs.prdasbbwla1.com/zh-cn/Service/OddsService?GetEventsByCompetitions&SportId=23&OddsType=2&TimeZoneUtcOffset=480&Language=zh-cn&EventOption=FutureEvents');
+    }
+    function loadGunList(){
+        $('.egame-date').hide();
+        loadGameList(2,'https://xj-mbs.prdasbbwla1.com/zh-cn/Service/OddsService?GetEventsByCompetitions&SportId=23&OddsType=2&TimeZoneUtcOffset=480&Language=zh-cn&EventOption=InPlayEvents');
+    }
+    function loadGameList(gameType,gameUrl){
+        $.ajax({
+            url: gameUrl,
+            type: "GET",
+            success:function(httpResultStr){
+                var httpResult = httpResultStr+'';
+                if(httpResult.indexOf("(")==0){ httpResult = httpResult.substring(1); }
+                if(httpResult.indexOf(");")>0){ httpResult = httpResult.replace(");",""); }
+                httpResult = httpResult.replace(new RegExp('inplay-evs', 'g'),"inplay_evs");
+                httpResult = httpResult.replace(new RegExp('further-evs', 'g'),"further_evs");
+                httpResult = httpResult.replace(new RegExp('outright-evs', 'g'),"outright_evs");
+                httpResult = httpResult.replace(new RegExp('1x2', 'g'), '_1x2');
+                if(gameType===1){
+                    $('#data_db').data("zaoList",httpResult);
+                }else if(gameType===2){
+                    $('#data_gun_db').data("gunList",httpResult);
+                }
+                var sportResultList = $.parseJSON(httpResult);
+                var zaoSportList = sportResultList.further_evs;
+                if(gameType==2){ zaoSportList = sportResultList.inplay_evs; }
+                transData(gameType,zaoSportList, $('.egame-date .active').html());
+                loadLoaclData('',gameType);
+
+            }, error:function(e){ }
+        });
+    }
+    function loadLoaclData(keywords,game_type){
+        var gameDate = $('.egame-date .active').html();
+        var gameType = $('.game-t-cell.active i').attr('class');
+        var is_inplay = false;
+        if(game_type==2){ gameDate = _KEY_GUNQIU_LIST;is_inplay=true; }
+        var dataId = game_type===1 ? '#data_db' : '#data_gun_db';
+        var dataStr = $(dataId).data(gameDate);
+        var eventList = (dataStr!=null && dataStr!=='') ? JSON.parse(dataStr) : new Array();
+        var gamesHtmlStr = '';
+        $.each(eventList,function(n, eventInfo){
+            var icoStr = '';
+            if(eventInfo.data.Competition.indexOf('Overwatch')!=-1 && (gameType=='ico_g_all' || gameType=='ico_g_ow')){
+                icoStr = 'ico-s-ow';
+            }else if(eventInfo.data.Competition.indexOf('DOTA2')!=-1 && (gameType=='ico_g_all' || gameType=='ico_g_dota')){
+                icoStr = 'ico-s-dota';
+            }else if(eventInfo.data.Competition.indexOf('英雄联盟')!=-1 && (gameType=='ico_g_all' || gameType=='ico_g_lol')){
+                icoStr = 'ico-s-lol';
+            }else if((eventInfo.data.Competition.indexOf('王者荣耀')!=-1 || eventInfo.data.Competition.indexOf('King Of Glory')!=-1)
+                && (gameType=='ico_g_all' || gameType=='ico_g_kog')){
+                icoStr = 'ico-s-kog';
+            }else if((eventInfo.data.Competition.indexOf('反恐精英')!=-1 || eventInfo.data.Competition.indexOf('CS:GO')!=-1)
+                && (gameType=='ico_g_all' || gameType=='ico_g_cs')){
+                icoStr = 'ico-s-cs';
+            }else if((eventInfo.data.Competition.indexOf('星际争霸')!=-1 || eventInfo.data.Competition.indexOf('StarCraft II')!=-1)
+                && (gameType=='ico_g_all' || gameType=='ico_g_sc')){
+                icoStr = 'ico-s-sc';
+            }else if((eventInfo.data.Competition.indexOf('绝地求生')!=-1) && (gameType=='ico_g_all' || gameType=='ico_g_cji')){
+                icoStr = 'ico-s-cji';
+            }else if((eventInfo.data.Competition.indexOf('暴雪英霸')!=-1) && (gameType=='ico_g_all' || gameType=='ico_g_hf')){
+                icoStr = 'ico-s-hf';
+            }else if((eventInfo.data.Competition.indexOf('炉石传说')!=-1) && (gameType=='ico_g_all' || gameType=='ico_g_lushi')){
+                icoStr = 'ico-s-lushi';
+            }else if((eventInfo.data.Competition.indexOf('魔兽争霸')!=-1) && (gameType=='ico_g_all' || gameType=='ico_g_wc')){
+                icoStr = 'ico-s-wc';
+            }else{
+                //if(gameType!='ico_g_all'){}
+                return;
+            }
+            if(keywords!='' && keywords!=null){
+                var keywordsStr = keywords.toLowerCase();
+                var comStr = eventInfo.data.Competition.toLowerCase();
+                var homeStr = eventInfo.data.Home.toLowerCase();
+                var awayStr = eventInfo.data.Away.toLowerCase();
+                if(comStr.indexOf(keywordsStr)===-1 && homeStr.indexOf(keywordsStr)===-1 && awayStr.indexOf(keywordsStr)===-1){
+                    return;
+                }
+            }
+
+            var gameDate = new Date(eventInfo.eventDate);
+            gameDate.setHours(gameDate.getHours()-8);
+            gameDate = gameDate.format("MM-dd hh:mm");
+            gamesHtmlStr+= '<li class="row" data-sportid="'+eventInfo.sportId+'" data-eventid="'+eventInfo.eventId+'" data-isinplay="'+is_inplay+'">\
+							<div >\
+								<i class="'+icoStr+'"></i><span>'+gameDate+'</span><span class="com-name" title="'+eventInfo.data.Competition+'">'+eventInfo.data.Competition+'</span>\
+							</div>\
+							<div class="s-game-info">\
+								<span title="'+eventInfo.data.Home+'">'+eventInfo.data.Home+'</span>\
+								<span class="game-vs">VS</span>\
+								<span title="'+eventInfo.data.Away+'">'+eventInfo.data.Away+'</span>\
+							</div>\
+							<div class="s-game-detail"></div>\
+							<ul class="col-xs-12 bet-list"></ul>\
+						</li>';
+        });
+        $('.game-none').hide();
+        if(gamesHtmlStr!=''){
+            $('.game-list').show();
+            if(game_type==1){//zao
+                if($('.date-list span:first').hasClass('active')){
+                    $('.game-list .gunlist').show();
+                }else{
+                    $('.game-list .gunlist').hide();
+                }
+                $('.game-list .zaolist').show().html(gamesHtmlStr);
+            }else {//gun
+                if($('.choose-type .zaopan').is(":visible")){
+                    $('.game-list .zaolist').show();
+				}else{
+                    $('.game-list .zaolist').hide();
+                }
+                $('.game-list .gunlist').show().html(gamesHtmlStr);
+            }
+            $('.game-list>ul>li').click(function(){
+                var sportid = $(this).attr('data-sportid');
+                var eventid = $(this).attr('data-eventid');
+                var isinplay = $(this).attr('data-isinplay');
+                var infoSpans = $(this).find('.s-game-info span');
+                var betListHtml = $(this).find('.bet-list').html();
+                if(betListHtml.length>0){
+                    $.each($(this).find('.odds-num'),function(index,oddsSpan){
+                        var selId = $(oddsSpan).attr('selid');
+                        $.each($('.bet-items .bet-info'),function(i,v){
+                            var betInfoSid = $(v).attr('sid');
+                            if(selId==betInfoSid){
+                                $(v).remove();
+                                return false;
+                            }
+                        });
+                    });
+                    $(this).find('.bet-list').hide().html('');
+                }else{
+                    loadEventInfo($(this),$(infoSpans[0]).html(),$(infoSpans[2]).html(),sportid,eventid,isinplay);
+                }
+            });
+        }else{
+            if(game_type===1){
+                $('.game-list .zaolist').html('').hide();
+			}else{
+                $('.game-list .gunlist').html('').hide();
+			}
+            if(game_type===1 && !$('.date-list span:first').hasClass('active') && $('.game-list .zaolist').html()===''){
+                $('.game-none').show();
+                $('.game-list').hide();
+            }else if($('.game-list .zaolist').html()==='' && $('.game-list .gunlist').html()===''){
+                $('.game-none').show();
+                $('.game-list').hide();
+            }
+        }
+    }
+    function loadEventInfo(domLi,homeName,awayName,sportid,eventid,isinplay){
+        $.ajax({
+            url: 'https://xj-mbs.prdasbbwla1.com/zh-cn/Service/OddsService?GetEventsByCompetitions&OddsType=2&TimeZoneUtcOffset=480&Language=zh-cn&EventOption=SingleEvent',
+            data: {'sportid':sportid, 'eventid':eventid, 'isinplay':isinplay},
+            type:"GET",
+            success:function(httpResultStr){
+                var httpResult = httpResultStr;
+
+                if(httpResult.indexOf("(")==0){ httpResult = httpResult.substring(1); }
+                if(httpResult.indexOf(");")>0){ httpResult = httpResult.replace(");",""); }
+                httpResult = httpResult.replace(new RegExp('inplay-evs', 'g'),"inplay_evs");
+                httpResult = httpResult.replace(new RegExp('further-evs', 'g'),"further_evs");
+                httpResult = httpResult.replace(new RegExp('outright-evs', 'g'),"outright_evs");
+                httpResult = httpResult.replace(new RegExp('1x2', 'g'), '_1x2');
+
+                var resultObject = $.parseJSON(httpResult);
+                var sportList = ("true"==isinplay) ? resultObject.inplay_evs : resultObject.further_evs;
+
+                var betListStr='';
+                if(sportList!=null && sportList.length>0){
+                    var sportEvents = sportList[0].events;
+                    if(sportEvents!=null && sportEvents.length>0){
+                        var odds = sportEvents[0].odds;
+                        var newOdds = sportEvents[0].newOdds;
+                        var eventid = sportEvents[0].eventId;
+                        var peventid = sportEvents[0].parentEventId;
+                        var homeScore = sportEvents[0].data.HomeScore;
+                        var awayScore = sportEvents[0].data.AwayScore;
+                        var scorelist = (homeScore==null ? 0 : homeScore)+':'+(awayScore==null ? 0 : awayScore);
+
+                        if(odds!=null && odds!==''){
+                            if(odds.ah!=null && odds.ah!==''){
+                                var betInfo = new Object();
+                                betInfo.eventid = eventid;
+                                betInfo.peventid = peventid;
+                                betInfo.scorelist = scorelist;
+                                betInfo.inplaylist = isinplay;
+                                betInfo.betName = odds.ah.n;
+                                betInfo.betAName = homeName;
+                                betInfo.betBName = awayName;
+                                betInfo.betAselId = odds.ah.v[0].substring(1);
+                                betInfo.betAHd = odds.ah.v[1];
+                                betInfo.betAOdds = odds.ah.v[5];
+                                betInfo.betBselId = odds.ah.v[2].substring(1);
+                                betInfo.betBHd = odds.ah.v[3];
+                                betInfo.betBOdds = odds.ah.v[7];
+                                betListStr += buildBetItem(betInfo);
+                            }
+                            if(odds.ou!=null && odds.ou!==''){
+                                var betInfo = new Object();
+                                betInfo.eventid = eventid;
+                                betInfo.peventid = peventid;
+                                betInfo.scorelist = scorelist;
+                                betInfo.inplaylist = isinplay;
+                                betInfo.betName = odds.ou.n;
+                                betInfo.betAName = '大';
+                                betInfo.betBName = '小';
+                                betInfo.betAselId = odds.ou.v[0].substring(1);
+                                betInfo.betAHd = odds.ou.v[1];
+                                betInfo.betAOdds = odds.ou.v[5];
+                                betInfo.betBselId = odds.ou.v[2].substring(1);
+                                betInfo.betBHd = odds.ou.v[3];
+                                betInfo.betBOdds = odds.ou.v[7];
+                                betListStr += buildBetItem(betInfo);
+                            }
+                            if(odds.ml!=null && odds.ml!==''){
+                                var betInfo = new Object();
+                                betInfo.eventid = eventid;
+                                betInfo.peventid = peventid;
+                                betInfo.scorelist = scorelist;
+                                betInfo.inplaylist = isinplay;
+                                betInfo.betName = odds.ml.n;
+                                betInfo.betAName = homeName;
+                                betInfo.betBName = awayName;
+                                betInfo.betAselId = odds.ml.v[0].substring(1);
+                                betInfo.betAHd = '0';
+                                betInfo.betAOdds = odds.ml.v[1];
+                                betInfo.betBselId = odds.ml.v[2].substring(1);
+                                betInfo.betBHd = '0';
+                                betInfo.betBOdds = odds.ml.v[3];
+                                betListStr += buildBetItem(betInfo);
+                            }
+                        }
+                        if(newOdds!=null && newOdds.length>0){
+                            $.each(newOdds,function(index,v){
+                                if(v.o!=null && v.o.length===2){
+                                    var betInfo = new Object();
+                                    betInfo.eventid = eventid;
+                                    betInfo.peventid = peventid;
+                                    betInfo.scorelist = scorelist;
+                                    betInfo.inplaylist = isinplay;
+                                    betInfo.betName = v.n;
+                                    betInfo.betAName = v.o[0][0];
+                                    betInfo.betBName = v.o[1][0];
+                                    betInfo.betAselId = v.o[0][1].substring(1);
+                                    betInfo.betAHd = '0';
+                                    betInfo.betAOdds = v.o[0][2];
+                                    betInfo.betBselId = v.o[1][1].substring(1);
+                                    betInfo.betBHd = '0';
+                                    betInfo.betBOdds = v.o[1][2];
+                                    betListStr += buildBetItem(betInfo);
+                                }
+                            });
+                        }
+                    }
+                }
+                $(domLi).find('.bet-list').show().html(betListStr);
+                $(domLi).find('.bet-list').click(function(){ return false; });
+                $(domLi).find('.odds-num').click(function(){
+                    var SelList = $(this).attr('selid');
+                    var EventList = $(this).attr('eventid');
+                    var OddsList = $(this).attr('odds');
+                    var HdpList = $(this).attr('hdlist');
+                    var ScoreList = $(this).attr('scorelist');
+                    var InplayList = $(this).attr('inplaylist');
+                    var ParentEventList = $(this).attr('peventid');
+
+                    if(parseFloat(OddsList)===0){ return ; }
+
+                    $('#betInfoModal').modal('show');
+                    $('.modal-body').html('加载中...');
+                    $.ajax({
+                        url: wap_site_host() + "session/egames/betInfo",
+                        data:{
+                            'selList':SelList,'eventList':EventList,'oddsList':OddsList,
+                            'hdpList':HdpList,'scoreList':ScoreList,'inplayList':InplayList,
+                            'parentEventList':ParentEventList,'sessionId':sessionId,'token':userToken
+                        },
+                        type:"GET",
+                        success:function(httpResultStr){
+                            if(httpResultStr.code!=null && httpResultStr.code!=0){
+                                layer.alert(httpResultStr.message);
+                                return;
+							}
+                            var str = httpResultStr.replace(new RegExp('\"', 'g'),'').replace(new RegExp('\'', 'g'),'\"');
+                            var httpResult = JSON.parse(str);
+                            var betGameInfoList = httpResult.s;
+                            var _ao = httpResult.ao;
+                            if(_ao==2){
+                                $('#isAccept').attr('checked','checked');
+                            }else{
+                                $('#isAccept').attr('checked',false);
+                            }
+                            if(betGameInfoList!=null && betGameInfoList.length>0){
+                                var betGameInfo = betGameInfoList[0];
+                                var betMax = betGameInfo.bs.bmax;
+                                var betMin = betGameInfo.bs.bmin;
+                                var sid = betGameInfo.sid;
+                                var beto = betGameInfo.o;
+                                var hd = betGameInfo.hd;
+                                var ip = betGameInfo.ip;
+                                var eo = betGameInfo.eo;
+                                var eid = betGameInfo.eid;
+                                var ap = betGameInfo.ap;
+                                var peid = betGameInfo.peid;
+                                var bottom_nameStr = hd+" @ "+beto;
+
+                                var betNum = $('.bet-items .bet-info').length+1;
+
+                                var single_begin = sid+"@"+beto+"@"+hd+"@"+ScoreList+"@";
+                                var single_end = "@"+ip+"@"+eo+"@"+eid+"@"+ap+"@"+peid;
+
+								var appendStr = '<div class="m-bet-body" sid="'+sid+'" single_begin="'+single_begin+'" single_end="'+single_end+'"' +
+                                						'betmin="'+betMin+'" betmax="'+betMax+'"'+
+														'beto="'+beto+'" betmin="'+betMin+'" betmax="'+betMax+'">' +
+													'<div class="m-odds-name">'+betGameInfo.bn+'</div>' +
+													'<div class="m-team-info">' +
+														'<span class="m-choose-name">'+betGameInfo.sn+'</span>@<span class="m-odds-num">'+beto+'</span>' +
+													'</div>' +
+													'<div class="m-team-name">' +
+														'<span class="m-home-name">'+betGameInfo.hn+'</span>' +
+														'<span class="m-vs">vs</span>' +
+														'<span class="m-away-name">'+betGameInfo.an+'</span>' +
+													'</div>' +
+													'<div class="m-bet-info">\
+														<div class="m-bet-num"><label class="hint">投注额</label><label class="_betNum"></label><span></span></div>\
+														<div class="m-win-money"><label class="hint">可赢额</label><label class="_winNum"></label></div>\
+														<div style="color: gray;padding-top: 5px;">投注范围：'+betMin+'-'+betMax+'</div>\
+													</div>\
+												</div>\
+												<div class="m-bet-tool">\
+													<div class="m-tool-plus">\
+														<div><span>+10</span></div>\
+														<div><span>+25</span></div>\
+														<div><span>+50</span></div>\
+													</div>\
+													<div class="clear-line"></div>\
+													<div class="m-tool-nums">\
+														<div class="tool-top-nums">\
+															<div><span>1</span></div><div><span>2</span></div><div><span>3</span></div>\
+															<div><span>4</span></div><div><span>5</span></div><div><span>6</span></div>\
+														</div>\
+														<div class="tool-bottom-nums">\
+															<div><span>7</span></div><div><span>8</span></div><div><span>9</span></div>\
+															<div><span>0</span></div><div><span>.</span></div><div class="num-delete"></div>\
+														</div>\
+													</div>\
+												</div><input type="hidden" id="betNum" value="0">';
+								$('.modal-body').html(appendStr);
+
+								$('.m-bet-num span').click(function () {
+								    $('.m-bet-info ._betNum,.m-bet-info ._winNum').html('').hide();
+									$('.m-bet-info .hint').show();
+									$('#betNum').val('0');
+                                });
+								$('.m-tool-plus span').click(function(){
+								    var betNum = parseFloat($('#betNum').val());
+								    var _betMoney = 0;
+									if($(this).html()==='+10'){
+                                        _betMoney = (betNum+=10)+'';
+									}else if($(this).html()==='+25'){
+                                        _betMoney = (betNum+=25)+'';
+									}else if($(this).html()==='+50'){
+                                        _betMoney = (betNum+=50)+'';
+									}
+                                    setFormatNum(_betMoney);
+								});
+								$('.m-tool-nums span').click(function(){
+                                    var betNumStr = $('#betNum').val();
+                                    var betNum = parseFloat(betNumStr);
+                                    var appendNum = $(this).html();
+								    if(appendNum==='.'){
+										if(betNum===0){
+                                            $('.m-bet-info ._betNum').html('0.').show();
+                                            $('.m-bet-info .hint').hide();
+                                            return;
+										}
+										if(betNum=== 99999999){return;}
+										var index = betNumStr.indexOf('.');
+										if(index !== -1){
+                                            var newNum = parseInt(betNumStr.substring(0,index));
+                                            $('#betNum').val(newNum);
+                                            $('.m-bet-info ._betNum').html(newNum+'.').show();
+                                            $('.m-bet-info .hint').hide();
+                                            return;
+										}
+                                        $('.m-bet-info ._betNum').html(betNum+'.').show();
+                                        $('.m-bet-info .hint').hide();
+										return;
+									}
+									if(appendNum===0){
+										if(betNum===0){
+                                            $('.m-bet-info ._betNum').html('0').show();
+                                            $('.m-bet-info .hint').hide();
+										}
+										return;
+									}
+									var betLabelNumStr = $('.m-bet-info ._betNum').html()+'';
+                                    betLabelNumStr = betLabelNumStr.replace(new RegExp(',', 'g'),'');
+                                    var dotIndex = betLabelNumStr.indexOf('.');
+                                    if(dotIndex !== -1){
+										if((dotIndex+2) === (betLabelNumStr.length-1)){
+											return;
+										}
+                                        var finalNumStr = betLabelNumStr+appendNum;
+                                        setFormatNum(finalNumStr);
+                                        return;
+									}
+                                    var finalNumStr = betNum===0 ? appendNum : betNumStr+appendNum;
+                                    setFormatNum(finalNumStr);
+                                });
+								$('.num-delete').click(function () {
+                                    var betLabelNumStr = $('.m-bet-info ._betNum').html()+'';
+                                    betLabelNumStr = betLabelNumStr.replace(new RegExp(',', 'g'),'');
+                                    var betNum = parseFloat(betLabelNumStr);
+									if(betNum>=0 && betLabelNumStr.length===1 || $('#betNum').val()==0){
+                                        $('.m-bet-info ._betNum,.m-bet-info ._winNum').html('').hide();
+                                        $('.m-bet-info .hint').show();
+                                        $('#betNum').val(0);
+                                        return;
+									}
+                                    var finalNumStr = betLabelNumStr.substring(0,betLabelNumStr.length-1)+'';
+                                    setFormatNum(finalNumStr);
+                                });
+
+
+                                var selectBet = $('.bet-info[sid="'+sid+'"]');
+                                if(selectBet[0]!=null){
+                                    $(selectBet).remove();
+                                    $.each($('.bet-items .bet-info'),function(index,v){
+                                        $(v).find('.bet-num').html(index+1);
+                                    });
+                                }else{
+                                    $('.bet-cart-none').hide();
+                                    $('.bet-cart-list').show().find('.bet-items').append(appendStr);
+                                    $('.bet-items .bet-info:last').find('input').keyup(function(event){
+                                        var $betMsg = $(this).parent().parent().siblings('.bet-msg').hide();
+                                        $(this).parent().css('border-color','#D0D0D0');
+                                        var _beto = parseFloat($(this).parent().attr('beto'));
+                                        var _betMoney = $.trim($(this).val());
+                                        var numReg= /^[1-9]\d*$/;
+                                        if(!numReg.test(_betMoney)){
+                                            if(_betMoney=='' || _betMoney==null){
+                                                $(this).parent().parent().siblings('.win-money').attr('canwin',0).html('中奖金额：00.00');
+                                                countBet();return;
+                                            }
+                                            $(this).val(_betMoney.substring(0,_betMoney.length-1));
+                                            return;
+                                        }
+                                        var betmin = parseInt($(this).parent().attr('betmin'));
+                                        var betmax = parseInt($(this).parent().attr('betmax'));
+                                        if(_betMoney<betmin||_betMoney>betmax){
+                                            $(this).parent().css('border-color','red');
+                                            $betMsg.show().html('投注范围：'+betmin+'-'+betmax);
+                                            $(this).focus();
+                                            return;
+                                        }
+                                        var canWinNum = (_betMoney*_beto).toFixed(2);
+                                        $(this).parent().parent().siblings('.win-money').attr('canwin',canWinNum).html('中奖金额：'+canWinNum);
+                                        countBet();
+                                    });
+                                    $('.bet-items .bet-info:last').find('input').blur(function(){
+                                        var _betMoney = $.trim($(this).val());
+                                        if(_betMoney=='' || _betMoney==null){ return; }
+                                        var betmin = parseInt($(this).parent().attr('betmin'));
+                                        var betmax = parseInt($(this).parent().attr('betmax'));
+                                        if(_betMoney<betmin||_betMoney>betmax){
+                                            $(this).parent().css('border-color','red');
+                                            $(this).parent().parent().siblings('.bet-msg').show().html('投注范围：'+betmin+'-'+betmax);
+                                            $(this).focus();
+                                            return;
+                                        }
+                                        $(this).parent().parent().siblings('.bet-msg').hide();
+                                        $(this).parent().css('border-color','#D0D0D0');
+                                    });
+                                }
+
+                            }
+                        }, error:function(e){
+
+                        }
+                    });
+                });
+            }, error:function(e){ }
+        });
+    }
+    function setFormatNum(_betMoneyStr){
+        var _betMoney = parseFloat(_betMoneyStr);
+        var dotIndex = _betMoneyStr.indexOf('.');
+        if(dotIndex!==-1){
+            var transNum = _betMoneyStr.substring(0,dotIndex);
+            var dotNum = _betMoneyStr.substring(dotIndex);
+            _betMoneyStr = numeral(transNum).format('0,0')+dotNum;
+		}else{
+            _betMoneyStr = numeral(_betMoney).format('0,0');
+        }
+        if(_betMoney>99999999){
+            _betMoneyStr = '999,999,99';
+            _betMoney = 99999999;
+        }
+        $('.m-bet-info ._betNum').html(_betMoneyStr).show();
+        $('.m-bet-info .hint').hide();
+        $('#betNum').val(_betMoney);
+        var _beto = parseFloat($('.m-bet-body').attr('beto'));
+        var canWinNum = (_betMoney*_beto).toFixed(2);
+        $('.m-bet-info ._winNum').html(canWinNum).show();
+	}
+    function countBet(){
+        var totalWin = 0;
+        $.each($('.bet-cart-list .win-money'),function(index,v){
+            totalWin += parseFloat($(v).attr('canwin'));
+        });
+        $('.all-win').html(totalWin.toFixed(2));
+        var totalBet = 0;
+        $.each($('.bet-cart-list .bet-money input'),function(index,v){
+            if($(v).val().length>0){
+                totalBet += parseInt($(v).val());
+            }
+        });
+        $('.all-bet').html(totalBet.toFixed(2));
+    }
+    function buildBetItem(betInfo){
+        var betAOddsStr = betInfo.betAHd!=0 ? betInfo.betAOdds : betInfo.betAOdds;
+        var betBOddsStr = betInfo.betBHd!=0 ? betInfo.betBOdds : betInfo.betBOdds;
+
+		betAOddsStr = parseFloat(betAOddsStr)===0 ? '<img src="https://xwsr2.16fass88.com/resources/wap_new/images/lock.png">': betAOddsStr;
+		betBOddsStr = parseFloat(betBOddsStr)===0 ? '<img src="https://xwsr2.16fass88.com/resources/wap_new/images/lock.png">': betBOddsStr;
+
+        var oddsNumClass = (sessionId==='' || sessionId==null) ? 'none-odds-num' : 'odds-num';
+        var betItem = '<li class="bet-item">\
+						<div class="col-xs-3 bet-odds-name">'+betInfo.betName+'</div>\
+						<div class="col-xs-9">\
+							<span class="team-name" title="'+betInfo.betAName+'">'+betInfo.betAName+'</span>\
+							<span class="'+oddsNumClass+'" selid="'+betInfo.betAselId+'" eventid="'+betInfo.eventid+'" odds="'+betInfo.betAOdds+'"\
+								hdlist="'+betInfo.betAHd+'" scorelist="'+betInfo.scorelist+'" inplaylist="'+betInfo.inplaylist+'"\
+								peventid="'+betInfo.peventid+'">'+betAOddsStr+'</span>\
+							<span class="m-ico">-</span>\
+							<span class="'+oddsNumClass+'" selid="'+betInfo.betBselId+'" eventid="'+betInfo.eventid+'" odds="'+betInfo.betBOdds+'"\
+								hdlist="'+betInfo.betBHd+'" scorelist="'+betInfo.scorelist+'" inplaylist="'+betInfo.inplaylist+'"\
+								peventid="'+betInfo.peventid+'">'+betBOddsStr+'</span>\
+							<span class="team-name" title="'+betInfo.betBName+'">'+betInfo.betBName+'</span>\
+						</div>\
+					</li>';
+        return betItem;
+    }
+    var _KEY_GUNQIU_LIST = 'gunqiuList';
+    function transData(gameType,zaoSportList,_gameDate){
+        var dataId = gameType===1 ? '#data_db' : '#data_gun_db';
+        $(dataId).removeData(_gameDate);
+        $(dataId).removeData(_KEY_GUNQIU_LIST);
+        $.each(zaoSportList,function(n, sportInfo){
+            $.each(sportInfo.events,function(n, eventInfo){
+                var gameDate = new Date(eventInfo.eventDate);
+                gameDate.setHours(gameDate.getHours()-8);
+                gameDate = gameDate.format("M月dd日");
+                if(gameType==2){ gameDate = _KEY_GUNQIU_LIST; _gameDate=_KEY_GUNQIU_LIST; }
+                if(_gameDate==gameDate){
+                    var dataStr = $(dataId).data(gameDate);
+                    var eventList = new Array();
+                    if(dataStr!=null && dataStr!=''){
+                        eventList = JSON.parse(dataStr);
+                    }
+                    eventInfo.sportId = sportInfo.sportsId;
+                    eventList.push(eventInfo);
+                    var listStr = JSON.stringify(eventList);
+                    $(dataId).data(gameDate, listStr);
+                }
+            });
+        });
+
+    }
+</script>
+</html>

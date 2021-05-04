@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>东赢优惠活动</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+	<!--标准mui.css-->
+	<link href="/mui/css/mui.min.css" rel="stylesheet" />
+	<link href="/mui/css/common.css" rel="stylesheet" />
+    <link href="/style/css/index.css" rel="stylesheet" />
+	<!--扩展图标-->
+	<link href="/mui/css/mui-icons-extra.css" rel="stylesheet" />
+	<link href="/style/css/main.css" rel="stylesheet" />
+	<link href="/style/css/member_event.css" rel="stylesheet" />
+	<link href="/style/plugins/layui/css/layui.css" rel="stylesheet" />
+	<link href="/style/plugins/bootstrap/css/bootstrap.css" rel="stylesheet" />
+</head>
+<body style="padding: 0px;">
+<!--侧滑菜单容器-->
+<div id="offCanvasWrapper" class="mui-off-canvas-wrap mui-draggable">
+    <div class="mui-inner-wrap mui-transitioning">
+        <!-- 主体页面begin -->
+        <header class="mui-bar mui-bar-nav" style="padding-left: 15px;padding-right: 15px;">
+            <a class="mui-icon mui-icon-left-nav mui-pull-left" style="text-decoration: none; color: white;"></a>
+            <h1 class="mui-title" style="color: #ffffff;">电子升级模式</h1>
+        </header>
+        <div id="offCanvasContentScroll" class="mui-content mui-scroll-wrapper" style="height: 100%;-webkit-overflow-scrolling:touch;overflow:scroll;">
+
+        </div>
+        <!-- 主体页面end -->
+    </div>
+</div>
+</body>
+<!-- 加载JavaScript -->
+<script type="text/javascript" src="/style/js/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="/style/layer/layer.js"></script>
+<script type="text/javascript" src="/style/js/common.js"></script>
+<script type="text/javascript" src="/mui/js/mui.min.js"></script>
+<script type="text/javascript" src="/style/js/jquery.cookie.js"></script>
+<script type="text/javascript" src="/style/plugins/layui/layui.js"></script>
+<script type="text/javascript" src="/style/plugins/bootstrap/js/bootstrap.js"></script>
+@@include('html-foot.html')
+<script type="text/javascript">
+    var queryToken = getQueryString("token");
+    $(document).ready(function(){
+        mui.init();
+        mui(".mui-bar-nav").on('tap','.mui-pull-left',function(){
+            window.location.href="/wap/helpbonus/hb_index.html";
+        });
+        if (queryToken == null || queryToken === '') {
+            queryToken = wap_get_user().token;
+        }
+        if ((queryToken===null || queryToken===undefined || queryToken==='') && wap_is_user_notexist()) {
+            fun_alertMsg("请登入后再操作", function() {
+                window.location.href="/index.html";
+            });
+            return;
+        }
+        $('#offCanvasContentScroll').html('<iframe style="border: 0px;width: 100%;height:100%;" ' +
+            'src="/wap/promotion/electronic_member_event-content.html?token='+queryToken+'"></iframe>');
+    });
+    function getQueryString(name) {
+        var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+        var r = window.location.search.substr(1).match(reg);
+        if(r!=null)return  unescape(r[2]); return null;
+    }
+</script>
+</html>

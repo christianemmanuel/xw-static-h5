@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>东赢优惠活动</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+    <!--标准mui.css-->
+    <link href="/mui/css/mui.min.css" rel="stylesheet"/>
+    <link href="/mui/css/common.css" rel="stylesheet"/>
+    <link href="/style/css/index.css" rel="stylesheet"/>
+    <link href="/style/css/yh.css" rel="stylesheet"/>
+    <!--扩展图标-->
+    <link href="/mui/css/mui-icons-extra.css" rel="stylesheet"/>
+    <link href="/style/css/main.css" rel="stylesheet"/>
+</head>
+<body>
+<!--侧滑菜单容器-->
+<div class="mui-content">
+    <header id="heder_bar" class="mui-bar mui-bar-nav">
+        <a href="/index.html" class="mui-icon mui-icon-back mui-pull-left">返回</a>
+        <h1 class="mui-title" id="header_title">优惠活动</h1>
+    </header>
+    <div class="yhTitle">
+        <div class="yhTab">
+            <a class="on pro_type_btn" id="all-type" onclick="ChangeDiv('all',this)">全部</a>
+            <a class="pro_type_btn" id="esport-type" onclick="ChangeDiv('esport',this)">电竞</a>
+            <a class="pro_type_btn" id="sport-type" onclick="ChangeDiv('sport',this)">体育</a>
+            <a class="pro_type_btn" id="live-type" onclick="ChangeDiv('live',this)">真人</a>
+            <a class="pro_type_btn" id="slot-type" onclick="ChangeDiv('slot',this)">电游</a>
+        </div>
+    </div>
+    <div class="yhList" id="showOut">
+
+    </div>
+</div>
+<a id="jumpLocation" style="display: none;"></a>
+</body>
+<!-- 加载JavaScript -->
+<script type="text/javascript" src="/style/js/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="/style/layer/layer.js"></script>
+<script type="text/javascript" src="/style/js/common.js"></script>
+<script type="text/javascript" src="/mui/js/mui.min.js"></script>
+<script type="text/javascript" src="/style/js/jquery.cookie.js"></script>
+@@include('html-foot.html')
+<script type="text/javascript">
+    $("#menu_nav a.bar-active").removeClass("bar-active")
+    $("#menu_nav a:nth-child(2)").addClass("bar-active")
+    var origin;
+    var queryToken;
+    var headCode;
+    var menuCode;
+    $(document).ready(function () {
+        origin = getQueryString("origin");
+        queryToken = getQueryString("token");
+        headCode = getQueryString("headCode");
+        menuCode = getQueryString("menuCode");
+        if (origin == null || origin == '' || origin == undefined) {
+            origin = "app";
+        }
+        if(menuCode==='hide'){
+            $('#menu_nav').hide();
+        }
+        if(headCode==='hide'){
+            $('#heder_bar').hide();
+            $('.yhTitle').css({"padding-top":"0px"});
+        }
+        loadPormotion();
+    });
+
+    function loadPormotion() {
+        var url = wap_site_host() + "/rest/api/app/promotionList";
+        loadHTMLPage(url, "showPromotion");
+    }
+
+    function showPromotion(data) {
+        if (data != '') {
+            $("#showOut").html(data);
+        }
+
+        var type = getQueryString("type");
+        if (type != null && type != '') {
+            eval("$(\"#" + type + "-type\").click();");
+        } else {
+            ChangeDiv("all", $('#all-type'));
+        }
+
+        $(".card-pad").click(function (e) {
+            if($(this).attr("id") === 'vipProm' && menuCode === 'hide'){
+                document.location.href = 'dy://vip';
+                return;
+            }
+            var url = $(this).data("url");
+            var open = $(this).data("openurl");
+            var memberToken = wap_get_user().token;
+            if(queryToken)
+                memberToken = queryToken;
+            if (url) {
+                url = url + '?way=h5&token=' + memberToken;
+                if(headCode)
+                    url = url + "&headCode=" + headCode;
+                if(menuCode)
+                    url = url + "&menuCode=" + menuCode;
+                window.open(url, "_self");
+            } else if (open) {
+                url = url + '?way=h5&token=' + memberToken;
+                if(headCode)
+                    url = url + "&headCode=" + headCode;
+                if(menuCode)
+                    url = url + "&menuCode=" + menuCode;
+                window.open(url, "_blank");
+            } else {
+                var $_info = $(this).siblings('.card-info');
+                if ($_info.is(':hidden')) {
+                    $(this).siblings('.card-info').show();
+                } else {
+                    $(this).siblings('.card-info').hide();
+                }
+            }
+        });
+    }
+
+    function ChangeDiv(showType, e) {
+        $('.pro_type_btn').removeClass('on');
+        $(e).addClass("on");
+        if (showType == 'all') {
+            $('.yhList li').show();
+        } else {
+            $('.yhList li').hide();
+            eval("$('." + showType + "').show()");
+        }
+    }
+
+    var checkTag = "data-url=\"";
+    var jumlDomain = "https://m.xw9933.com";
+
+    function replaceAppClick(checkHtml, allHtml) {
+        if (checkHtml.indexOf(checkTag) != -1) {
+            allHtml = allHtml + checkHtml.substring(0, checkHtml.indexOf(checkTag));
+            checkHtml = checkHtml.substr(checkHtml.indexOf(checkTag) + checkTag.length, checkHtml.length);
+            //var jumlUrl = jumlDomain + checkHtml.substring(0,checkHtml.indexOf("\"")) +'?token='+wap_get_user().token;
+            var jumlUrl = jumlDomain + checkHtml.substring(0, checkHtml.indexOf("\""));
+            checkHtml = checkHtml.substring(checkHtml.indexOf("\"") + 1, checkHtml.length);
+            checkHtml = " onclick=document.location.href='" + jumlUrl + "' " + checkHtml;
+            return replaceAppClick(checkHtml, allHtml);
+        } else {
+            allHtml = allHtml + checkHtml;
+        }
+        return allHtml;
+    }
+
+</script>
+</html>

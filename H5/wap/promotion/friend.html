@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>东赢优惠活动</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+	<!--标准mui.css-->
+	<link href="/mui/css/mui.min.css" rel="stylesheet" />
+	<link href="/mui/css/common.css" rel="stylesheet" />
+	<!--扩展图标-->
+	<link href="/mui/css/mui-icons-extra.css" rel="stylesheet" />
+	<link href="/style/css/main.css" rel="stylesheet" />
+	<link href="/style/css/friend.css" rel="stylesheet" />
+	<link href="/style/plugins/layui/css/layui.css" rel="stylesheet" />
+	<link href="/style/plugins/bootstrap/css/bootstrap.css" rel="stylesheet" />
+	<style type="text/css">
+		.friends-info{
+			background: #fff;
+		}
+		.friends-info span{
+			display: block;
+			font-weight: 700;
+		}
+		.center{
+			text-align: center;
+		}
+	</style>
+</head>
+<body>
+<div class="bg-friends">
+	<form enctype="multipart/form-data" id="img_form" method="post">
+		<div class="btn-submit">
+			<label for="img_input">
+				<img src="https://xwsr2.16fass88.com/resources/wap_new/images/friend/button.png"/>
+			</label>
+			<input id="img_input" type="file" name="file" accept="image/*"/>
+		</div>
+	</form>
+	<div class="small-text">点击按钮提交朋友圈图片</div>
+	<div style="text-align: center;margin: 5px 0;">
+		<a href="https://ezeu.ytyq8866.com/static//image/1396823c-2ee7-4b21-8da1-b90b3735300a.jpg"
+		   target="_blank"
+		   class="layui-btn layui-btn-primary">下载图片</a>
+		<button id="copyBtn" class="layui-btn layui-btn-normal"
+				style="display: none;">复制发圈内容</button>
+	</div>
+	<div class="table-friends">
+		<div class="layui-row">
+			<div class="layui-col-xs12">
+				<div class="friends-inside">
+					<table width="100%" class="table-level">
+						<tbody>
+						<tr class="head">
+							<td width="35%">会员等级</td>
+							<td width="25%">奖金</td>
+							<td width="40%">要求</td>
+						</tr>
+						<tr>
+							<td>无等级会员</td>
+							<td>10元</td>
+							<td class="merge" rowspan="8">发两条朋友圈</td>
+						</tr>
+						<tr>
+							<td>勋爵会员</td>
+							<td>12元</td>
+						</tr>
+						<tr>
+							<td>子爵会员</td>
+							<td>15元</td>
+						</tr>
+						<tr>
+							<td>男爵会员</td>
+							<td>18元</td>
+						</tr>
+						<tr>
+							<td>伯爵会员</td>
+							<td>20元</td>
+						</tr>
+						<tr>
+							<td>公爵会员</td>
+							<td>28元</td>
+						</tr>
+						<tr>
+							<td>世爵会员</td>
+							<td>38元</td>
+						</tr>
+						<tr>
+							<td>国王会员</td>
+							<td>88元</td>
+						</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="layui-col-xs12">
+				<div class="friends-inside">
+					<table width="100%" class="table-submit">
+						<thead>
+							<tr class="head" style="text-align: center;background: #6228B0;">
+								<td colspan="2">提交记录</td>
+							</tr>
+						</thead>
+						<tbody id="list_data">
+
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="layui-col-xs12">
+				<div class="friends-inside last friends-info" style="background: #fff;">
+					<span class="center">活动介绍</span>
+					<span>1.一天发两条朋友圈躺赚千元;</span>
+					<span>2.发完朋友圈后需要保留两个小时，截图保存后在提交审核，审核成功后奖金会自动派发至主账户;</span>
+					<span>3.彩金只需要赢到100元即可申请提款;</span>
+					<span>4.此活动最终解释权归东赢娱乐所有。</span>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</body>
+<!-- 加载JavaScript -->
+<script type="text/javascript" src="/style/js/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="/style/layer/layer.js"></script>
+<script type="text/javascript" src="/style/js/common.js"></script>
+<script type="text/javascript" src="/mui/js/mui.min.js"></script>
+<script type="text/javascript" src="/style/js/jquery.cookie.js"></script>
+<script type="text/javascript" src="/style/plugins/layui/layui.js"></script>
+<script type="text/javascript" src="/style/plugins/bootstrap/js/bootstrap.js"></script>
+<script type="text/javascript" src="/style/js/file-compress.js"></script>
+<script type="text/javascript" src="/style/js/clipboard.min.js"></script>
+@@include('html-foot.html')
+<script type="text/javascript">
+    function getQueryString(name) {
+        var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+        var r = window.location.search.substr(1).match(reg);
+        if(r!=null)return  unescape(r[2]); return null;
+    }
+    var queryToken = getQueryString("token");
+    $(function () {
+        if ((queryToken===null || queryToken===undefined || queryToken==='') && wap_is_user_notexist()) {
+            wap_go_login('请登录后再操作');return;
+        }else {
+            if (queryToken === null || queryToken === undefined || queryToken === '') {
+                queryToken = wap_get_user().token;
+            }
+        }
+        getPromotionTxt();
+        show_list_data();
+    });
+    document.getElementById('img_input').onchange = function () {
+        upload();
+    };
+
+    function upload() {
+        var upload = document.getElementById('img_input');
+        var image = upload.files[0];
+        var max_size=1024*1024*5;//5MB
+        var compress_size=1024*1024;//1MB
+		if(image.size>max_size){
+            fun_alertMsg("图片大小不能超过5MB", function() {});return;
+		}
+        var uploadFormData = new FormData($('#img_form')[0]);
+        if(image.size>compress_size) {
+            fc_photoCompress(image, { quality: 0.2 }, function(base64Codes){
+                var bl = fc_convertBase64UrlToBlob(base64Codes);
+                uploadFormData = new FormData(); // FormData 对象
+                uploadFormData.append("file", bl, "file_"+Date.parse(new Date())+".jpg"); // 文件对象
+                uploadFile(uploadFormData);
+            });
+        }else{
+            uploadFile(uploadFormData);
+		}
+
+    }
+	function uploadFile(uploadFormData){
+        $.ajax({
+            url: "https://a2d33xko.edu432.com/upload",
+            type: "POST",
+            data: uploadFormData,
+            contentType:false,
+            cache: false,
+            processData:false,
+            dataType:'json',
+            success:function (d) {
+                if (d.code == 0) {
+                    saveFileInfo(d.data.url);
+                }else if(d.code===1){
+                    fun_alertMsg(d.errMsg, function() {window.location.reload();});
+                }else {
+                    fun_alertMsg(d.errMsg, function() {});
+                }
+            },
+            error:function(jqXHR){
+                fun_toast('请求失败，请稍后重试');
+            }
+        });
+	}
+
+	function saveFileInfo(url){
+        $.ajax({
+            url: wap_site_host() +"/session/friendsPrivilege/saveImg?token="+queryToken,
+            type:"POST",
+            data:{"imgurl":url},
+            dataType: 'json',
+            success:function(d){
+                if (d.code == 0) {
+                    fun_alertMsg("提交成功，请耐心等待审核", function() {window.location.reload();});
+                }else if(d.code===1){
+                    fun_alertMsg(d.msg, function() {window.location.reload();});
+                } else {
+                    fun_alertMsg(d.message, function() {});
+                    wap_if_session_out(d.code);
+                }
+            },
+            error:function(jqXHR, textStatus){
+                wap_check_ajaxerror(jqXHR);
+                fun_toast('请求失败，请稍后重试！', function() {});
+            }
+        });
+	}
+
+    function show_status_string(status){
+        switch(status){
+            case 1: return "审核中";
+            case 2: return "已审核";
+            default: return "已取消";
+        }
+    }
+
+    function show_status_background_color(status){
+        switch(status){
+            case 1: return "class='process'";
+            case 2: return "class='complete'";
+            default: return "class='cancel'";
+        }
+    }
+
+    function date_convertor(date) {
+        var d = new Date,
+            dformat = [d.getMonth()+1,
+                    d.getDate(),
+                    d.getFullYear()].join('/')+' '+
+                [d.getHours(),
+                    d.getMinutes(),
+                    d.getSeconds()].join(':');
+        return dformat;
+    }
+    function getPromotionTxt(){
+        $.post(wap_site_host() +'/session/friendsPrivilege/getPromotionTxt', {
+            'token': queryToken
+        }, function(d){
+            if (d.code == 0) {
+				$('#copyBtn').attr('data-clipboard-text',d.data).show();
+                var clipboard = new Clipboard('#copyBtn');
+                clipboard.on('success', function(e) { fun_toast('复制成功'); });
+                clipboard.on('error', function(e) {
+                    fun_toast('复制失败，请手动复制');
+                    layer.open({
+                        type: 1,
+                        area: ['300px', '240px'],
+                        title: '手动复制发圈内容',
+                        content: '<textarea rows="4">' + d.data + '</textarea>',
+                        btn: ['确定'],
+                        yes: function(index){
+                            layer.close(index);
+                        }
+                    });
+                });
+            }else {
+                fun_alertMsg(d.message, function() {});
+                wap_if_session_out(d.code);
+            }
+        }, "JSON").fail(function(jqXHR) {
+            wap_check_ajaxerror(jqXHR);
+            fun_toast('请求失败，请稍后重试');
+        });
+    }
+    function show_list_data(){
+        $.post(wap_site_host() +'/session/friendsPrivilege/listData', {
+            'token': queryToken, 'pageSize':7
+		}, function(d){
+            if (d.code == 0) {
+                var str='';
+                var status;
+                for (i = 0; i < d.data.list.length; i++) {
+                    status = d.data.list[i].status;
+                    str += "<tr class='complete'><td> 提交时间: "+ fun_timeFormat(d.data.list[i].applyTime) + "<br>审核状态: " + show_status_string(d.data.list[i].status) + "</td></tr>";
+                }
+                if(str!=''){
+                    $('#list_data').html(str);
+                }
+            }else {
+                fun_alertMsg(d.message, function() {});
+                wap_if_session_out(d.code);
+            }
+        }, "JSON").fail(function(jqXHR) {
+            wap_check_ajaxerror(jqXHR);
+            fun_toast('请求失败，请稍后重试');
+        });
+    }
+</script>
+</html>

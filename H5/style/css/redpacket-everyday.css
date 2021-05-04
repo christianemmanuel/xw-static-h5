@@ -1,0 +1,88 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+.redpacket-rain-body {
+    background-color:#fefeff;
+    padding-bottom: 100px;
+    color: #596281;
+}
+.redpacket-rain-body .top-banner {
+    height: 9.212rem;
+    background-image: url("https://xwsr2.16fass88.com/resources/wap_new/images/redpacket-rain/rpr_bg.jpg");
+    background-position: center top;
+    background-size: cover;
+    background-repeat: no-repeat;
+    overflow: hidden;
+}
+.redpacket-rain-body .top-banner .redpacket-remainder {
+    width: 4.166rem;
+    height: .648rem;
+    background-color: rgba(207,21,20,.6);
+    border-radius: .37rem;
+    color: #fff;
+    font-size: 14px;
+    text-align: center;
+    margin: 3.148rem 0 0 5.222rem;
+    line-height: .648rem;
+}
+.redpacket-rain-body .top-banner .redpacket-remainder .redpacket-remainder-num {
+    color: #ffb81f;
+    text-align: center;
+    display: inline-block;
+    width: 0.79rem;
+}
+.redpacket-rain-body .top-banner .get-redpacket-btn {
+    width: 2.851rem;
+    height: 0.6111rem;
+    cursor: pointer;
+    margin: .453rem 0 0 5.851rem;
+    COLOR: #ffffff;
+    font-weight: bold;
+    background-image: linear-gradient(218deg, #68b4fc 0%, #2f76f6 99%);
+    text-align: center;
+    line-height: .6111rem;
+}
+.redpacket-rain-body .rule-content-container {
+    width: 9.26rem;
+    margin: -3rem auto 0;
+    padding: .5rem;
+    font-size: 14px;
+    background-color: #ffffff;
+    box-shadow: 0px 0px 7px 0px rgba(0, 0, 0, 0.07);
+    border-radius: 10px;
+    border: solid 1px #c9cdd8;
+}
+.redpacket-rain-body .rule-content-container .rule-title {
+    color: #40aae6;
+    font-weight: bold;
+    font-size: 16px;
+}
+.redpacket-rain-body .rule-content-container .rule-list {
+    padding-left: .5rem;
+}
+.redpacket-rain-body .rule-content-container .rule-list li {
+    list-style-type: decimal;
+    line-height: 2;
+}
+.redpacket-rain-body .couten {
+    position: absolute;
+    width: 100%;
+    left: 0;
+    top: 44px;
+    bottom: 64px;
+    z-index: -1;
+}
+.redpacket-rain-body .couten li {
+    position: absolute;
+    animation: all 3s linear;
+    top:-100px;
+    -webkit-tap-highlight-color:  rgba(0, 0, 0, 0);
+    left:0;
+    right: 0;
+    z-index: 6;
+    list-style-type: none;
+}
+.redpacket-rain-body .couten li a{
+    display: block;
+}

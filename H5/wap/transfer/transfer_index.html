@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html style="background-color: #d2d2de;">
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<title>东赢 - 转账</title>
+	<!--标准mui.css-->
+	<link href="/mui/css/mui.min.css" rel="stylesheet" />
+	<link href="/mui/css/common.css" rel="stylesheet" />
+	<!--扩展图标-->
+	<link href="/mui/css/mui-icons-extra.css" rel="stylesheet" />
+	<link href="/style/css/main.css" rel="stylesheet" />
+    <link href="/style/css/index.css" rel="stylesheet" />
+    <link href="/style/css/withdrawal.css" rel="stylesheet" />
+	<link rel="stylesheet" type="text/css" href="/style/plugins/mobileSelect/css/mobileSelect.css">
+	<!-- 加载JavaScript -->
+	<script type="text/javascript" src="/style/js/jquery-3.2.1.min.js"></script>
+	<script type="text/javascript" src="/style/layer/layer.js"></script>
+	<script type="text/javascript" src="/style/js/Validform_v5.3.2_min.js"></script>
+	<script type="text/javascript" src="/style/js/common.js"></script>
+	<script type="text/javascript" src="/mui/js/mui.min.js"></script>
+	<script type="text/javascript" src="/style/js/jquery.marquee.min.js"></script>
+	<script type="text/javascript" src="/style/js/jquery.cookie.js"></script>
+	<script type="text/javascript" src="/style/plugins/mobileSelect/js/mobileSelect.min.js"></script>
+	<style type="text/css">
+		.plat-list-row label{
+			padding: 0px;
+			vertical-align: middle;
+            text-align: center;
+		}
+		.plat-list-row span{
+			vertical-align: middle;
+			font-size: 15px;
+		}
+		.plat-list-row img{
+			vertical-align: middle;
+			margin-right: 5px;
+		}
+		.list-cell{
+            width: 25%;
+            float: left;
+            padding: 10px 0 15px 0;
+            display: grid;
+		}
+		.mui-table-view-cell.mui-active{background: #efeff4;}
+		.compulsory-tip {
+			color: red;
+			padding-left: 5px;
+		}
+		.mui-bar-nav~.mui-content{padding-bottom: 50px;}
+		.mui-input-group .mui-input-row {
+			margin-top: 0px;
+			font-weight: bold;
+		}
+		.mui-table-view .mui-icon{
+			color: white;
+			font-size: 20px;
+		}
+		label .submit_btn{
+			height: 25px;
+			width: 50px;
+			margin-top: 10px;
+			padding-top: 2px;
+			padding-left: 0px;
+		}
+		.mui-table-view-cell:after{
+            right: 10px;
+            left: 10px;
+            height: 1px;
+            padding: 0 5px;
+		}
+		.submit_btn .mui-spinner{
+			margin-left: -5px;
+			margin-top: -10px;
+			width: 40px;
+			height: 40px;
+			-webkit-transform-origin:80%;
+		}
+		input[type=button]{
+			width: 82px;
+			margin-top: 5px;
+			color: #2ac845;
+			border: 1px solid #2ac845;
+		}
+		input[type=button].disable{
+			color: black;
+			border: 1px solid grey;
+		}
+        .wallt_cell{
+            width: 50%;
+            padding: 0 0px;
+            float: left;
+            border-right: 1px solid #c8c7cc;
+        }
+        .wallt_cell img{
+            display: inline-block;
+            float: left;
+            margin-top: 9px;
+            margin-right: 15px;
+            width: 0.6rem;
+        }
+        .wallt_cell label{
+            display: grid;
+            background-color: rgb(237, 238, 244);
+            width: 80px;
+            float: left;
+            text-align: left;
+        }
+        .wallt_cell #div_wallet{
+            font-weight: 600;
+        }
+        .refresh_cell{
+            width: 50%;
+            height: 30px;
+            text-align: center;
+            float: left;
+        }
+        .refresh_cell label{
+            margin-top: 8px;
+            display: block;
+            text-align: center;
+            margin-right: 20px;
+        }
+        .refresh_cell img{
+            margin-right: 15px;
+            width: 0.6rem;
+        }
+        .show_list_btn span{
+            font-size: 12px;
+        }
+        .mui-input-group .mui-input-row:after{
+            height: 1px;
+        }
+
+	</style>
+</head>
+<body>
+<header id="fail_header" class="mui-bar mui-bar-nav" style="background-color: #4fb2ff;">
+    <a class="mui-icon mui-icon-back mui-pull-left" href="/index.html"></a>
+    <h1 class="mui-title" style="color: #ffffff;">转账</h1>
+    <!--<a id="checkAllBalance" class=" mui-pull-right" style="display: flex; position: absolute; right: 3%; z-index: 5;font-size: 16px" onclick="refreshAll()">
+        <p class="refresh">刷新</p>
+        <p class="refresh-icon">
+            <span class="mui-icon mui-icon-loop" style="margin-left: -5px;">
+            </span>
+        </p>
+    </a>-->
+</header>
+<div class="mui-content transfer" style="margin-bottom: 76px;">
+    <ul class="mui-table-view" style=" clear:right;">
+        <li class="mui-table-view-cell">
+            <div class="plat-list-row wallt_cell">
+                <img src="../../images/wallet.png">
+                <label><span>中心钱包</span><span id="div_wallet" onclick="refreshMain($('#div_wallet'))">点击刷新</span></label>
+            </div>
+            <div class="plat-list-row refresh_cell" id="checkAllBalance" onclick="refreshAll()">
+                <label><img src="../../images/refresh@3x.png"><span>一键刷新</span></label>
+            </div>
+            <div style="clear: both;font-size: 14px;padding-left: 0.5rem;padding-top: 0.2rem;">东赢电竞、IM电竞、IM体育无需转账，共享主钱包</div>
+        </li>
+        <li class="mui-table-view-cell">
+            <div class="plat-list-row list-cell" onclick="checkBalance($('#YEB_div'),'YEB')" >
+                <label><span>余额包</span></label>
+                <label class="refresh_btn"><span id="YEB_div">刷新</span></label>
+            </div>
+            <div class="plat-list-row list-cell" onclick="checkBalance($('#XJ_div'),'XJ')" >
+                <label><span>东赢体育</span></label>
+                <label class="refresh_btn"><span id="XJ_div">刷新</span></label>
+            </div>
+            <!--<div class="plat-list-row list-cell" onclick="checkBalance($('#marlin_div'),'Marlin')" >
+                <label><span>东赢电竞</span></label>
+                <label class="refresh_btn"><span id="marlin_div">刷新</span></label>
+            </div>-->
+            <div class="plat-list-row list-cell" onclick="checkBalance($('#RG_div'),'RG')" >
+                <label><span>RG电竞</span></label>
+                <label class="refresh_btn"><span id="RG_div">刷新</span></label>
+            </div>
+            <div class="plat-list-row list-cell" onclick="checkBalance($('#PT_div'),'PT')">
+                <label><span>PT电子</span></label>
+                <label class="refresh_btn"><span id="PT_div">刷新</span></label>
+            </div>
+        </li>
+        <li class="mui-table-view-cell" style="display: none">
+            <div class="plat-list-row list-cell" onclick="checkBalance($('#SW_div'),'SW')" >
+                <label><span>SW电子</span></label>
+                <label class="refresh_btn"><span id="SW_div">刷新</span></label>
+            </div>
+            <div class="plat-list-row list-cell" onclick="checkBalance($('#MG_PLUS_div'),'MG_PLUS')">
+                <label><span>MG电子</span></label>
+                <label class="refresh_btn"><span id="MG_PLUS_div">刷新</span></label>
+            </div>
+            <div class="plat-list-row list-cell" onclick="checkBalance($('#CQ_div'),'CQ')" >
+                <label><span>CQ电子</span></label>
+                <label class="refresh_btn"><span id="CQ_div">刷新</span></label>
+            </div>
+            <div class="plat-list-row list-cell" onclick="checkBalance($('#AG_div'),'AG')" >
+                <label><span>AG厅</span></label>
+                <label class="refresh_btn"><span id="AG_div">刷新</span></label>
+            </div>
+        </li>
+        <li class="mui-table-view-cell" style="display: none">
+            <div class="plat-list-row list-cell" onclick="checkBalance($('#AllBet_div'),'AllBet')" >
+                <label><span>欧博厅</span></label>
+                <label class="refresh_btn"><span id="AllBet_div">刷新</span></label>
+            </div>
+            <div class="plat-list-row list-cell" onclick="checkBalance($('#TCG_div'),'TCG')">
+                <label><span>TCG彩票</span></label>
+                <label class="refresh_btn" ><span id="TCG_div">刷新</span></label>
+            </div>
+            <div class="plat-list-row list-cell" onclick="checkBalance($('#BBIN_div'),'BBIN')" >
+                <label><span>BBIN</span></label>
+                <label class="refresh_btn"><span id="BBIN_div">刷新</span></label>
+            </div>
+            <div class="plat-list-row list-cell" onclick="checkBalance($('#KY_div'),'KY')" >
+                <label><span>开元棋牌</span></label>
+                <label class="refresh_btn"><span id="KY_div">刷新</span></label>
+            </div>
+
+        </li>
+        <li class="mui-table-view-cell" style="display: none">
+            <div class="plat-list-row list-cell" onclick="checkBalance($('#TX_div'),'TX')" >
+                <label><span>大唐棋牌</span></label>
+                <label class="refresh_btn"><span id="TX_div">刷新</span></label>
+            </div>
+            <div class="plat-list-row list-cell" onclick="checkBalance($('#GPS_div'),'GPS')" >
+                <label><span>中途岛</span></label>
+                <label class="refresh_btn"><span id="GPS_div">刷新</span></label>
+            </div>
+            <div class="plat-list-row list-cell" onclick="checkBalance($('#ICG_div'),'ICG')" >
+                <label><span>ICG捕鱼</span></label>
+                <label class="refresh_btn"><span id="ICG_div">刷新</span></label>
+            </div>
+
+        </li>
+            <!--<div class="plat-list-row list-cell" onclick="checkBalance($('#GD_div'),'GD')" >
+                <label><span>GD</span></label>
+                <label style="color: #FF7800;"><span id="GD_div">点击刷新</span></label>
+            </div>-->
+            <!--<div class="plat-list-row list-cell" onclick="checkBalance($('#FG_div'),'FG')" >
+                <label><span>FG</span></label>
+                <label class="refresh_btn"><span id="FG_div">刷新</span></label>
+            </div>-->
+
+            <!--<div class="plat-list-row list-cell" onclick="checkBalance($('#PNG_div'),'PNG')" >
+                <label><span>PNG</span></label>
+                <label style="color: #FF7800;"><span id="PNG_div">点击刷新</span></label>
+            </div>
+            <div class="plat-list-row list-cell" onclick="checkBalance($('#OPUS_div'),'OPUS')" >
+                <label><span>OPUS厅</span></label>
+                <label style="color: #FF7800;"><span id="OPUS_div">点击刷新</span></label>
+            </div>-->
+            <!--<div class="plat-list-row list-cell" onclick="checkBalance($('#PP_div'),'PP')" >
+                <label><span>PP</span></label>
+                <label class="refresh_btn"><span id="PP_div">刷新</span></label>
+            </div>
+            <div class="plat-list-row list-cell" onclick="checkBalance($('#SG_div'),'SG')" >
+                <label><span>SG</span></label>
+                <label class="refresh_btn"><span id="SG_div">刷新</span></label>
+            </div>-->
+            <!--<div class="plat-list-row list-cell" onclick="checkBalance($('#EBet_div'),'EBet')" >
+                <label><span>EBet</span></label>
+                <label style="color: #FF7800;"><span id="EBet_div">点击刷新</span></label>
+            </div>-->
+            <!--<div class="plat-list-row list-cell" onclick="checkBalance($('#BS_div'),'BS')" >
+                <label><span>BS</span></label>
+                <label style="color: #FF7800;"><span id="BS_div">点击刷新</span></label>
+            </div>-->
+            <!--<div class="plat-list-row list-cell" onclick="checkBalance($('#AE_div'),'AE')" >
+                <label><span>AE</span></label>
+                <label style="color: #FF7800;"><span id="AE_div">点击刷新</span></label>
+            </div>-->
+
+            <!--<div class="plat-list-row list-cell" onclick="checkBalance($('#IG_div'),'IG')" >
+                <label><span>IG彩票</span></label>
+                <label style="color: #FF7800;"><span id="IG_div">点击刷新</span></label>
+            </div>-->
+        <li class="mui-table-view-cell show_list_btn" onclick="showList()">
+            <div class="plat-list-row" style="text-align: center">
+                <label><span>显示所有场馆</span><img style="width: 12px;margin: 0 5px;" src="../../images/arrow_down.png?2"></label>
+            </div>
+        </li>
+    </ul>
+    <div class="mui-input-group" style="margin: 10px;padding-bottom: 10px;">
+        <div class="mui-row transfer-select">
+            <div class="mui-col-xs-5 select-left">
+                <span class="mui-navigate-right" style="" id="_transferType">中心钱包</span>
+                <input id="transferType" type="hidden" value="1">
+            </div>
+            <div class="mui-col-xs-2 select-center" style="height: 60px;text-align: center;">
+                <img style="width: 20px;margin: 20px 0px " src="../../images/arrow_right.png">
+            </div>
+            <div class="mui-col-xs-5 select-right">
+                <span class="mui-navigate-right" id="_platType" style="">请选择</span>
+                <input id="platType" type="hidden" >
+            </div>
+        </div>
+        <div class="transfer_count_list">
+            <div class="transfer_count">100</div>
+            <div class="transfer_count">500</div>
+            <div class="transfer_count">1000</div>
+            <div class="transfer_count">2000</div>
+            <div class="transfer_count">5000</div>
+        </div>
+        <div class="mui-input-row transfer-form" style="height: auto">
+            <p>金额</p>
+            <div class="mui-textfield">
+                <span style="color: #3a5dbf;font-size: 26px;">￥</span>
+                <input style="font-size: 20px;" type="text" placeholder="0.00" id="money">
+                <button class="mui-btn"  onclick="maxMoney()">最大金额</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="mui-content-padded">
+        <div id="submitBtn" class="transfer_btn">立即转账</div>
+    </div>
+</div>
+</body>
+@@include('html-foot.html')
+<script type="text/javascript">
+    mui.init();
+    var _all_app_plat = null;
+    var _platTypeSeclect;
+    var _transferTypeSeclect;
+    $(document).ready(function() {
+        fun_checkLoginStatus(null);
+        initDatas();
+        refreshMain($('#div_wallet'));
+        $('#wallet_balance').click(function(){
+            var $dom_div_wallet = $(this).parent();
+            refreshMain($dom_div_wallet);
+        });
+        $('#submitBtn').click(function(){
+            var platType;
+            if($('#transferType').val()=='main')
+                platType=$.trim($('#platType').val());
+            else
+                platType=$.trim($('#transferType').val());
+            if(platType.length<=0){
+                fun_toast('请选择目标平台!');return;
+            }
+            var money = $.trim($("#money").val());
+            if (parseInt(money) < 0 || isNaN(money)) {
+                fun_toast('转账金额不符合规范!');return;
+            }else if(money == null || money == ""){
+                fun_toast('请输入转账金额!');return;
+            }else if(!/^[1-9]\d*$/.test(money)){
+                fun_toast('转账金额必须为正整数!');return;
+            }
+            var postUrl = '';
+            if(platType=='playtech'){platType='PT';}
+            if($('#transferType').val()=='main'){
+                postUrl = wap_site_host()+"/session/balance/deposit/"+platType+"/"+money+"/PHONE";
+            }else{
+                postUrl = wap_site_host()+"/session/balance/withdrawals/"+platType+"/"+money+"/PHONE";
+            }
+            submitForm(postUrl);
+        });
+        $('.transfer_count').click(function () {
+            $('#money').val($(this).text());
+        });
+    });
+    function initDatas(){
+        $.ajax({
+            dataType: "jsonp",
+            url:wap_site_host()+'/rest/api/platforms',
+            success:function(resultData){
+                if(resultData.code==0){
+                    _all_app_plat = resultData.data;
+                    loadPlats();
+                }
+            }
+        });
+    }
+    function maxMoney(){
+        var money=$("#div_wallet").text();
+        var max = $.trim(money.substr(1,money.length-1));
+        if(parseInt(max) > 0){
+            $('#money').val(parseInt(max));
+        }
+    }
+    function refreshMain($dom_div_wallet){
+        checkBalance($dom_div_wallet,'main');
+    }
+    function submitForm(url){
+        $.ajax({
+            url: url,
+            type:"POST",
+            data:{"token":wap_get_user().token},
+            dataType: 'json',
+            success:function(d){
+                if (d.code == 0) {
+                    mui($('#submitBtn')).button('reset');
+                    fun_alertMsg('转账成功!', function() {});
+                } else {
+                    fun_toast(d.message);
+                    mui($('#submitBtn')).button('reset');
+                    wap_if_session_out(d.code);
+                }
+            },
+            error:function(jqXHR, textStatus){
+                wap_check_ajaxerror(jqXHR);
+                fun_toast('提交异常！');
+                mui($('#submitBtn')).button('reset');
+            }
+        });
+    }
+
+    function loadPlats(){
+        var platArrayLeft = new Array();
+        var platArrayRight = new Array();
+        platArrayLeft.push({'code':'main','value':'中心钱包'});
+        let pindex = 0;
+        $.each(_all_app_plat,function(n, value){
+            if(value.platformCode=='XIN'||value.platformCode=='fishjp' || value.platformCode==='IM'
+                ||value.platformCode=='agdz'||value.platformCode=='EBet' || value.platformCode==='Marlin'){return;}
+            if(pindex==0){
+                $('#platType').val(value.platformCode);
+                $('#_platType').html(value.platformNameCn);
+                $('#transferType').val('main');
+                $('#_transferType').html('中心钱包');
+            }
+            platArrayLeft.push({'code':value.platformCode,'value':value.platformNameCn});
+            platArrayRight.push({'code':value.platformCode,'value':value.platformNameCn});
+            pindex++;
+        });
+        _platTypeSeclect = new MobileSelect({
+            trigger: '#_platType',
+            wheels: [ {data: platArrayRight } ],
+            transitionEnd:function(indexArr, data){},
+            callback:function(indexArr, data){
+                $('#platType').val(fun_filterTxt(data[0].code));
+                $('#_platType').html(fun_filterTxt(data[0].value));
+            }
+        });
+
+        _transferTypeSeclect = new MobileSelect({
+            trigger: '#_transferType',
+            wheels: [ {data: platArrayLeft } ],
+            transitionEnd:function(indexArr, data){  },
+            callback:function(indexArr, data){
+                $('#transferType').val(fun_filterTxt(data[0].code));
+                $('#_transferType').html(fun_filterTxt(data[0].value));
+                restRightSelect(fun_filterTxt(data[0].code));
+            }
+        });
+    }
+    function restRightSelect(code) {
+        if(code=='main'){
+            var platArrayRight = new Array();
+            let pindex = 0;
+            $.each(_all_app_plat,function(n, value){
+                if(value.platformCode=='XIN'||value.platformCode=='fishjp'|| value.platformCode==='IM'
+                    ||value.platformCode=='agdz'||value.platformCode=='EBet' || value.platformCode==='Marlin'){return;}
+                if(pindex==0){
+                    $('#platType').val(value.platformCode);
+                    $('#_platType').html(value.platformNameCn);
+                }
+                platArrayRight.push({'code':value.platformCode,'value':value.platformNameCn});
+                pindex++;
+            });
+            _platTypeSeclect.updateWheel(0,platArrayRight);
+        }else{
+            $('#platType').val('main');
+            $('#_platType').html('中心钱包');
+            _platTypeSeclect.updateWheel(0,[{'type':'mian','value':'中心钱包'}]);
+        }
+    }
+
+    function refreshAll() {
+        refreshMain($('#div_wallet'));
+        checkBalance($('#PT_div'),'PT');
+        checkBalance($('#MG_PLUS_div'),'MG_PLUS');
+        checkBalance($('#AllBet_div'),'AllBet');
+        checkBalance($('#AG_div'),'AG');
+        checkBalance($('#CQ_div'),'CQ');
+        checkBalance($('#XJ_div'),'XJ');
+        checkBalance($('#TCG_div'),'TCG');
+        checkBalance($('#BBIN_div'),'BBIN');
+        //checkBalance($('#marlin_div'),'Marlin');
+        checkBalance($('#KY_div'),'KY');
+        checkBalance($('#TX_div'),'TX');
+        checkBalance($('#RG_div'),'RG');
+        checkBalance($('#SW_div'),'SW');
+        checkBalance($('#GPS_div'),'GPS');
+        checkBalance($('#ICG_div'),'ICG');
+        checkBalance($('#YEB_div'),'YEB');
+        refreshCutDown();
+        //checkBalance($('#SG_div'),'SG');
+        //checkBalance($('#PNG_div'),'PNG');
+        //checkBalance($('#FG_div'),'FG');
+        //checkBalance($('#GD_div'),'GD');
+        //checkBalance($('#BS_div'),'BS');
+        //checkBalance($('#OPUS_div'),'OPUS');
+        //checkBalance($('#PP_div'),'PP');
+        //checkBalance($('#AE_div'),'AE');
+        //checkBalance($('#EBet_div'),'EBet');
+        //checkBalance($('#BNG_div'),'BNG');
+        //heckBalance($('#IG_div'),'IG');
+    }
+
+    function checkBalance(domLi,type){
+        $(domLi).html('加载中...');
+        $.ajax({
+            dataType: "jsonp",
+            url:wap_site_host() + "/session/balance/"+type,
+            type:"GET",
+            data:{"token":wap_get_user().token},
+            dataType: 'json',
+            success:function(resultData){
+                if (resultData.code == 0) {
+                    $(domLi).html('￥'+resultData.data.toFixed(2));
+                    if(type!='main'){
+                        $(domLi).parent().css({"background-color": "#edeef4"});
+                        $(domLi).parent().css({"color":"#357bf5"});
+                    }
+                }else if(resultData.code == 5001){
+                    $(domLi).html('<font color="red">维护中</font>');
+                    if(type!='main'){
+                        $(domLi).parent().css({"background-color": "#5b80e7"});
+                    }
+                } else {
+                    if(type!='main'){
+                        $(domLi).html('刷新');
+                        $(domLi).parent().css({"background-color": "#5b80e7"});
+                        $(domLi).parent().css({"color":"#fff"});
+                    }
+                    fun_alertMsg(resultData.message, '系统提示', function() {});
+                    wap_if_session_out(resultData.code);
+                }
+            },
+            error:function( jqXHR, textStatus){
+                $(domLi).html('刷新');
+                wap_check_ajaxerror(jqXHR);
+                fun_toast('请求失败，请稍后重试');
+            }
+        });
+    }
+
+    function refreshCutDown() {
+        var sec=10;
+        $(".refresh_cell span").text('请稍等'+sec+'秒');
+        $("#checkAllBalance").addClass('disable');
+        $("#checkAllBalance").removeAttr("onclick","");
+        $(".refresh_cell img").hide();
+        var interval = setInterval(function () {
+            sec --;
+            if (sec <= 0){
+                $(".refresh_cell span").text("一键刷新");
+                $("#checkAllBalance").removeClass('disable');
+                $("#checkAllBalance").attr("onclick","refreshAll()");
+                $(".refresh_cell img").show();
+                clearInterval(interval);
+            } else {
+                $(".refresh_cell span").text('请稍等'+sec + '秒');
+            }
+        }, 1000);
+    }
+
+    function showList(){
+        $('.mui-table-view li:nth-child(3)').slideDown();
+        $('.mui-table-view li:nth-child(4)').slideDown(1000);
+        $('.mui-table-view li:nth-child(5)').slideDown(2000);
+        $('.show_list_btn span').text('收起所有场馆');
+        $('.show_list_btn img').css({"transform":"rotate(180deg)"});
+        $(".show_list_btn").attr("onclick","hideList()");
+    }
+
+    function hideList() {
+        $('.mui-table-view li:nth-child(3)').slideUp();
+        $('.mui-table-view li:nth-child(4)').slideUp();
+        $('.mui-table-view li:nth-child(5)').slideUp();
+        $('.show_list_btn span').text('显示所有场馆');
+        $('.show_list_btn img').css({"transform":"rotate(0deg)"});
+        $(".show_list_btn").attr("onclick","showList()");
+    }
+</script>
+</html>

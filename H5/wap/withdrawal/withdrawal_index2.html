@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html style="background-color: #efeff4;">
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<title>东赢 - 提款</title>
+	<!--标准mui.css-->
+	<link href="/mui/css/mui.min.css" rel="stylesheet" />
+	<link href="/mui/css/common.css" rel="stylesheet" />
+	<!--扩展图标-->
+	<link href="/mui/css/mui-icons-extra.css" rel="stylesheet" />
+	<link rel="stylesheet" type="text/css" href="/style/plugins/mobileSelect/css/mobileSelect.css">
+	<link href="/style/css/main.css" rel="stylesheet" />
+    <link href="/style/css/index.css" rel="stylesheet" />
+    <link href="/style/css/withdrawal.css" rel="stylesheet" />
+	<!-- 加载JavaScript -->
+	<script type="text/javascript" src="/style/js/jquery-3.2.1.min.js"></script>
+	<script type="text/javascript" src="/style/layer/layer.js"></script>
+	<script type="text/javascript" src="/style/js/Validform_v5.3.2_min.js"></script>
+	<script type="text/javascript" src="/style/js/common.js"></script>
+	<script type="text/javascript" src="/mui/js/mui.min.js"></script>
+	<script type="text/javascript" src="/style/js/jquery.marquee.min.js"></script>
+	<script type="text/javascript" src="/style/js/jquery.cookie.js"></script>
+	<script type="text/javascript" src="/style/plugins/mobileSelect/js/mobileSelect.min.js"></script>
+	<style type="text/css">
+
+		.plat-list-row label{
+			padding: 0px;
+			vertical-align: middle;
+            text-align: center;
+		}
+		.plat-list-row span{
+			vertical-align: middle;
+			font-size: 15px;
+			padding-left: 5px;
+		}
+		.plat-list-row img{
+			vertical-align: middle;
+			margin-right: 5px;
+		}
+		.list-cell{
+			width: 25%;
+			float: left;
+            padding: 10px 0 15px 0;
+            display: grid;
+		}
+
+		.mui-table-view-cell.mui-active{background: #efeff4;}
+		.compulsory-tip {
+			color: red;
+			padding-left: 5px;
+		}
+		.mui-bar-nav~.mui-content{padding-bottom: 50px;}
+		.mui-input-group .mui-input-row {
+			margin-top: 0px;
+			font-weight: bold;
+		}
+		.mui-table-view .mui-icon{
+			color: white;
+			font-size: 20px;
+		}
+		label .submit_btn{
+			height: 25px;
+			width: 50px;
+			margin-top: 10px;
+			padding-top: 2px;
+			padding-left: 0px;
+		}
+		.mui-table-view-cell:after{
+			right: 0px;
+			left: 0px;
+		}
+		.submit_btn .mui-spinner{
+			margin-left: -5px;
+			margin-top: -10px;
+			width: 40px;
+			height: 40px;
+			-webkit-transform-origin:80%;
+		}
+	</style>
+</head>
+<body class="mui-ios mui-ios-9 mui-ios-9-1" style="background: #000000;">
+<header id="fail_header" class="mui-bar mui-bar-nav">
+	<a class="mui-icon mui-icon-back mui-pull-left" href="/index.html">返回</a>
+	<h1 class="mui-title" style="color: #ffffff;">取账</h1>
+	<a id="checkAllBalance" class=" mui-pull-right" style="display: flex; position: absolute; right: 3%; z-index: 5;">
+        <p class="refresh">刷新全部</p>
+        <p class="refresh-icon">
+            <span class="mui-icon mui-icon-loop" style="margin-left: -5px;">
+            </span>
+        </p>
+    </a>
+</header>
+<div class="mui-content withdrawl">
+
+	<ul class="mui-table-view" style=" margin-bottom: -3px; padding-bottom: 30px; padding-top:15px; clear:right;">
+		<li class="mui-table-view-cell" style="margin-bottom: 20px;">
+			<div class="plat-list-row" id="div_wallet" style="padding: 10px 20px;" >
+				<label class="plat-list-first">
+					主钱包 <span style="margin-right: 15px;" onclick="refreshMain('div_wallet')">0.000</span> <p>元</p>
+				</label>
+				</label>
+			</div>
+		</li>
+		<li class="mui-table-view-cell">
+			<div class="plat-list-row list-cell" onclick="checkBalance(this,'PT')" id="PT_div">
+				<label><span>PT</span></label>
+				<label style="color: #FF7800;"><span>0.00</span></label>
+			</div>
+			<div class="plat-list-row list-cell" onclick="checkBalance(this,'MG')"  id="MG_div">
+				<label><span>MG</span></label>
+				<label style="color: #FF7800;"><span>0.00</span></label>
+			</div>
+            <div class="plat-list-row list-cell" onclick="checkBalance(this,'CQ')" id="CQ_div">
+                <label><span>CQ</span></label>
+                <label style="color: #FF7800;"><span>0.00</span></label>
+            </div>
+            <div class="plat-list-row list-cell" onclick="checkBalance(this,'XJ')" id="XJ_div">
+                <label><span>东赢体育</span></label>
+                <label style="color: #FF7800;"><span>0.00</span></label>
+            </div>
+            <hr>
+            <div class="plat-list-row list-cell" onclick="checkBalance(this,'Marlin')" id="marlin_div">
+                <label><span>电竞</span></label>
+                <label style="color: #FF7800;" ><span>0.00</span></label>
+            </div>
+            <div class="plat-list-row list-cell" onclick="checkBalance(this,'GD')" id="GD_div">
+                <label><span>GD</span></label>
+                <label style="color: #FF7800;"><span>0.00</span></label>
+            </div>
+            <div class="plat-list-row list-cell" onclick="checkBalance(this,'PNG')" id="PNG_div">
+                <label><span>PNG</span></label>
+                <label style="color: #FF7800;"><span>0.00</span></label>
+            </div>
+            <div class="plat-list-row list-cell" onclick="checkBalance(this,'FG')" id="FG_div">
+                <label><span>FG</span></label>
+                <label style="color: #FF7800;"><span>0.00</span></label>
+            </div>
+            <hr>
+            <div class="plat-list-row list-cell" onclick="checkBalance(this,'BS')" id="BS_div">
+                <label><span>BS</span></label>
+                <label style="color: #FF7800;"><span>0.00</span></label>
+            </div>
+            <div class="plat-list-row list-cell" onclick="checkBalance(this,'AllBet')" id="AllBet_div">
+                <label><span>欧博厅</span></label>
+                <label style="color: #FF7800;"><span>0.00</span></label>
+            </div>
+            <div class="plat-list-row list-cell" onclick="checkBalance(this,'AG')" id="AG_div">
+                <label><span>AG厅</span></label>
+                <label style="color: #FF7800;"><span>0.00</span></label>
+            </div>
+            <div class="plat-list-row list-cell" onclick="checkBalance(this,'AE')" id="AE_div">
+                <label><span>AE</span></label>
+                <label style="color: #FF7800;"><span>0.00</span></label>
+            </div>
+            <hr>
+            <div class="plat-list-row list-cell" onclick="checkBalance(this,'PP')" id="PP_div">
+                <label><span>PP</span></label>
+                <label style="color: #FF7800;"><span>0.00</span></label>
+            </div>
+            <div class="plat-list-row list-cell" onclick="checkBalance(this,'OPUS')" id="OPUS_div">
+                <label><span>OPUS厅</span></label>
+                <label style="color: #FF7800;"><span>0.00</span></label>
+            </div>
+            <div class="plat-list-row list-cell" onclick="checkBalance(this,'EBet')" id="EBet_div">
+                <label><span>EBet</span></label>
+                <label style="color: #FF7800;"><span>0.00</span></label>
+            </div>
+            <div class="plat-list-row list-cell" onclick="checkBalance(this,'TCG')" id="TCG_div">
+                <label><span>TCG彩票</span></label>
+                <label style="color: #FF7800;" ><span>0.00</span></label>
+            </div>
+            <hr>
+            <div class="plat-list-row list-cell" onclick="checkBalance(this,'BBIN')" id="BBIN_div">
+                <label><span>BBIN</span></label>
+                <label style="color: #FF7800;" ><span>0.00</span></label>
+            </div>
+            <div class="plat-list-row list-cell" onclick="checkBalance(this,'SG')" id="SG_div">
+                <label><span>SG</span></label>
+                <label style="color: #FF7800;"><span>0.00</span></label>
+            </div>
+		</li>
+	</ul>
+
+    <div class="mui-row card">
+        <img src="https://xwsr2.16fass88.com/resources/wap_new/images/new-layout/card.png">
+        <p>未绑定银行卡</p>
+    </div>
+
+	<div class="mui-content-padded">
+		<button id="submitBtn" class="submit_btn" data-loading-text="前往绑定银行卡中">前往绑定银行卡</button>
+	</div>
+</div>
+</body>
+@@include('html-foot.html')
+<script type="text/javascript">
+    mui.init();
+    var bankArray = new Array();
+    $(document).ready(function() {
+        fun_checkLoginStatus(null);
+        loadBanks();
+        loadWithdrawalLowerAndLimit();
+        loadRecords();
+        //refreshMain($('#div_wallet'));
+        $('#refreshAll').click(function(){
+            refreshMain($('#div_wallet'));
+            checkBalance($('#PT_div'),'PT');
+            checkBalance($('#MG_div'),'MG');
+            checkBalance($('#SG_div'),'SG');
+            checkBalance($('#PNG_div'),'PNG');
+            checkBalance($('#FG_div'),'FG');
+            checkBalance($('#GD_div'),'GD');
+            checkBalance($('#BS_div'),'BS');
+            checkBalance($('#AllBet_div'),'AllBet');
+            checkBalance($('#AG_div'),'AG');
+            checkBalance($('#AE_div'),'AE');
+            checkBalance($('#CQ_div'),'CQ');
+            checkBalance($('#OPUS_div'),'OPUS');
+            checkBalance($('#PP_div'),'PP');
+            checkBalance($('#XJ_div'),'XJ');
+            checkBalance($('#EBet_div'),'EBet');
+            //checkBalance($('#BNG_div'),'BNG');
+            checkBalance($('#TCG_div'),'TCG');
+            checkBalance($('#BBIN_div'),'BBIN');
+            checkBalance($('#marlin_div'),'Marlin');
+        });
+        $('#wallet_balance').click(function(){
+            var $dom_div_wallet = $(this).parent();
+            refreshMain($dom_div_wallet);
+        });
+        $('#submitBtn').click(function(){
+            var bankCardId = $.trim($("#bankCardId").val());
+            var money = $.trim($("#money").val());
+            if(bankArray.length<=0){
+                fun_toast('请先绑定银行卡再进行提款!');return;
+            }
+            if(bankCardId==null||bankCardId==''||bankCardId==undefined){
+                fun_toast('银行账户不能为空!');return;
+            }
+            if (parseInt(money) < 0 || isNaN(money)) {
+                fun_toast('转账金额不符合规范!');return;
+            }else if(money == null || money == ""){
+                fun_toast('请输入转账金额!');return;
+            }
+            mui($('#submitBtn')).button('loading');
+            var postUrl = wap_site_host()+"/session/balance/withdrawals?amount="+money+"&cardId="+bankCardId+"&osname=PHONE";
+            submitForm(postUrl);
+        });
+    });
+    function refreshMain($dom_div_wallet){
+        checkBalance($dom_div_wallet,'main');
+    }
+    function submitForm(url){
+        $.ajax({
+            url: url,
+            type:"POST",
+            data:{"token":wap_get_user().token},
+            dataType: 'json',
+            success:function(d){
+                if (d.code == 0) {
+                    fun_toast('提交成功!');
+                    $('#bankCardId').val('');
+                    $('#_bankCardId').html('');
+                    mui($('#submitBtn')).button('reset');
+                } else {
+                    fun_toast(d.message);
+                    mui($('#submitBtn')).button('reset');
+                    wap_if_session_out(d.code);
+                }
+            },
+            error:function(jqXHR, textStatus){
+                wap_check_ajaxerror(jqXHR);
+                fun_toast('提交异常！');
+                mui($('#submitBtn')).button('reset');
+            }
+        });
+    }
+    function loadWithdrawalLowerAndLimit(){
+        $.ajax({
+            dataType: "jsonp",
+            url:wap_site_host() + "/session/record/withdrawalLowerAndLimit?token="+wap_get_user().token,
+            type:"GET",
+            dataType: 'json',
+            success:function(resultData){
+                if (resultData.code == 0) {
+                    $('#withdraw-limit').html('单笔最低：'+resultData.data.withdrawLower+'元，单笔最高：'+resultData.data.withdrawLimit+'元');
+                } else {
+                    fun_alertMsg(resultData.message, '系统提示', function() {});
+                    wap_if_session_out(resultData.code);
+                }
+            },
+            error:function( jqXHR, textStatus){
+                wap_check_ajaxerror(jqXHR);
+                fun_alertMsg('请求失败，请稍后重试',function(){});
+            }
+        });
+    }
+    function loadBanks(){
+        $.ajax({
+            dataType: "jsonp",
+            url:wap_site_host() + "/session/bankcard/use?token="+wap_get_user().token,
+            type:"GET",
+            dataType: 'json',
+            success:function(resultData){
+                if (resultData.code == 0) {
+                    var listData = resultData.data;
+                    var index = 0;
+                    $('#bankCardId').val('');
+                    $('#_bankCardId').html('');
+                    $.each(listData,function(n, value){
+                        bankArray.push({'code':value.id,'value':fun_filterTxt(value.bankName+' - '+value.cardNum)});
+                        index++;
+                    });
+                    if(bankArray.length<=0){ fun_alertMsg('请先绑定银行卡再进行提款操作', '系统提示', function() {window.location.href="/wap/bank/add-card.html"}); return;}
+                    var _bankSeclect = new MobileSelect({
+                        trigger: '#_bankCardId',
+                        wheels: [ {data: bankArray } ],
+                        transitionEnd:function(indexArr, data){  },
+                        callback:function(indexArr, data){
+                            $('#bankCardId').val(fun_filterTxt(data[0].code));
+                            $('#_bankCardId').html(fun_filterTxt(data[0].value));
+                        }
+                    });
+                } else {
+                    fun_alertMsg(resultData.message, '系统提示', function() {});
+                    wap_if_session_out(resultData.code);
+                }
+            },
+            error:function( jqXHR, textStatus){
+                wap_check_ajaxerror(jqXHR);
+                fun_toast('请求失败，请稍后重试');
+            }
+        });
+    }
+    function loadRecords(){
+        $.ajax({
+            dataType: "jsonp",
+            url:wap_site_host() + "/session/record/withdrawals",
+            type:"GET",
+            data:{"lastTime":null, "length":3,"token":wap_get_user().token},
+            dataType: 'json',
+            success:function(resultData){
+                if (resultData.code == 0) {
+                    var listData = resultData.data;
+                    var appendHtml='';
+                    $.each(listData,function(n, v){
+                        var payDoneTime = fun_timeFormat(v.payDate);
+                        payDoneTime = (payDoneTime=='') ? '未完成' : payDoneTime;
+                        appendHtml+='<li class="mui-table-view-cell mui-media" data-commit_date="'+fun_timeFormat(v.withdrawDate)+'">\
+							<div class="mui-input-row"><label>金额</label><label style="width: 65%;">'+v.amount+'</label></div>\
+							<div class="mui-input-row"><label>提款状态</label><label style="width: 65%;">'+fun_filterTxt(v.status)+'</label></div>\
+							<div class="mui-input-row"><label>提交时间</label><label style="width: 65%;">'+fun_timeFormat(v.withdrawDate)+'</label></div>\
+							<div class="mui-input-row"><label>完成时间</label><label style="width: 65%;">'+payDoneTime+'</label></div>\
+						</li>';
+                    });
+                    if(appendHtml==''){
+                    }else{
+                        $('#records_title').show();
+                        $('#view_records').show().html(appendHtml);
+                    }
+                } else {
+                    fun_alertMsg(resultData.message, '系统提示', function() {});
+                    wap_if_session_out(resultData.code);
+                }
+            },
+            error:function( jqXHR, textStatus){
+                wap_check_ajaxerror(jqXHR);
+                fun_toast('请求失败，请稍后重试');
+            }
+        });
+    }
+
+    $(document).on("click", "#homeBar", function() {// 首页
+        window.location.href="/index.html";
+    });
+    $(document).on("click", "#fundsBar", function() {// 存款
+        if (wap_is_user_notexist()) {
+            wap_need_login();
+        } else {
+            window.location.href="/wap/deposit/deposit_index.html";
+        }
+    });
+    $(document).on("click", "#transferBar", function() {// 转账
+        if (wap_is_user_notexist()) {
+            wap_need_login();
+        } else {
+            window.location.href="/wap/transfer/transfer_index.html";
+            return;
+        }
+    });
+    $(document).on("click", "#withdrawalBar", function() {//提款
+        if (wap_is_user_notexist()) {
+            wap_need_login();
+        } else {
+            window.location.href="/wap/withdrawal/withdrawal_index.html";
+            return;
+        }
+    });
+    $(document).on("click", "#customerBar", function() {//客服
+        window.location.href="/wap/customer-service/cs_index.html";
+    });
+    $(document).on("click", "#checkAllBalance", function() {
+        checkBalance($('#div_wallet'),'main');
+        checkBalance($('#PT_div'),'PT');
+        checkBalance($('#MG_div'),'MG');
+        checkBalance($('#SG_div'),'SG');
+        checkBalance($('#PNG_div'),'PNG');
+        checkBalance($('#FG_div'),'FG');
+        checkBalance($('#GD_div'),'GD');
+        checkBalance($('#BS_div'),'BS');
+        checkBalance($('#AllBet_div'),'AllBet');
+        checkBalance($('#AG_div'),'AG');
+        checkBalance($('#AE_div'),'AE');
+        checkBalance($('#CQ_div'),'CQ');
+        checkBalance($('#OPUS_div'),'OPUS');
+        checkBalance($('#PP_div'),'PP');
+        checkBalance($('#XJ_div'),'XJ');
+        checkBalance($('#EBet_div'),'EBet');
+        //checkBalance($('#BNG_div'),'BNG');
+        checkBalance($('#TCG_div'),'TCG');
+        checkBalance($('#BBIN_div'),'BBIN');
+    });
+    function checkBalance(domLi,type){
+        if($(domLi).find('button:first').is(':visible')){
+            return;
+        }
+        $(domLi).find('button:last').hide().siblings('button:first').show();
+        $(domLi).find('span:last').show();
+        $.ajax({
+            dataType: "jsonp",
+            url:wap_site_host() + "/session/balance/"+type,
+            type:"GET",
+            data:{"token":wap_get_user().token},
+            dataType: 'json',
+            success:function(resultData){
+                $(domLi).find('button:first').hide();
+                if (resultData.code == 0) {
+                    $(domLi).find('span:last').html(resultData.data);
+                } else {
+                    $(domLi).find('button:last').show().siblings('button:first').hide();
+                    $(domLi).find('span:last').hide();
+                    fun_alertMsg(resultData.message, '系统提示', function() {});
+                    wap_if_session_out(resultData.code);
+                }
+            },
+            error:function( jqXHR, textStatus){
+                wap_check_ajaxerror(jqXHR);
+                fun_toast('请求失败，请稍后重试');
+                $(domLi).find('button:first').hide();
+            }
+        });
+    }
+</script>
+</html>

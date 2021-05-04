@@ -1,0 +1,210 @@
+body {
+    font-family: "Microsoft Yahei","微软雅黑", STXihei, "华文细黑", sans-serif;
+    margin: 0;
+    padding: 0;
+}
+.row{
+    margin: 0;
+}
+img{
+    width: 100%;
+}
+.car-event{
+    margin: 0 auto;
+}
+.title{
+    margin: 0 auto;
+    display: block;
+    position: relative;
+}
+.marquee {
+    width: 73%;
+    overflow: hidden;
+    position: absolute;
+    top: 8px;
+    left: 8%;
+    color: #3c1110;
+    font-size: 12px;
+    font-weight: bold;
+}
+.rule-container img, .prize-list img{
+    width: 15%;
+}
+.game-container img{
+    width: 20%;
+}
+.game-container img,.rule-container img, .prize-list img{
+    display: block;
+    margin: 0 auto;
+    padding: 15px 0;
+}
+.game-container .btn{
+    border: 1px solid #7d7d7d;
+    border-radius: 5px;
+    margin-left: 10px;
+    color: #ffe3c1;
+    background: transparent;
+    font-size: 10px;
+    padding: 3px 10px;
+}
+.game-container .picknumber,.game-container .winnumber,.game-container .playernumber,.game-container .win-record,.rule-container, .prize-list{
+    background: url("https://xwsr2.16fass88.com/resources/wap_new/images/car-event/bg-02.jpg")top center no-repeat;
+}
+.game-container .picknumber{
+    background-size: contain;
+}
+.game-container .winnumber,.game-container .playernumber,.game-container .win-record,.rule-container, .prize-list{
+    background-size: cover;
+}
+.game-container .win-record{
+    margin-top: 25px;
+}
+.game-container ul{
+    display: flex;
+    justify-content: center;
+    margin: 15px 0;
+}
+.game-container ul li{
+    margin: 0 10px;
+    display: inline-block;
+    background: url(https://xwsr2.16fass88.com/resources/wap_new/images/car-event/img01.png) no-repeat;
+    height: 23px;
+    width: 23px;
+    background-size: cover;
+}
+.game-container .number{
+    display: table;
+    table-layout: fixed;
+    /*width: 600px;*/
+    margin-bottom: 0;
+}
+.game-container .number  li{
+    margin: 0 4px 10px;
+    display: inline-block;
+    background: url(https://xwsr2.16fass88.com/resources/wap_new/images/car-event/img02.png) no-repeat;
+    height: 23px;
+    width: 23px;
+    background-size: cover;
+}
+.game-container ul li p{
+    text-align: center;
+    color: #ffe3c1;
+    font-size: 12px;
+    margin-top: 3px;
+}
+.game-container .number p{
+    margin-top: 4px;
+}
+.game-container p{
+    color: #736342;
+    font-size: 12px;
+    text-align: center;
+}
+.game-container .button{
+    margin: 0 auto;
+    display: block;
+    padding: 0 0 20px;
+    width: 25%;
+}
+.game-container table{
+    width: 100%;
+    text-align: center;
+    color: #c8c8c8;
+    height: 115px;
+    overflow-y: scroll;
+    display: block;
+    font-size: 14px;
+    margin-top: 20px;
+}
+.game-container table tr td{
+    line-height: 20px;
+    font-size: 12px;
+}
+.game-container table tr td:first-child{
+    text-align: right;
+}
+.game-container table tr td:nth-child(2){
+    text-align: left;
+    padding-left: 10px;
+}
+.game-container table .td2{
+    color: #a09876;
+}
+.game-container table .td3 span{
+    color: #694d18;
+}
+.game-container table .td3 .prize{
+    color: #6f6440;
+}
+.game-container #winNum, .game-container #playerWinNum,.game-container #WinRecord{
+    display: inline-block;
+}
+.game-container #WinRecord{
+    color: #aca596;
+}
+.game-container .player{
+    padding-top: 25px;
+ }
+.game-container .player table{
+    height: 115px;
+}
+.rule-container ul{
+    margin: 20px auto 0;
+    width: 75%;
+}
+.rule-container ul li{
+    list-style-type: decimal;
+    color: #626262;
+    font-size: 12px;
+}
+.rule-container, .prize-list{
+    margin-top: 25px;
+}
+.prize-list{
+    margin-bottom: 25px;
+}
+.prize-list .row{
+    display: block;
+}
+.prize-list p{
+    color: #7b6f5b;
+    font-size: 12px;
+    width: 85%;
+    margin: 20px auto 0;
+}
+.prize-list p span{
+    color: #626262;
+}
+/*::-webkit-scrollbar {*/
+    /*color: transparent;*/
+/*}*/
+@media only screen and (max-width: 360px) {
+    .game-container .number li {
+        margin: 0 2px 10px;
+    }
+}
+@media only screen and (max-width: 320px) {
+    .marquee {
+        top: 4px;
+        font-size: 11px;
+    }
+    .game-container img{
+        width: 25%;
+    }
+    .prize-list img, .rule-container img {
+        width: 17%;
+    }
+    .game-container .number li {
+        height: 20px;
+        width: 20px;
+    }
+    .game-container img, .prize-list img, .rule-container img {
+        padding: 10px 0;
+    }
+    .game-container ul li p {
+        font-size: 9px;
+    }
+    .game-container table tr td,.rule-container ul li, .prize-list p {
+        font-size: 10px;
+    }
+}

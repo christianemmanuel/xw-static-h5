@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>东赢好礼抢红包</title>
+    <link href="/mui/css/mui.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="/style/css/swiper.min.css">
+    <link href="/style/plugins/bootstrap/css/bootstrap-4.1.3.min.css" rel="stylesheet" />
+    <link href="/style/css/index.css" rel="stylesheet" />
+    <link href="/style/css/angpaomay.css" rel="stylesheet" />
+</head>
+<body>
+<header class="mui-bar mui-bar-nav" style="display: none" >
+    <a class="mui-icon mui-icon-left-nav mui-pull-left" style="text-decoration: none; color: white;"></a>
+    <h1 class="mui-title" style="color: #ffffff;">抢红包</h1>
+</header>
+<div class="bg-angpao">
+    <div class="angpao-packet"></div>
+    <div class="popup">
+        <img class="congrats-title" src="https://xwsr2.16fass88.com/resources/wap_new/images/angpaomay/gongxi.png">
+        <div class="angpao-value">获得<span id="amount" class="amount">0.00</span>元红包!<br>
+            感谢您的参与
+            <br>
+            <!--<p class="angpao-contact">请联系在线客服留下详细地址收货</p>-->
+        </div>
+        <div class="btn-determine">
+            <img src="https://xwsr2.16fass88.com/resources/wap_new/images/angpaomay/button.png">
+        </div>
+    </div>
+    <div class="popup-prompt">
+        <img class="prompt-title" src="https://xwsr2.16fass88.com/resources/wap_new/images/angpaomay/prompt.png">
+        <div class="prompt-value">当日累计存款300元
+            <br>
+            即可抢红包
+        </div>
+        <div class="btn-prompt"><img src="https://xwsr2.16fass88.com/resources/wap_new/images/angpaomay/button.png"></div>
+    </div>
+    <div class="start-time">2019年6月5日-6月15日<br>每晚 20:00点 准时开抢</div>
+    <div class="title-big"><img src="https://xwsr2.16fass88.com/resources/wap_new/images/angpaomay/text.png"></div>
+    <div class="title-small">大吉大利，东赢好礼！</div>
+    <div class="requirement">
+        <div class="request">活动要求：</div>
+        <div class="detail">每日累计存款300元或以上 即可参与抢红包。</div>
+        <div class="table-reponsive">
+            <table width="100%" class="table-requirement">
+                <tbody>
+                <tr>
+                    <th scope="col" width="50%">红包金额</th>
+                    <th scope="col" width="50%">数量</th>
+                </tr>
+                <tr>
+                    <td>30元现金红包</td>
+                    <td>5000份</td>
+                </tr>
+                <tr>
+                    <td>50元现金红包</td>
+                    <td>3000份</td>
+                </tr>
+                <tr>
+                    <td>100元现金红包</td>
+                    <td>1000份</td>
+                </tr>
+                <tr>
+                    <td>200元现金红包</td>
+                    <td>500份</td>
+                </tr>
+                <tr>
+                    <td>500元现金红包</td>
+                    <td>100份</td>
+                </tr>
+                <tr>
+                    <td>1000元现金红包</td>
+                    <td>50份</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="notes">注：每晚20:00准时开始抢红包，所获得红包只需一倍流水即可出款，不限游戏。</div>
+    </div>
+    <div class="tnc">
+        <div class="title">红包规则：</div>
+        <ol>
+            <li>每位东赢的会员,只要您在红包活动期间，登录网站累计存款300元即可参与，即可获得抢红包机会，先到先得，抢完截止。</li>
+            <li>彩金派发：彩金将会在您点击领取红包后,立即转入您的东赢会员的账号。所有彩金1倍流水即可提款。</li>
+            <li>如果您遇到领取失败的相关提示，请您提供用户名和截图信息至东赢在线客服进行反馈，我们会第一时间进行处理。</li>
+            <li>本次活动不与首存和特殊存送活动共享。</li>
+            <li>此优惠活动只适用于真实玩家，同一位客户，同一台电脑，同一个住址和IP地址。</li>
+        </ol>
+    </div>
+    <div id="overlay"></div>
+</div>
+</body>
+<script type="text/javascript" src="/style/js/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="/style/js/swiper.min.js"></script>
+<script src="/style/plugins/bootstrap/js/bootstrap-4.1.3.min.js"></script>
+<script type="text/javascript" src="/mui/js/mui.min.js"></script>
+<script type="text/javascript" src="/style/js/common.js"></script>
+<script type="text/javascript" src="/style/js/jquery.cookie.js"></script>
+<script>
+    function getQueryString(name) {
+        var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+        var r = window.location.search.substr(1).match(reg);
+        if(r!=null)return  unescape(r[2]); return null;
+    }
+    var queryToken = getQueryString("token");
+    var headCode = getQueryString("headCode");
+    $(document).ready(function() {
+        mui.init();
+        mui(".mui-bar-nav").on('tap','.mui-pull-left',function(){
+            window.location.href="/wap/helpbonus/hb_index.html";
+        });
+        if(headCode==='show'){
+            $('.mui-bar.mui-bar-nav').show();
+            $('.bg-angpao').css('margin-top','44px');
+        }
+        if (queryToken == null || queryToken === '') {
+            queryToken = wap_get_user().token;
+        }
+        if ((queryToken===null || queryToken===undefined || queryToken==='') && wap_is_user_notexist()) {
+            fun_alertMsg("请登入后再操作", function() {
+                window.location.href="/index.html";
+            });
+        }
+        $(".angpao-packet").click(function() {
+            $.ajax({
+                dataType: "jsonp",
+                url:wap_site_host() + "/session/grabRedEnvelopPrivilege/apply",
+                type:"POST",
+                data:{'token': queryToken},
+                dataType: 'json',
+                success:function(d){
+                    if (d.code == 0) {
+                        var amount=d.data.amount;
+                        $("#amount").html(amount.toFixed(2));
+                        $(".popup").show();
+                        $("#overlay").show();
+                    } else {
+                        $(".prompt-value").html(d.msg);
+                        $(".popup-prompt").show();
+                        $("#overlay").show();
+                        /*wap_if_session_out(d.code);*/
+                    }
+                },
+                error:function(jqXHR, textStatus, errorThrown){
+                    wap_check_ajaxerror(jqXHR);
+                    $(".prompt-value").html("领取红包异常，请刷新重试！");
+                    $(".popup-prompt").show();
+                    $("#overlay").show();
+                }
+            });
+        });
+        $(".btn-determine").click(function() {
+            $(".popup").hide();
+            $("#overlay").hide();
+        });
+        $(".btn-prompt").click(function() {
+            $(".popup-prompt").hide();
+            $("#overlay").hide();
+        });
+    });
+</script>
+</html>

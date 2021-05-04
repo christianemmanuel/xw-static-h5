@@ -1,0 +1,77 @@
+.bg-friends{
+  background: url(https://xwsr2.16fass88.com/resources/wap_new/images/friend/bg.jpg) top no-repeat;
+  background-size: cover;
+}
+.bg-friends .btn-submit{
+  padding-top: 55%;
+}
+.bg-friends .btn-submit label{
+  display: block;
+}
+.bg-friends .btn-submit img{
+  width: 140px;
+  height: 38px;
+  display: block;
+  margin: 0 auto;
+}
+.bg-friends .small-text{
+  text-align: center;
+  color:#e5256c;
+  font-size: 12px;
+  padding: 3px 0 8px 0;
+}
+.bg-friends input[type="file"] {
+  display: none;
+}
+.bg-friends .table-friends .friends-inside{
+    border: 3px solid #1a4b61;
+    margin: 0 10px 5px;
+    padding: 2px;
+}
+.bg-friends .table-friends .last{
+    margin-bottom: 50px;
+}
+.bg-friends .table-friends .friends-inside .head{
+    background-color: #175a77;
+    font-weight: bold;
+    color: white;
+}
+.bg-friends .table-friends .friends-inside tr{
+    background-color: #a6d6eb;
+    color: #104156;
+    text-align: center;
+}
+.bg-friends .table-friends .friends-inside td{
+  padding: 3px;
+  border: 1px solid #ffffff;
+}
+.bg-friends .table-friends .friends-inside .table-submit{
+  text-align: left;
+  padding-left: 50px;
+}
+.bg-friends .table-friends .friends-inside .table-submit tbody{
+  height: 200px;
+  display: block;
+  width: 100%;
+  overflow: auto;
+
+}
+.bg-friends .table-friends .friends-inside .table-submit tr{
+    text-align: left;
+}
+.bg-friends .table-friends .friends-inside .table-submit td{
+  padding: 3px 33px;
+  width: 100vw;
+}
+.bg-friends .table-friends .friends-inside .table-submit .process{
+    background-color: #ffdae8;
+    color: #ff005f;
+}
+.bg-friends .table-friends .friends-inside .table-submit .complete{
+    background-color: #c6adff;
+    color: #29383f;
+}
+.bg-friends .table-friends .friends-inside .table-submit .cancel{
+    background-color: #DADADA;
+    color: #000;
+}

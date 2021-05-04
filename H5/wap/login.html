@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html class="ui-page-login">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<title>东赢官网 - MAD LIONS官方赞助商</title>
+	<!--标准mui.css-->
+	<link href="/mui/css/mui.min.css" rel="stylesheet" />
+	<link href="/mui/css/common.css" rel="stylesheet" />
+	<link href="/style/css/main.css" rel="stylesheet" />
+	<link href="/style/css/index.css" rel="stylesheet" />
+    <link href="/style/css/login.css" rel="stylesheet" />
+</head>
+
+<body>
+<div class="wrap">
+    <div class="mui-row" style="margin-top: 20px;">
+        <img class="login-logo" src="../images/login/logo.png">
+        <form id='login-form' class="mui-input-group">
+            <div class="mui-input-row">
+                <div class="login-name">
+                    <i class="login-name-icon"></i>
+                    <input id='loginName' type="text" class="mui-input-clear mui-input" placeholder="请输入用户名" autocomplete="off">
+                </div>
+            </div>
+            <div class="mui-input-row">
+                <div class="login-password">
+                    <i class="login-password-icon"></i>
+                    <input id='password' type="password" class="mui-input-password" placeholder="请输入密码">
+                    <span class="mui-icon mui-icon-eye"></span>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="mui-row pw-row">
+        <div class="mui-col-xs-6">
+            <div class="mui-checkbox remember">
+                <label>
+                    <input type="checkbox" value="" id="rememberMe">
+                    记住密码
+                </label>
+            </div>
+            <!--<a class="remember" href="#" style="float: right;"><img src="https://xwsr2.16fass88.com/resources/wap_new/images/new-layout/click-btn-white.png">记住密码</a>-->
+        </div>
+        <div class="mui-col-xs-6">
+            <a class="forget" href="/wap/forgetPassword.html" style="float: right;" id='forgetPassword'>忘记密码?</a>
+        </div>
+    </div>
+    <div class="link-area">
+        <button id="loginBtn" class="submit_btn" data-loading-text="登录中">登录</button>
+        <button class="submit_btn" onclick="window.location.href = '/wap/regMember.html'">注册</button>
+    </div>
+    <div class="mui-row">
+        <a class="login-text" href="/index.html">先去逛逛</a>
+    </div>
+</div>
+
+
+<!-- 加载JavaScript -->
+<script type="text/javascript" src="/style/js/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="/style/layer/layer.js"></script>
+<script type="text/javascript" src="/style/js/Validform_v5.3.2_min.js"></script>
+<script type="text/javascript" src="/style/js/common.js"></script>
+<script type="text/javascript" src="/style/js/md5.js"></script>
+<script type="text/javascript" src="/mui/js/mui.min.js"></script>
+<script type="text/javascript" src="/style/js/jquery.cookie.js"></script>
+<script>
+    var loginUrl = document.location.href;
+    var tokenValue = "";
+    $(function(){
+        $("#loginBtn").click(function(e){
+            e.preventDefault();
+            dologin();
+        });
+        $(document).keydown(function(e) {//绑定回车事件
+            if (e.keyCode == 13) {
+                dologin();
+            }
+        });
+        showMsg();
+        set_remeber_info();
+    });
+    $("#rememberMe").change(function() {
+        if($("#rememberMe").is(':checked')){
+            $(".remember").addClass('active');
+        }else{
+            $(".remember").removeClass('active');
+        }
+    });
+    function set_remeber_info() {
+        var rememberInfo=_getStorageData('_remember_info');
+        if(rememberInfo!=null){
+            $('#savePassword').attr("checked", 'checked');
+            rememberInfo=JSON.parse(rememberInfo);
+            var loginName=rememberInfo.loginName;
+            var password=rememberInfo.password;
+            if(loginName!=null&&loginName.length>0 && password!=null&&password.length>0){
+                $("#loginName").val(loginName);
+                $("#password").val(password);
+            }
+        }
+    }
+    function getBrowserInfo(){
+        var Sys = {};
+        var ua = navigator.userAgent.toLowerCase();
+        var re =/(msie|firefox|chrome|opera|version).*?([\d.]+)/;
+        var m = ua.match(re);
+        Sys.info = ua;
+        Sys.browser = '';
+        Sys.ver = '';
+        if(m!=null){
+            if(m.length>0 && m[1]!=null){
+                Sys.browser = m[1].replace(/version/, "safari");
+            }
+            if(m.length>1){
+                Sys.ver = m[2];
+            }
+        }
+        return Sys;
+    }
+    function showMsg(){
+        var noticeMsg = _getStorageData('_notice_msg');
+        if(noticeMsg!='' && noticeMsg!=null && noticeMsg!=undefined){
+            fun_toast(noticeMsg);
+        }
+        _setStorageData('_notice_msg','');
+    }
+
+    var domainUrl='https://wrss1072ex.5ct5mm555.com/';
+	/*var domainUrl='http://127.0.0.1:8887/';*/
+    //登录
+    function dologin() {
+        mui($('#loginBtn')).button('loading');
+        var loginName = $("#loginName").val().trim();
+        var password = $("#password").val().trim();
+        if (loginName.length == 0) {
+            fun_alertMsg('用户名不可为空',function() {});
+            mui($('#loginBtn')).button('reset');
+            return;
+        } else if (loginName.length < 6){
+            fun_alertMsg('用户名最短为6个字符', function() {});mui($('#loginBtn')).button('reset');
+            return;
+        } else if (loginName.length > 12){
+            fun_alertMsg('用户名超出最大长度限制', function() {});mui($('#loginBtn')).button('reset');
+            return;
+        }else if (password.length == 0){
+            fun_alertMsg('密码不可为空', function() {});mui($('#loginBtn')).button('reset');
+            return;
+        } else if(!/^[a-zA-Z0-9]*$/.test(password)){
+            fun_alertMsg('密码必须为字母数字组合！', function() {});
+            return;
+        }
+        var borowserSys = getBrowserInfo();
+        remember_me(loginName,password);
+        $.ajax({
+            url: wap_site_host() + "/member/login",
+            type:"POST",
+//    		data:{"loginName":loginName, "password":hex_md5(password).toUpperCase(),"loginUrl":loginUrl,"way":"HTML5"},
+            data:{"loginName":loginName, "password":hex_md5(password).toUpperCase(),"loginUrl":loginUrl,
+                activeDevice: '', activeSystem: '','way':"PHONE"
+            },
+            success:function(d){
+                if (d.code == 0) {
+                    tokenValue = d.data.token;
+                    var loginName = d.data.loginName;
+                    var memberName = d.data.memberName;
+                    var user = {'loginName':loginName,'memberName':memberName,'token':tokenValue,'vipName':d.data.vip.vipName,'vipLevel':d.data.vip.vipLevel,
+                        'domain':domainUrl,'cashierDomain':d.data.cashierDomain,'userDomain':d.data.domain,'faceImg':d.data.faceImg, 'hasPhone': d.data.hasPhone};
+                    wap_set_user(user);
+                    mui($('#loginBtn')).button('reset');
+                    window.location.href = "/index.html";
+                } else {
+                    fun_alertMsg(d.message, function() {});
+                    mui($('#loginBtn')).button('reset');
+                }
+            },
+            error:function(e){
+                fun_alertMsg('登录异常！', function() {});
+                mui($('#loginBtn')).button('reset');
+            }
+        });
+    }
+
+    function remember_me(loginName,password) {
+        if($("#savePassword").is(':checked')){
+            var rememberInfo={'loginName':loginName,'password':password}
+            _setStorageData('_remember_info',JSON.stringify(rememberInfo));
+        }else{
+            _removeStorageData('_remember_info');
+        }
+    }
+</script>
+</body>
+</html>

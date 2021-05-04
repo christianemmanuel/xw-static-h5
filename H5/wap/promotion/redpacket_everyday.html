@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <title>红包雨</title>
+    <link rel="stylesheet" href="/style/plugins/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/style/css/redpacket-everyday.css">
+    <link href="/mui/css/mui.min.css" rel="stylesheet" />
+    <link href="/mui/css/mui-icons-extra.css" rel="stylesheet" />
+    <link href="/style/css/main.css" rel="stylesheet" />
+    <link href="/style/css/index.css" rel="stylesheet" />
+
+    <script type="text/javascript" src="/style/js/adaptive.js"></script>
+    <script type="text/javascript" src="/style/js/jquery-3.2.1.min.js"></script>
+    <script src="/style/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/style/js/common.js"></script>
+    <script type="text/javascript" src="/mui/js/mui.min.js"></script>
+    <script src="/style/plugins/tweenMax/TweenMax.min.js" type="text/javascript" ></script>
+    <script type="text/javascript" src="/style/js/jquery.cookie.js"></script>
+
+</head>
+<body class="redpacket-rain-body">
+    <header class="mui-bar mui-bar-nav" style="padding-left: 15px;padding-right: 15px;display: none;">
+        <a class="mui-icon mui-icon-left-nav mui-pull-left" style="text-decoration: none; color: white;"></a>
+        <h1 class="mui-title" style="color: #ffffff;">红包雨</h1>
+    </header>
+    <div class="top-banner">
+        <div class="redpacket-remainder">
+            剩余红包数量:<span class="redpacket-remainder-num" id="red_box_num">0</span>个
+        </div>
+        <div class="get-redpacket-btn">开抢</div>
+    </div>
+    <ul class="couten"></ul>
+    <div class="rule-content-container">
+        <p class="rule-title">活动时间</p>
+        <p style="margin: 0.35rem 0.2rem;">2020年1月22日起</p>
+        <p class="rule-title">活动要求</p>
+        <ul class="rule-list">
+            <table style="width: 100%">
+                <tr style="border-top: 1px solid #e5bc88;">
+                    <td>单笔存款</td>
+                    <td>300</td>
+                    <td>800</td>
+                    <td>2000</td>
+                    <td>5000+</td>
+                </tr>
+                <tr style="border-top: 1px solid #e5bc88;border-bottom: 1px solid #e5bc88;">
+                    <td>红包个数</td>
+                    <td>1</td>
+                    <td>2</td>
+                    <td>4</td>
+                    <td>10</td>
+                </tr>
+            </table>
+            <li>东赢全体会员，只要在红包期间，当日单笔存款300元即可参与抢红包，每个帐号当天最多可参与10次抢红包！（存款以提交时间为准，北京时间0：00：00-23：59：59）--例如当日存款300元，领取1个红包，再单笔存款800元，可再领取2个红包；</li>
+            <li>新会员（11月5日后注册会员）首次存款大于50也可获得一次红包机会；</li>
+            <li>上月存款总天数大于等于8天（从活动开始当月开始计算，不限制金额），次月1号开始，可有领取三个红包机会；这三个红包，不计算在当天最多10个红包内；</li>
+            <li>红包金额只需1倍流水即可，彩票游戏不参与此活动。</li>
+            <li>此优惠不与首存与及任何存款优惠共享。</li>
+        </ul>
+    </div>
+</body>
+@@include('html-foot.html')
+<script type="text/javascript">
+    function getQueryString(name) {
+        var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+        var r = window.location.search.substr(1).match(reg);
+        if(r!=null)return  unescape(r[2]); return null;
+    }
+    var queryToken = getQueryString("token");
+    var headCode = getQueryString("headCode");
+    var menuCode = getQueryString("menuCode");
+    $(document).ready(function() {
+        mui.init();
+        var win = (parseInt($(".couten").css("width"))) - 60;
+        //$(".couten").css("height", $(document).height());
+        $("li").css({});
+        // 点击确认的时候关闭模态层
+        mui(".mui-bar-nav").on('tap','.mui-pull-left',function(){
+            window.location.href="/wap/helpbonus/hb_index.html";
+        });
+        if(headCode==='show'){
+            $('.mui-bar.mui-bar-nav').show();
+            $('.top-banner').css('margin-top','44px');
+        }
+        if(menuCode==='hide'){
+            $('#menu_nav').hide();
+        }
+        if(queryToken == null || queryToken === '') {
+            queryToken = wap_get_user().token;
+        }
+        if((queryToken===null || queryToken===undefined || queryToken==='') && wap_is_user_notexist()) {
+            fun_alertMsg("请登入后再操作", function() {
+                window.location.href="/index.html";
+            });
+        } else {
+            redBoxInit();
+        }
+
+        $('.get-redpacket-btn').click(function() {
+            $.ajax({
+                dataType: "jsonp",
+                url:event_site_host() + "/ptweb/depositRedbox/init",
+                type:"POST",
+                data:{'token': queryToken},
+                dataType: 'json',
+                success:function(d){
+                    if (d.code == 0) {
+                        $('#red_box_num').html(d.data.count);
+                        redpacketBegin();
+                    } else {
+                        fun_alertMsg(d.message, function() {});
+                        wap_if_session_out(d.code);
+                    }
+                },
+                error:function(jqXHR, textStatus, errorThrown){
+                    wap_check_ajaxerror(jqXHR);
+                    fun_alertMsg('红包雨初始化异常，请刷新重试！', function() {});
+                }
+            });
+        });
+
+        var add = function() {
+            var hb = parseInt(Math.random() * (3 - 1) + 1);
+            var Wh = parseInt(Math.random() * (70 - 30) + 20 );
+            var Left = parseInt(Math.random() * (win - 0) + 0);
+            var rot = (parseInt(Math.random() * (45 - (-45)) - 45));
+            //				console.log(rot)
+            num++;
+            $(".couten").append("<li class='li" + num + "' ><a href='javascript:;'><img src='https://xwsr2.16fass88.com/resources/wap_new/images/redpacket-rain/angpao.png'></a></li>");
+            $(".li" + num).css({
+                "left": Left,
+            });
+            $(".li" + num + " a img").css({
+                "width": Wh,
+            });
+            $(".li" + num).animate({'top':$(window).height()+20},10000,function(){
+                //删掉已经显示的红包
+                this.remove()
+            });
+            //点击红包的时候弹出模态层
+            $(".li" + num).click(function(){
+                $.ajax({
+                    dataType: "jsonp",
+                    url:event_site_host() + "/ptweb/depositRedbox/open",
+                    type:"POST",
+                    data:{'token': queryToken},
+                    dataType: 'json',
+                    success:function(d){
+                        if (d.code == 0) {
+                            fun_alertMsg("恭喜获得"+d.data.money+"元红包奖励", function() {});
+                            var count=$('#red_box_num').html();
+                            $('#red_box_num').html(count-1>=0?count-1:0);
+                        } else {
+                            fun_alertMsg(d.message, function() {});
+                            wap_if_session_out(d.code);
+                        }
+                    },
+                    error:function(jqXHR, textStatus, errorThrown){
+                        wap_check_ajaxerror(jqXHR);
+                        fun_alertMsg('红包雨初始化异常，请刷新重试！', function() {});
+                    }
+                });
+            });
+            setTimeout(add,800)
+        }
+        //增加红包
+        var num = 0;
+
+        function redpacketBegin(){
+            $('.couten').css('z-index', 1);
+            setTimeout(add,800);
+        }
+    });
+    function appendZero(v) {
+        if(v < 10)
+            return "0" + v;
+        return v;
+    }
+    function redBoxInit(){
+        $.ajax({
+            dataType: "jsonp",
+            url:event_site_host() + "/ptweb/depositRedbox/init",
+            type:"POST",
+            data:{'token': queryToken},
+            dataType: 'json',
+            success:function(d){
+                if (d.code == 0) {
+                    $('#red_box_num').html(d.data.count);
+                }
+            },
+            error:function(jqXHR, textStatus, errorThrown){
+                wap_check_ajaxerror(jqXHR);
+                fun_alertMsg('红包雨初始化异常，请刷新重试！', function() {});
+            }
+        });
+    }
+</script>
+</html>

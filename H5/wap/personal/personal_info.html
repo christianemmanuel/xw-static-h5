@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html class="ui-page-login">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<title>个人详情</title>
+	<!--标准mui.css-->
+	<link href="/mui/css/mui.min.css" rel="stylesheet" />
+	<link href="/mui/css/mui-icons-extra.css" rel="stylesheet" />
+	<link href="/style/css/main.css" rel="stylesheet" />
+	<link href="/style/css/index.css" rel="stylesheet" />
+	<!-- 加载JavaScript -->
+	<script type="text/javascript" src="/style/js/jquery-3.2.1.min.js"></script>
+	<script type="text/javascript" src="/style/layer/layer.js"></script>
+	<script type="text/javascript" src="/style/js/Validform_v5.3.2_min.js"></script>
+	<script type="text/javascript" src="/style/js/common.js"></script>
+	<script type="text/javascript" src="/mui/js/mui.min.js"></script>
+	<script type="text/javascript" src="/style/js/jquery.cookie.js"></script>
+	<script type="text/javascript" src="/style/js/clipboard.min.js"></script>
+	<style>
+
+		.login_header a{
+			position: absolute;
+			top: 20px;
+		}
+		.login_header a:active{color: #efeff4;}
+		.login_header .mui-icon-left-nav{
+			left: 15px;
+		}
+		.touxiang {
+			font-size: 13px;
+			text-align: center;
+		}
+		.touxiang div {
+			width: 4em;
+			height: 4em;
+			padding: 0px;
+			border-radius: 50%;
+			border: 2px solid white;
+			color: gray;
+			margin: 0px auto;
+			margin-bottom: 5px;
+		}
+		#touxiangimg span{
+			height: 100%;
+			display: block;
+			background: url('') -8px 5px no-repeat;
+			margin: 0px auto;
+			background-size: 80px;
+		}
+		.agent_code_btn{
+			color: white;
+		}
+		.mui-input-group .mui-input-row{margin: 0px;}
+		.mui-input-row label img{vertical-align: middle;margin-right: 15px;float: left;}
+		.mui-input-row label{width: 40%;text-align: left;padding-left: 25px;font-size: 13px;}
+		.mui-content .mui-input-row input{width: 60%;}
+		.mui-input-group .mui-input-row{margin: 5px 10px;background: white;}
+	</style>
+</head>
+<body>
+<div class="mui-off-canvas-wrap">
+	<div class="mui-inner-wrap">
+		<!-- 主体页面begin -->
+		<header class="mui-bar mui-bar-nav">
+			<a href="/wap/personal/personal_main.html" class="mui-icon mui-icon-back mui-pull-left"></a>
+			<h1 class="mui-title" id="header_title">账户信息</h1>
+		</header>
+		<div class="mui-content">
+			<div class="mui-input-row" style="text-align: center;margin-top: 10px;margin-bottom: 10px;">
+				<h1 id="vipDomain" style="color:#3764d6;font-size: 17px;"></h1>
+			</div>
+			<form class="mui-input-group" style="background-color: #d2d2de;">
+				<div class="mui-input-row">
+					<label style="font-size: 17px;line-height: normal;">账号</label>
+					<div class="mui-content-padded" id="loginName"></div>
+				</div>
+				<div class="mui-input-row">
+					<label style="font-size: 17px;line-height: normal;">姓名</label>
+					<div class="mui-content-padded" id="regName"></div>
+				</div>
+				<div class="mui-input-row">
+					<label style="font-size: 17px;line-height: normal;">性别</label>
+					<div class="mui-content-padded" id="regGender"></div>
+				</div>
+				<div class="mui-input-row">
+					<label style="font-size: 17px;line-height: normal;">生日</label>
+					<div class="mui-content-padded" id="birthday"></div>
+				</div>
+				<div class="mui-input-row">
+					<label style="font-size: 17px;line-height: normal;">QQ</label>
+					<div class="mui-content-padded" id="qqnumber"></div>
+				</div>
+				<div class="mui-input-row">
+					<label style="font-size: 17px;line-height: normal;">微信</label>
+					<div class="mui-content-padded" id="wechat">ss</div>
+				</div>
+				<div class="mui-input-row">
+					<label style="font-size: 17px;line-height: normal;">邮箱</label>
+					<div class="mui-content-padded"><span id="mailbox" style="font-size: 13px"></span> <button id="email_validat_btn" style="color: white; background-color: #f0ad4e; padding: 0;float: right"><a style="color:white;" href="/wap/personal/email_validation.html">邮箱验证</a></button></div>
+				</div>
+				<div class="mui-input-row">
+					<label style="font-size: 17px;line-height: normal;">电话</label>
+					<div class="mui-content-padded" id="telephone"></div>
+				</div>
+				<div class="mui-input-row">
+					<label style="font-size: 17px;line-height: normal;">注册时间</label>
+					<div class="mui-content-padded" id="regTime"></div>
+				</div>
+				<!--<div class="mui-input-row">
+					<label style="font-size: 17px;line-height: normal;">专属推广码</label>
+					<div class="mui-content-padded" ><span id="agentCode"></span><button style="color: white; background-color: #f0ad4e; padding: 0;float: right;" id="agentCode_btn"></button></div>
+				</div>
+				<div class="mui-input-row" style="height: 55px">
+					<label style="font-size: 17px;line-height: normal;">推广链接</label>
+					<div class="mui-content-padded"><span id="agentUrl"style="font-size: 13px"></span><button style="color: white; background-color: #f0ad4e; padding: 0;float: right;" id="agentUrl_btn"></button></div>
+				</div>-->
+			</form>
+		</div>
+	</div>
+</div>
+</body>
+@@include('html-foot.html')
+<script type="text/javascript">
+    $("#menu_nav a.bar-active").removeClass("bar-active")
+    $("#menu_nav a:nth-child(5)").addClass("bar-active")
+</script>
+<script>
+    var loginMember = wap_get_user();
+    $(function(){
+        initPage();
+        $.ajax({
+            dataType: "jsonp",
+            url:wap_site_host() + "/session/member",
+            type:"GET",
+            data:{'token':loginMember.token},
+            dataType: 'json',
+            success:function(d){
+                if (d.code == 0) {
+                    $('#loginName').text(fun_filterTxt(d.data.loginName));
+                    /*$('#telephone').text(fun_filterTxt(d.data.reCodeTelephone));
+                    $('#mailbox').text(fun_filterTxt(d.data.reCodeMailbox));*/
+                    if((d.data.telephone==null || d.data.telephone.length==0)){
+                        $('#telephone').html('未填写'+'<a style="color:blue" href="/wap/personal/update_telephone.html">[点击补填]</a>');
+                    }else{
+                        $('#telephone').text(fun_filterTxt(d.data.reCodeTelephone));
+                    }
+                    if((d.data.mailbox==null || d.data.mailbox.length==0)){
+                        $('#mailbox').html('未填写'+'<a style="color:blue" href="/wap/personal/update_mailbox.html">[点击补填]</a>');
+                        $('#email_validat_btn').hide();
+                    }else{
+                        $('#mailbox').text(fun_filterTxt(d.data.reCodeMailbox));
+                    }
+                    if((d.data.lastName==null || d.data.lastName.length==0) && (d.data.firstName==null || d.data.firstName.length==0)){
+                        $('#regName').html('未填写'+'<a style="color:blue" href="/wap/personal/update_realName.html">[点击补填]</a>');
+					}else{
+                        $('#regName').text(fun_filterTxt(d.data.lastName + d.data.firstName));
+					}
+                    if(d.data.wechat==null || d.data.wechat.length==0){
+                        $('#wechat').html('未填写'+'<a style="color:blue" href="/wap/personal/updateWeiXin.html">[点击补填]</a>');
+                    }else{
+                        $('#wechat').html(fun_filterTxt(d.data.wechat));
+                    }
+                    if(d.data.qqnumber==null || d.data.qqnumber.length==0){
+                        $('#qqnumber').html('未填写'+'<a style="color:blue" href="/wap/personal/update_qqnumber.html">[点击补填]</a>');
+                    }else{
+                        $('#qqnumber').html(fun_filterTxt(d.data.reCodeQQNumber));
+                    }
+                    if(d.data.birthday==null || d.data.birthday.length==0){
+                        $('#birthday').html('未填写'+'<a style="color:blue" href="/wap/personal/update_birthday.html">[点击补填]</a>');
+                    } else{
+                        $('#birthday').html(fun_filterTxt(d.data.fMTBirthday));
+                    }
+                    if(d.data.sex===0){
+                        $('#regGender').html('未填写' + '<a style="color:blue" href="/wap/personal/updateGender.html">[点击补填]</a>');
+					}else{
+                        $('#regGender').html((d.data.sex===1?'男':'女'));
+					}
+                    $('#regTime').text(fun_filterTxt(d.data.fMTRegTime));
+                } else {
+                    fun_alertMsg(d.message, function() {});
+                    wap_if_session_out(d.code);
+                }
+            },
+            error:function(jqXHR, textStatus, errorThrown){
+                wap_check_ajaxerror(jqXHR);
+                fun_alertMsg('查询个人详情异常！', function() {});
+            }
+        });
+    });
+    function initPage(){
+        $('#vipDomain').html('专属网址：<a style="color:#3764d6;" href="' + loginMember.userDomain + '">' +
+			loginMember.userDomain +'</a>');
+        $('#touxiangword').text('欢迎您，XW'+fun_filterTxt(loginMember.loginName.toLowerCase()));
+        $('#vip_level').text(fun_filterTxt(loginMember.vipName));
+        //$('#wechat').html('<a style="color:blue" href="/wap/personal/updateWeiXin.html">[点击修改]</a>');
+        $('#member_vip_img').attr("src", 'https://xwsr2.16fass88.com/resources/wap_new/images/vip/'+loginMember.vipLevel+'.png');
+        $('#member_vip_img').width("40px");
+        $('#vipImg').attr("src", loginMember.faceImg);
+        //checkAgent();
+    }
+
+
+    function checkAgent() {
+        $.ajax({
+            dataType: "jsonp",
+            url:wap_site_host() + "/session/member/getAgentInfo",
+            type:"GET",
+            data:{'token': wap_get_user().token},
+            success:function(d) {
+                if (d.code == 0) {
+                    if(!d.data.exit){
+                        $('#agentCode').parent('.mui-input-row').hide();
+                        $('#agentUrl').parent('.mui-input-row').hide();
+                    }else {
+                        $('#agentCode').html(fun_filterTxt(d.data.agentCode));
+                        $('#agentCode').parent('.mui-input-row').show();
+                        $('#agentUrl').html(fun_filterTxt(d.data.agentUrl));
+                        $('#agentUrl').parent('.mui-input-row').show();
+						var appendHtml='<a class="agent_code_btn" data-clipboard-text="'+fun_filterTxt(d.data.agentCode)+'">复制</a>';
+                        var appendHtml2='<a class="agent_code_btn" data-clipboard-text="'+fun_filterTxt(d.data.agentUrl)+'">复制</a>';
+						$('#agentCode_btn').append(appendHtml);
+                        $('#agentUrl_btn').append(appendHtml2);
+                        var clipboard = new Clipboard('.agent_code_btn');
+                        clipboard.on('success', function(e) { fun_toast('复制成功'); });
+                        clipboard.on('error', function(e) { fun_toast('复制失败'); });
+                    }
+                }else {
+                    fun_alertMsg(d.message, function() {});
+                    wap_if_session_out(d.code);
+                }
+            },
+            error:function(jqXHR, textStatus, errorThrown){
+                wap_check_ajaxerror(jqXHR);
+                fun_alertMsg('查询是否注册代理异常！', function() {});
+            }
+        });
+    }
+</script>
+</html>

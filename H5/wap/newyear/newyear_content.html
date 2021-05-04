@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>东赢优惠活动</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+    <!--标准mui.css-->
+    <link href="/mui/css/mui.min.css" rel="stylesheet" />
+    <link href="/mui/css/common.css" rel="stylesheet" />
+    <!--扩展图标-->
+    <link href="/mui/css/mui-icons-extra.css" rel="stylesheet" />
+    <link href="/style/css/main.css" rel="stylesheet" />
+    <link href="/style/css/newyear.css" rel="stylesheet" />
+    <link href="/style/plugins/layui/css/layui.css" rel="stylesheet" />
+    <link href="/style/plugins/bootstrap/css/bootstrap.css" rel="stylesheet" />
+</head>
+<body>
+<!-- 主体页面begin -->
+<header class="mui-bar mui-bar-nav" style="padding-left: 15px;padding-right: 15px;display: none;">
+    <a class="mui-icon mui-icon-left-nav mui-pull-left mui-action-back" style="text-decoration: none; color: white;"></a>
+    <h1 class="mui-title" style="color: #ffffff;">元旦红包</h1>
+</header>
+<div class="newyear"><img src="https://xwsr2.16fass88.com/resources/wap_new/images/newyear/banner.png"></div>
+<div class="overlay"></div>
+<div class="pop-up">
+    <div class="layui-row">
+        <img src="https://xwsr2.16fass88.com/resources/wap_new/images/newyear/popup.png">
+        <p>成功领取</p>
+        <div class="btn-pop-up">
+            <button class="layui-btn close-btn">确定</button>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="progressbar">
+        <div class="layui-row">
+            <div id="amount" class="layui-col-xs12">
+                我的存款:
+            </div>
+
+        </div>
+    </div>
+    <div class="newyearpacket">
+        <div class="text">
+            <p>存款达到要求即可获得对应红包
+                <span>活动时间：2019年1月1-15日期间</span>
+            </p>
+
+        </div>
+        <div class="layui-row">
+            <div class="layui-col-xs6">
+                <img src="https://xwsr2.16fass88.com/resources/wap_new/images/newyear/yuan01.png">
+                <div class="btn-newyear">
+                    <button id="get_btn_0" class="layui-btn pop-up-btn">立即领取</button>
+                </div>
+            </div>
+            <div class="layui-col-xs6">
+                <img src="https://xwsr2.16fass88.com/resources/wap_new/images/newyear/yuan02.png">
+                <div class="btn-newyear">
+                    <button id="get_btn_1" class="layui-btn pop-up-btn">立即领取</button>
+                </div>
+            </div>
+            <div class="layui-col-xs6">
+                <img src="https://xwsr2.16fass88.com/resources/wap_new/images/newyear/yuan03.png">
+                <div class="btn-newyear">
+                    <button id="get_btn_2" class="layui-btn pop-up-btn">立即领取</button>
+                </div>
+            </div>
+            <div class="layui-col-xs6">
+                <img src="https://xwsr2.16fass88.com/resources/wap_new/images/newyear/yuan04.png">
+                <div class="btn-newyear">
+                    <button id="get_btn_3"class="layui-btn pop-up-btn">立即领取</button>
+                </div>
+            </div>
+            <div class="layui-col-xs6">
+                <img src="https://xwsr2.16fass88.com/resources/wap_new/images/newyear/yuan05.png">
+                <div class="btn-newyear">
+                    <button id="get_btn_4"class="layui-btn pop-up-btn">立即领取</button>
+                </div>
+            </div>
+            <div class="layui-col-xs6">
+                <img src="https://xwsr2.16fass88.com/resources/wap_new/images/newyear/yuan06.png">
+                <div class="btn-newyear">
+                    <button id="get_btn_5" class="layui-btn pop-up-btn">立即领取</button>
+                </div>
+            </div>
+            <div class="layui-col-xs6">
+                <img src="https://xwsr2.16fass88.com/resources/wap_new/images/newyear/yuan07.png">
+                <div class="btn-newyear">
+                    <button id="get_btn_6" class="layui-btn pop-up-btn">立即领取</button>
+                </div>
+            </div>
+            <div class="layui-col-xs6">
+                <img src="https://xwsr2.16fass88.com/resources/wap_new/images/newyear/yuan08.png">
+                <div class="btn-newyear">
+                    <button id="get_btn_7" class="layui-btn pop-up-btn">立即领取</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+</body>
+<!-- 加载JavaScript -->
+<script type="text/javascript" src="/style/js/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="/style/layer/layer.js"></script>
+<script type="text/javascript" src="/style/js/common.js"></script>
+<script type="text/javascript" src="/mui/js/mui.min.js"></script>
+<script type="text/javascript" src="/style/js/jquery.cookie.js"></script>
+<script type="text/javascript" src="/style/plugins/layui/layui.js"></script>
+<script type="text/javascript" src="/style/plugins/bootstrap/js/bootstrap.js"></script>
+<script type="text/javascript" src="/style/js/file-compress.js"></script>
+<script type="text/javascript" src="/style/js/clipboard.min.js"></script>
+
+<script type="text/javascript">
+    function getQueryString(name) {
+        var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+        var r = window.location.search.substr(1).match(reg);
+        if(r!=null)return  unescape(r[2]); return null;
+    }
+    var queryToken = getQueryString("token");
+    var headCode = getQueryString("headCode");
+    $(document).ready(function(){
+        mui(".mui-bar-nav").on('tap','.mui-pull-left',function(){
+            window.location.href="/index.html";
+        });
+        if(headCode==='show'){
+            $('.mui-bar.mui-bar-nav').show();
+            $('.newyear').css('margin-top','44px');
+        }
+        if ((queryToken===null || queryToken===undefined || queryToken==='') && wap_is_user_notexist()) {
+            fun_alertMsg("请登入后再操作", function() {
+                window.location.href="/index.html";
+            });
+            return;
+        }else{
+            if (queryToken == null || queryToken === '') {
+                queryToken = wap_get_user().token;
+            }
+            newYearInit();
+        }
+    });
+    function newYearInit(){
+        $.ajax({
+            dataType: "jsonp",
+            url:wap_site_host() + "/session/newYearPrivilege/init",
+            type:"POST",
+            data:{'token': queryToken},
+            dataType: 'json',
+            success:function(d){
+                if (d.code == 0) {
+                    //changeProgressBar(d.amount);
+                    $('#amount').html('2019年1月1-15日我的存款为:'+d.amount.toFixed(2)+'元');
+                    changeApplyBtn(d.getInfo);
+                } else {
+                    fun_alertMsg(d.msg, function() {});
+                    wap_if_session_out(d.code);
+                    $('#amount').html('2019年1月1-15日我的存款为:0元');
+                    changeApplyBtn(new Array(-1,-1,-1,-1,-1,-1,-1,-1));
+                }
+            },
+            error:function(jqXHR, textStatus, errorThrown){
+                wap_check_ajaxerror(jqXHR);
+                fun_alertMsg('查询元旦红包异常！', function() {});
+                $('#amount').html('2019年1月1-15日我的存款为:0元');
+                changeApplyBtn(new Array(-1,-1,-1,-1,-1,-1,-1,-1));
+            }
+        });
+    }
+
+    function changeApplyBtn(getInfo){
+        for(var i=0;i<getInfo.length;i++){
+            if(getInfo[i]==0){
+                $('#get_btn_'+i).attr("onclick","applyBouns("+i+")");
+            }else if(getInfo[i]>0){
+                $('#get_btn_'+i).html('已领取');
+                $('#get_btn_'+i).css('background-color','grey');
+                $('#get_btn_'+i).css('color','white');
+            }else if(getInfo[i]<0){
+                $('#get_btn_'+i).attr("onclick","can_not_apply()");
+            }
+        }
+    }
+    function can_not_apply(){
+        fun_alertMsg('您暂不符合存款要求，请您继续存款，符合后即可领取红包！', function() {});
+    }
+    function applyBouns(index){
+        if(index>7 || index<0)
+            return;
+        $.ajax({
+            dataType: "jsonp",
+            url:wap_site_host() + "/session/newYearPrivilege/apply",
+            type:"POST",
+            data:{'token': queryToken,'index':index},
+            dataType: 'json',
+            success:function(d){
+                if (d.code == 0) {
+                    fun_alertMsg(d.msg, function() {
+                        window.location.reload();
+                    });
+                } else {
+                    fun_alertMsg(d.msg, function() {});
+                    wap_if_session_out(d.code);
+                }
+            },
+            error:function(jqXHR, textStatus, errorThrown){
+                wap_check_ajaxerror(jqXHR);
+                fun_alertMsg('领取元旦红包异常！', function() {});
+            }
+        });
+    }
+</script>
+</html>

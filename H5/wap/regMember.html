@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html class="ui-page-login">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<title>东赢官网 - MAD LIONS官方赞助商</title>
+	<!--标准mui.css-->
+	<link href="/mui/css/mui.min.css" rel="stylesheet" />
+	<link href="/mui/css/common.css" rel="stylesheet" />
+	<link href="/style/css/main.css" rel="stylesheet" />
+    <link href="/style/css/withdrawal.css" rel="stylesheet" />
+    <link href="/style/css/regMember.css" rel="stylesheet" />
+	<link href="/style/css/index.css" rel="stylesheet" />
+	<link href="/style/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+	<link href="/style/plugins/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet" media="screen">
+	<link rel="stylesheet" href="/style/plugins/zebra_datepicker/css/bootstrap/zebra_datepicker.min.css" type="text/css">
+
+	<!-- 加载JavaScript -->
+	<script type="text/javascript" src="/style/js/jquery-3.2.1.min.js"></script>
+	<script type="text/javascript" src="/style/layer/layer.js"></script>
+	<script type="text/javascript" src="/style/js/Validform_v5.3.2_min.js"></script>
+	<script type="text/javascript" src="/style/js/common.js"></script>
+	<script type="text/javascript" src="/style/js/md5.js"></script>
+	<script type="text/javascript" src="/style/js/jquery.cookie.js"></script>
+
+	<script src="/style/plugins/zebra_datepicker/zebra_datepicker.src.js"></script>
+
+	<script type="text/javascript" src="/mui/js/mui.min.js"></script>
+	<script type="text/javascript" src="/mui/plugin/picker/js/mui.picker.js"></script>
+	<script type="text/javascript" src="/mui/plugin/picker/js/mui.dtpicker.js"></script>
+	<script type="text/javascript" src="/mui/plugin/picker/js/mui.poppicker.js"></script>
+	<style>
+		.compulsory-tip {
+			color: red;
+			padding-left: 5px;
+		}
+		.radio_inline {
+			display: inline-block;
+			width: 70%;
+
+		}
+		.radio_inline label {
+			width: 30%;
+			padding-left: 40px;
+			padding-right: 40px;
+            margin-left: 30px;
+			margin-top: 5px;
+		}
+		.radio_inline input[type=radio] {
+			width: 15%;
+			right: auto;
+			margin-bottom: 20px;
+		}
+		.mui-input-row label{width: 25%;text-align: left;font-size: 14px;}
+		.mui-content .mui-input-row input{width: 60%;}
+		.mui-input-group .mui-input-row{margin-top: 5px;margin-left: 10px;margin-right: 10px;}
+        .mui-icon-eye {float:right;clear:both; position:absolute;right:5%; top:20%;}
+
+		.telCode {
+			top: 2px;
+			right: 0;
+			color: #FFF;
+			height: 40px;
+			width: 80px;
+			display: block;
+			font-size: 14px;
+			cursor: pointer;
+			line-height: 40px;
+			text-align: center;
+			position: absolute;
+			text-decoration: none;
+			border-radius: 5px;
+			background-color: rgb(20, 110, 202);
+		}
+		.telCode.disable{
+			background-color: grey;
+			color: white;
+		}
+		.ui-page-login .mui-input-row label {
+			padding: 15px 0px 15px 0px;
+		}
+		.validate_tip{
+			display: none;
+			color:red;
+			text-align: center;
+		}
+	</style>
+</head>
+
+<body>
+<header id="fail_header" class="mui-bar mui-bar-nav">
+    <a class="mui-icon mui-icon-back mui-pull-left" href="/index.html"></a>
+    <h1 class="mui-title" style="color: #ffffff;">注册</h1>
+</header>
+<div class="mui-content" style="margin-bottom: 30px;">
+	<form class="mui-input-group regMember_form">
+		<!--<div class="mui-input-row">
+			<div style="padding:10px;float: left;">
+				<img src="../images/login/login_name.png">
+			</div>
+			<label>姓&nbsp;&nbsp;&nbsp;&nbsp;名<span class="compulsory-tip">*</span></label>
+			<input id='regName' name="regName" type="text" class="mui-input-clear mui-input" placeholder="您的姓名">
+		</div>-->
+		<div class="mui-input-row">
+			<div style="padding:10px;float: left;">
+				<img src="../images/login/login_name.png">
+			</div>
+			<label>账号<span class="compulsory-tip">*</span></label>
+			<input id='loginName' name="loginName" type="text" class="mui-input-clear mui-input" placeholder="6-12个字符" style="padding:0px;"
+				   pattern="^[a-zA-Z0-9]{6,12}$" oninput="autoValidate(this.id, this.value);" autocomplete="off"
+				   onchange="changeValidate(this.id, this.value,'/member/checkLoginName?loginName=')" maxlength="12">
+		</div>
+		<span class="validate_tip" id="loginNameToolTip">必须拥有6-12个字符，包含大小写字母</span>
+		<span class="validate_tip" id="loginNameCheckTip">此账号已经存在</span>
+		<div class="mui-input-row">
+			<div style="padding:10px;float: left;">
+				<img src="../images/login/login_key.png">
+			</div>
+			<label>密码<span class="compulsory-tip">*</span></label>
+			<input id='password' name="plainPassword" type="password" class="mui-input-password" placeholder="6-12个字符，区分大小写"
+				   pattern="^[a-zA-Z0-9]{6,12}$" oninput="autoValidate(this.id, this.value);">
+			<span class="mui-icon mui-icon-eye"></span>
+		</div>
+		<span class="validate_tip" id="passwordToolTip">必须拥有6-12个英文字母，数字</span>
+		<div class="mui-input-row" >
+			<div style="padding:10px;float: left;">
+				<img src="../images/login/login_key.png">
+			</div>
+			<label>确认密码<span class="compulsory-tip">*</span></label>
+            <input id='password_confirm' name="reCustomerPassword" type="password" class="mui-input-password" placeholder="确认密码"
+				   oninput="autoValidate(this.id, this.value);">
+			<span class="mui-icon mui-icon-eye"></span>
+		</div>
+		<span class="validate_tip" id="password_confirmToolTip">两次密码输入不一致</span>
+		<div class="mui-input-row" >
+			<div style="padding:10px;float: left;">
+				<img src="../images/register/email.png">
+			</div>
+			<label>邮箱地址<span class="compulsory-tip">*</span></label>
+			<input id='mailbox' name="mailbox" type="email" class="mui-input-clear mui-input" placeholder="找回密码的重要依据" maxlength="30"
+				   pattern="^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$" oninput="autoValidate(this.id, this.value);"
+			onchange="changeValidate(this.id, this.value,'/member/check-mailbox?mail=')" autocomplete="off">
+		</div>
+		<span class="validate_tip" id="mailboxToolTip">请输入正确的邮箱地址</span>
+		<span class="validate_tip" id="mailboxCheckTip">此邮箱已经被使用</span>
+		<div class="mui-input-row">
+			<div style="padding:10px;float: left;">
+				<img src="../images/register/telephone.png">
+			</div>
+			<label>手机号码<span class="compulsory-tip">*</span></label>
+			<input id='telephone' name="telephone" type="tel" maxlength="11" class="mui-input-clear mui-input" placeholder="我们会不定时发放特别优惠"
+				   pattern="^1[0-9]{10}$" oninput="autoValidate(this.id, this.value);" autocomplete="off"
+				   onchange="changeValidate(this.id, this.value,'/member/check-telephone?phone=')">
+		</div>
+		<span class="validate_tip" id="telephoneToolTip">请输入正确的电话号码</span>
+		<span class="validate_tip" id="telephoneCheckTip">电话号码已经被使用</span>
+		<!--<div class="mui-input-row">
+			<label>性别<span class="compulsory-tip">*</span></label>
+			<span class="radio_inline mui-radio">
+				<input name="sex" type="radio" id="sex_male" checked="checked" value="1" />
+				<label for="sex_male">男</label>
+				<input name="sex" type="radio" id="sex_woman" value="2" />
+				<label for="sex_woman">女</label>
+			</span>
+		</div>-->
+		<!--<div class="mui-input-row">
+			<label>生日<span class="compulsory-tip">*</span></label>
+			<input id="birthday" name="birthday" class="mui-input-clear mui-input" placeholder="请选择生日" style="padding:10px 40px 10px 0px;">
+		</div>
+		<div class="mui-input-row">
+			<label>QQ<span class="compulsory-tip">*</span></label>
+			<input id='qqnumber' name="qqnumber" type="number" maxlength="12" class="mui-input-clear mui-input" placeholder="QQ">
+		</div>
+		<div class="mui-input-row">
+			<label>微信</label>
+			<input id='wechatnumber' name="wechatnumber" type="text" class="mui-input-clear mui-input" placeholder="微信号, 没有可不填">
+		</div>-->
+		<div class="mui-input-row">
+			<div style="padding:10px;float: left;">
+				<img src="../images/register/random_code.png">
+			</div>
+			<label style="background-color: #fff;">验证码<span class="compulsory-tip">*</span></label>
+			<input type="text" id="validCode" maxlength="4" class="mui-input" placeholder="请输入手机验证码">
+			<div class="telCode" onclick="sendValidateCode()">验证</div>
+			<input id="randomCodeId" type="hidden">
+		</div>
+		<div class="mui-input-row" id="agentCode_item">
+			<div style="padding:10px;float: left;">
+				<img src="../images/register/agent_code.png">
+			</div>
+			<label>推荐码</label>
+			<input id='agentCode' name="agentCode" type="text" maxlength="10" class="mui-input-clear mui-input" placeholder="不是代理下玩家无需填写">
+		</div>
+
+	</form>
+	<div class="mui-content-padded">
+		<div id="regBtn" class="form_sumbit_btn">提交</div>
+	</div>
+    <div class="mui-content-padded" style="text-align: center;">
+        已有东赢账户？<a href="/wap/login.html" style="color: #1b82d1;">立即登录</a>
+    </div>
+	<br><br>
+</div>
+</body>
+@@include('html-foot.html')
+<script>
+    mui.init({ });
+    //var dtPicker = new mui.DtPicker({'type':'date',beginDate: new Date(1910, 01, 01)});
+    $(document).ready(function(){
+        initAgentCode();
+    });
+    function verifyForm(loginName, password, password_confirm, mailbox, telephone, validCode) {
+        var flag = false;
+        var msg = '';
+		if (loginName.length == 0) {
+            msg = '用户名不可为空';
+        } else if (loginName.length < 6) {
+            msg = '用户名最短需要6个字符';
+        } else if (loginName.length > 12) {
+            msg = '用户名超出最大长度限制';
+        }  else if (password.length == 0) {
+            msg = '密码不可为空';
+        } else if (password.length < 6) {
+            msg = '密码最短需要6个字符';
+        } else if (password.length > 12) {
+            msg = '密码最长为12个字符';
+        } else if (password_confirm.length == 0) {
+            msg = '确认密码不能为空';
+        }  else if (password != password_confirm) {
+            msg = '两次密码输入不一致';
+        } else if(mailbox.length == 0) {
+            msg = '邮箱地址不可为空';
+        } else if (!checkEmail(mailbox)) {
+            msg = '请输入正确的邮箱地址';
+        } else if(telephone.length == 0) {
+            msg = '手机号码不可为空';
+        } else if(!checkMobile(telephone)) {
+            msg = '请输入正确的手机号码';
+        } else if(telephone.length != 11) {
+            msg = '请输入正确的手机号码';
+        } else if(validCode.length == 0) {
+            msg = '请输入验证码';
+        }else {
+            flag = true;
+        }
+        if (!flag){fun_alertMsg(msg, function() {});}
+        return flag;
+    }
+
+    var checkEmail = function(email) {
+        email = email || '';
+        return (email.length > 3 && /^([a-zA-Z]|[0-9])(\w|\-)+@[a-zA-Z0-9]+\.([a-zA-Z]{2,4})$/.test(email));
+    };
+
+    function checkMobile(phone) {
+        return /^1[0-9]{10}$/.test(phone);
+    }
+
+    $(function(){
+        /*$('#birthday').Zebra_DatePicker({view: 'years'});*/
+
+        $("#regBtn").click(function(e){
+            e.preventDefault();
+            var validate_flag=0;
+            $('.validate_tip').each(function(){
+                if($(this).css('display')!='none'){
+                    validate_flag=1;
+                    return;
+                }
+			})
+			if(validate_flag==1){
+                return;
+			}
+            var loginName = $("#loginName").val().trim();
+            var password = $("#password").val().trim();
+            var password_confirm = $("#password_confirm").val().trim();
+            var mailbox = $("#mailbox").val().trim();
+            var telephone = $("#telephone").val().trim();
+            //var sex = $("input[name='sex']:checked").val();
+            /*var birthday = $("#birthday").val().trim();
+            var qqnumber = $("#qqnumber").val().trim();*/
+            // var wechatnumber = $("#wechatnumber").val().trim();
+            var agentCode = $("#agentCode").val().trim();
+            var url = document.location.href;
+            var validCode = $("#validCode").val().trim();
+            var imgToken = $("#randomCodeId").val().trim();
+            var formData = {
+                "loginName" : loginName,
+                "password" : password,
+                "mailbox" : mailbox,
+                "telephone" : telephone,
+                "sex" : 0,
+                "agentCode" : agentCode,
+                "regCarrier" : checkPlaform(),
+                "regFrom" : getRegFrom(),
+                "url" : url,
+                "validCode" : validCode,
+                "token" : imgToken
+            };
+
+            if (verifyForm( loginName, password, password_confirm, mailbox, telephone, validCode)) {//验证表单
+                $.ajax({
+                    url:wap_site_host() + "/member",
+                    type:"POST",
+                    data: JSON.stringify(formData),
+                    contentType:'application/json',
+                    dataType: "json",
+                    success:function(d){
+                        if (d.code == 0) {
+                            //wap_go_login('注册成功，请登录！');
+                            //window.location.href="/wap/login.html";
+                            var loginUrl = document.location.href;
+                            fun_alertMsg('注册成功！', function() {
+                                fun_loginin(loginName,password,loginUrl);
+							});
+                            mui($('#regBtn')).button('reset');
+                        } else {
+                            fun_alertMsg(d.message, function() {});
+                        }
+                    },
+                    error:function(e){
+                        fun_alertMsg('注册异常！', function() {});
+                    }
+                });
+            }
+        });
+        //refreshCode();
+    });
+    function refreshCode(){
+        $.ajax({
+            dataType: "jsonp",
+            url: wap_site_host() + '/member/verificationCode',
+            success:function(resultData){
+                if(resultData.code==0){
+                    $('#img_code').attr('src',resultData.data.img);
+                    $('#randomCodeId').val(resultData.data.id);
+                }
+            }
+        });
+    }
+    function checkPlaform() {
+        var car = "WEB";
+        if (/AppleWebKit.*mobile/i.test(navigator.userAgent)
+            || (/MIDP|SymbianOS|NOKIA|SAMSUNG|LG|NEC|TCL|Alcatel|BIRD|DBTEL|Dopod|PHILIPS|HAIER|LENOVO|MOT-|Nokia|SonyEricsson|SIE-|Amoi|ZTE/
+                .test(navigator.userAgent))) {
+            if (window.location.href.indexOf("?mobile") < 0) {
+                try {
+                    if (/Android|webOS|iPhone|iPod|BlackBerry/i
+                            .test(navigator.userAgent)) {
+                        car = "PHONE";
+                    } else if (/iPad/i.test(navigator.userAgent)) {
+                        car = "UNKNOW";
+                    }
+                } catch (e) {
+                }
+            }
+        }
+        return car;
+    }
+
+    function getRegFrom() {
+        var ref;
+        if (document.referrer.length > 0) {
+            ref = document.referrer;
+        }
+        try {
+            if (ref.length == 0 && opener.location.href.length > 0) {
+                ref = opener.location.href;
+            }
+        } catch (e) {
+        }
+        return ref;
+    }
+
+    function autoValidate(id, value){
+        var inpObj = document.getElementById(id);
+        if(document.getElementById(id+"CheckTip")!=null)
+        	document.getElementById(id+"CheckTip").style.display = "none";
+        if(id == "password_confirm") {
+            if(value != document.getElementById("password").value){
+                document.getElementById(id+"ToolTip").style.display = "block";
+            }
+            else{
+                document.getElementById(id+"ToolTip").style.display = "none";
+            }
+        }else if (!inpObj.checkValidity()) {
+            document.getElementById(id+"ToolTip").style.display = "block";
+        }else{
+            document.getElementById(id+"ToolTip").style.display = "none";
+        }
+    }
+    function changeValidate(id,value,url){
+        var display =document.getElementById(id+"ToolTip").style.display;
+        if(display!='none'){
+            return;
+        }
+        $.ajax({
+            dataType: "jsonp",
+            url: wap_site_host() + url + value,
+            success: function (d) {
+                if(d.code==0 && d.data.status==1){
+                    document.getElementById(id+"CheckTip").style.display = "block";
+                    return;
+                }else{
+                    document.getElementById(id+"CheckTip").style.display = "none";
+                    return;
+                }
+            }
+        });
+        document.getElementById(id+"CheckTip").style.display = "none";
+	}
+
+    function initAgentCode() {
+        var agentCode = _getStorageData("$agentInfoCode");
+        if(agentCode) {
+            $('#agentCode').val(agentCode);
+            $('#agentCode_item').hide();
+        }else{
+            var tpageUrl = window.location.href;
+            var s_index = tpageUrl.indexOf('xw');
+            var e_index = tpageUrl.indexOf('.com');
+            var acode = tpageUrl.substring(s_index+2,e_index);
+            if(acode.length==4){
+                $('#agentCode').val('');
+                $('#agentCode_item').hide();
+            }
+		}
+    }
+
+    function fun_loginin(loginName,password,loginUrl){
+        $.ajax({
+            url: wap_site_host() + "/member/login",
+            type:"POST",
+            data:{"loginName":loginName, "password":hex_md5(password).toUpperCase(),"loginUrl":loginUrl, activeDevice: '', activeSystem: '','way':"PHONE"},
+            success:function(d){
+                if (d.code == 0) {
+                    tokenValue = d.data.token;
+                    var loginName = d.data.loginName;
+                    var memberName = d.data.memberName;
+                    var user = {'loginName':loginName,'password':password,'memberName':memberName,'token':tokenValue,'vipName':d.data.vip.vipName,'vipLevel':d.data.vip.vipLevel,
+                        'domain':'https://wrss1072ex.5ct5mm555.com/','cashierDomain':d.data.cashierDomain,'userDomain':d.data.domain, 'evip':d.data.evip ,
+                        'balance':d.data.balance,'faceImg':d.data.faceImg};
+                    wap_set_user(user);
+                    window.location.href = "/index.html";
+                } else {
+                    fun_alertMsg(d.message, function() {});
+                }
+            },
+            error:function(e){
+                fun_alertMsg('登录异常！', function() {});
+            }
+        });
+    }
+
+    function sendValidateCode(){
+        var telephone = $("#telephone").val().trim();
+        if(telephone.length == 11 && checkMobile(telephone)) {
+            $.ajax({
+                dataType: "jsonp",
+                url: wap_site_host() + '/member/getRegVVerficationCode?phone=' + telephone,
+                success: function (d) {
+                    if (d.code == 0) {
+                        $('#randomCodeId').val(d.data);
+                        refreshCutDown(60);
+                        fun_alertMsg('验证码发送成功,请检查手机短信', function () {});
+                    } else {
+                        refreshCutDown(10);
+                        fun_alertMsg(d.message, function (){});
+                    }
+                }, error: function () {
+                    refreshCutDown(10);
+                    fun_alertMsg('发送验证码失败，请稍后重试！', function (){});
+                }
+            });
+        }else{
+            fun_alertMsg('请输入正确的手机号码！', function() {});
+		}
+    }
+    function refreshCutDown(sec) {
+        $(".telCode").text(sec+'s');
+        $(".telCode").addClass('disable');
+        $(".telCode").removeAttr("onclick","");
+        var interval = setInterval(function () {
+            sec --;
+            if (sec <= 0){
+                $(".telCode").text("验证");
+                $(".telCode").removeClass('disable');
+                $(".telCode").attr("onclick","sendValidateCode()");
+                clearInterval(interval);
+            } else {
+                $(".telCode").text(sec + 's');
+            }
+        }, 1000);
+    }
+</script>
+</html>

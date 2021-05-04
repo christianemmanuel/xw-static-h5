@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>邮箱验证</title>
+    <!--标准mui.css-->
+    <link href="/mui/css/mui.min.css" rel="stylesheet" />
+    <link href="/style/css/main.css" rel="stylesheet" />
+    <link href="/style/css/index.css" rel="stylesheet" />
+    <!-- 加载JavaScript -->
+    <script type="text/javascript" src="/style/js/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="/style/layer/layer.js"></script>
+    <script type="text/javascript" src="/style/js/Validform_v5.3.2_min.js"></script>
+    <script type="text/javascript" src="/style/js/common.js"></script>
+    <script type="text/javascript" src="/style/js/md5.js"></script>
+    <script type="text/javascript" src="/mui/js/mui.min.js"></script>
+    <script type="text/javascript" src="/style/js/jquery.cookie.js"></script>
+    <style>
+        body {
+            width: 100%;
+            height: 100%;
+            margin: 0px;
+            padding: 0px;
+        }
+        .compulsory-tip {
+            color: red;
+            padding-left: 5px;
+        }
+        .mui-content{
+            height: 10.5rem;
+            padding: 10px 10px;
+        }
+        .mui-input-group {
+            margin-top: 10px;
+        }
+        .mui-input-group:first-child {
+            margin-top: 20px;
+        }
+        .mui-input-group label {
+            width: 40%;
+            text-align: left;
+            padding: 0 10px;
+            line-height: 40px;
+        }
+        .mui-input-group .mui-input-row{
+            margin: 10px 0px;
+            background-color: white;
+            height: 1.3rem;
+            line-height: 1.3rem;
+        }
+        .mui-input-row label~input,
+        .mui-input-row label~select,
+        .mui-input-row label~textarea {
+            width: 60%;
+        }
+
+    </style>
+</head>
+<body>
+<header class="mui-bar mui-bar-nav" style="padding-left: 15px;padding-right: 15px;">
+    <a class="mui-icon mui-icon-left-nav mui-pull-left" style="text-decoration: none; color: white;" href="/wap/personal/personal_info.html"></a>
+    <h1 class="mui-title" style="color: #ffffff;">邮箱验证</h1>
+</header>
+
+<div class="mui-content">
+    <form id='login-form' class="mui-input-group">
+        <div class="mui-input-row">
+            <input id='emailCode' type="text" placeholder="请输入验证码" style="width: 68%;">
+            <input id="sendCode" type="button" value="发送验证码" style="width: 25%; border: 1.5px solid #4fb2ff; color:#4fb2ff; font-weight: bold; border-radius: 5px; margin-right: 10px; padding-left: 10px;margin-top: 5px;">
+        </div>
+    </form>
+    <div style="margin-top: 20px;">
+        <div id='submitEmailValidate' class="form_sumbit_btn">验证邮箱</div>
+    </div>
+</div>
+
+<script  type="text/javascript">
+$(document).on("click", "#sendCode", function() {
+    $.ajax({
+        dataType: "jsonp",
+        url:wap_site_host() + "session/message/accountMessage/createEmailValidCode",
+        type:"POST",
+        data:{'token':wap_get_user().token},
+        dataType: 'json',
+        success:function(d){
+            console.log(d);
+            if(d['code']==0){
+                fun_alertMsg(d['data']);
+            }else {
+                fun_alertMsg(d['message']);
+            }
+        },
+        error:function(e){
+            fun_alertMsg(e['responseText']);
+        }
+    });
+});
+
+$(document).on("click", "#submitEmailValidate", function() {
+    $.ajax({
+        dataType: "jsonp",
+        url:wap_site_host() + "session/message/accountMessage/submitEmailVaildate",
+        type:"POST",
+        data:{'token':wap_get_user().token, 'emailCode': $('#emailCode').val()},
+        dataType: 'json',
+        success:function(d){
+            console.log(d);
+            if(d['code']==0){
+                fun_alertMsg(d['data']);
+            }else {
+                fun_alertMsg(d['message']);
+            }
+        },
+        error:function(e){
+            fun_alertMsg(e['responseText']);
+        }
+    });
+});
+</script>
+</body>
+@@include('html-foot.html')
+</html>

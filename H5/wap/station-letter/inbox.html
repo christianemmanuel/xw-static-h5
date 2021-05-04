@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>东赢收件箱</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	
+	<!--标准mui.css-->
+	<link href="/mui/css/mui.min.css" rel="stylesheet" />
+	<link href="/mui/css/common.css" rel="stylesheet" />
+	<!--扩展图标-->
+	<link href="/mui/css/mui-icons-extra.css" rel="stylesheet" />
+	<link href="/style/css/main.css" rel="stylesheet" />
+	<link href="/style/css/index.css" rel="stylesheet" />
+	<link href="/style/dropload/dropload.css" rel="stylesheet">
+	<style type="text/css">
+		.mui-content{
+	        padding-bottom: 40px;
+	        background-color: #fff;
+	    }
+	    .mui-content .item{
+	        display: -webkit-box;
+	        display: -webkit-flex;
+	        display: -ms-flexbox;
+	        display: flex;
+	        -ms-flex-align:center;
+	        -webkit-box-align:center;
+	        box-align:center;
+	        -webkit-align-items:center;
+	        align-items:center;
+	        padding:3.125%;
+	        border-bottom: 1px solid #ddd;
+	        color: #333;
+	        text-decoration: none;
+	    }
+	    #list_item{
+	    	-webkit-transform-style: preserve-3d;
+    		transform-style: preserve-3d;
+    		overflow: hidden;
+   		    position: relative;
+    	    padding: 11px 15px;
+    	    line-height: 21px;
+	    }
+	    #list_item:before {
+		    position: absolute;
+		    right: 0;
+		    left: 0;
+		    height: 1px;
+		    content: '';
+		    -webkit-transform: scaleY(.5);
+		    transform: scaleY(.5);
+		    background-color: #c8c7cc;
+		    top: -1px;
+		}
+	    #list_item:after {
+		    position: absolute;
+		    right: 0;
+		    bottom: 0;
+		    left: 15px;
+		    height: 1px;
+		    content: '';
+		    -webkit-transform: scaleY(.5);
+		    transform: scaleY(.5);
+		    background-color: #c8c7cc;
+		}
+	    #list_item .mui-icon{color: black;}
+	</style>
+</head>
+<body style="padding: 0px;">
+	<!-- 主体页面begin -->
+	<header class="mui-bar mui-bar-nav">
+		<a class="mui-icon mui-icon-back mui-pull-left" href="/wap/station-letter/sl_index.html"></a>
+		<h1 class="mui-title" id="header_title">收件箱</h1>
+	</header>
+	<div class="mui-content" style="height: 100%;padding-bottom: 0px;">
+		<ul class="mui-table-view" style="display: block;margin-top: 0px;"></ul>
+		<div class="lists"></div>
+	</div>
+	<!-- 主体页面end -->
+</body>
+<!-- 加载JavaScript -->
+<script type="text/javascript" src="/style/js/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="/style/layer/layer.js"></script>
+<script type="text/javascript" src="/style/js/common.js"></script>
+<script type="text/javascript" src="/mui/js/mui.min.js"></script>
+<script type="text/javascript" src="/style/dropload/dropload.min.js"></script>
+<script type="text/javascript" src="/style/js/jquery.cookie.js"></script>
+@@include('html-foot.html')
+<script type="text/javascript">
+	$(document).ready(function(){
+	    $('.mui-content').dropload({
+	        scrollArea : window,
+	        domUp : {
+	            domClass   : 'dropload-up',
+	            domRefresh : '<div class="dropload-refresh">↓下拉刷新</div>',
+	            domUpdate  : '<div class="dropload-update">↑释放更新</div>',
+	            domLoad    : '<div class="dropload-load"><span class="loading"></span>加载中...</div>'
+	        },
+	        domDown : {
+	            domClass   : 'dropload-down',
+	            domRefresh : '<div class="dropload-refresh">↑上拉加载更多</div>',
+	            domLoad    : '<div class="dropload-load"><span class="loading"></span>加载中...</div>',
+	            domNoData  : '<div class="dropload-noData">暂无数据</div>'
+	        },
+	        loadUpFn : function(me){
+	        	refreshList(null,me,0);
+	        },
+	        loadDownFn : function(me){
+	        	var send_time = $('.mui-content li:last').data('send_time');
+	        	send_time= (send_time==undefined) ? null : send_time;
+ 	        	refreshList(send_time,me,1);
+	        },
+	        threshold : 50
+	    });
+	});
+	
+	function refreshList(startTime,me,loadType){
+		$.ajax({
+	       	url:wap_site_host() + "/session/message/accountMessage/inbox?token="+wap_get_user().token,
+    		type:"POST",
+    		data:{"startTime":startTime, "pageSize":10},
+    		dataType: 'json',
+  		 	success:function(resultData){
+      		 	if (resultData.code == 0) {
+      		 		var listData = resultData.data;
+					var appendHtml='';
+					$.each(listData,function(n, value){
+						appendHtml+= '<li class="mui-table-view-cell mui-media" data-id="'+value.mId+'" data-is_read="'+value.isRead+'" data-send_time="'+value.sendTime+'" onclick="showDetail(this)">\
+								<span class="mui-icon mui-icon-email"></span>\
+								<div class="mui-media-body"><span>'+fun_filterTxt(value.title)+'</span><p class="mui-ellipsis">'+fun_filterTxt(value.content)+'</p>\
+								</div>\
+							</li>';
+					});
+					if(loadType==0){$('.mui-content ul').html(appendHtml);}else{$('.mui-content ul').append(appendHtml);}
+					// 每次数据插入，必须重置
+                    me.resetload();
+                    if(appendHtml==''){
+						// 锁定
+	                    me.lock();
+	                 	// 无数据
+	                    me.noData();
+					}else{
+						// 解锁loadDownFn里锁定的情况
+	                    me.unlock();
+	                    me.noData(false);
+					}
+	   		   	} else {
+	   		   		fun_alertMsg(resultData.message, function() {});
+	   		  		// 即使加载出错，也得重置
+                    me.resetload();
+                 	// 锁定
+                    me.lock();
+                 	// 无数据
+                    me.noData();
+                    wap_if_session_out(resultData.code);
+	   		   	}
+     		 },
+     		 error:function( jqXHR, textStatus){
+     			wap_check_ajaxerror(jqXHR);
+     			fun_toast('请求失败，请稍后重试');
+     			// 即使加载出错，也得重置
+                me.resetload();
+             	// 锁定
+                me.lock();
+             	// 无数据
+                me.noData();
+     		 }
+		});
+	}
+	function showDetail(domLi){
+		var title = $(domLi).find('.mui-media-body span').html();
+		var content = $(domLi).find('.mui-media-body p').html();
+		var messageId = $(domLi).data('id');
+		fun_alertMsg(content, title, function() {});
+		var is_read = $(domLi).data('is_read');
+		if(is_read!=1){return;}
+		$.ajax({
+	       	url:wap_site_host() + "/session/message/accountMessage/read?token="+wap_get_user().token,
+    		type:"POST",
+    		data:{"messageId":messageId},
+    		dataType: 'json',
+  		 	success:function(resultData){
+  		 		if (resultData.code == 0) {
+  		 			$(domLi).attr('data-is_read',2);
+  		 			$(domLi).data('is_read',2);
+	   		   	}else{
+	  		 		wap_if_session_out(resultData.code);
+	   		   	}
+  		 	},
+    		 error:function( jqXHR, textStatus){
+      			wap_check_ajaxerror(jqXHR);
+      			fun_toast('请求失败，请稍后重试');
+      		 }
+		});
+	}
+</script>
+</html>

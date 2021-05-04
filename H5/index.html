@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<title>东赢官网 - MAD LIONS官方赞助商</title>
+	<!--标准mui.css-->
+	<link href="/mui/css/mui.min.css" rel="stylesheet" />
+	<link href="/mui/css/common.css" rel="stylesheet" />
+	<!--扩展图标-->
+	<link href="/mui/css/mui-icons-extra.css" rel="stylesheet" />
+	<link href="/style/css/main.css" rel="stylesheet" />
+    <link href="/style/css/index.css" rel="stylesheet" />
+	<link href="/style/css/swiper.min.css" rel="stylesheet" />
+	<!-- 加载JavaScript -->
+	<script type="text/javascript" src="/style/js/jquery-3.2.1.min.js"></script>
+	<script type="text/javascript" src="/style/layer/layer.js"></script>
+	<script type="text/javascript" src="/style/js/Validform_v5.3.2_min.js"></script>
+	<script type="text/javascript" src="/style/js/common.js"></script>
+	<script type="text/javascript" src="/mui/js/mui.min.js"></script>
+	<script type="text/javascript" src="/style/js/jquery.marquee.min.js"></script>
+	<script type="text/javascript" src="/style/js/jquery.cookie.js"></script>
+	<script type="text/javascript" src="/style/js/swiper.min.js"></script>
+	<style type="text/css">
+		#showOut {
+			overflow: hidden;
+		}
+		.download-top-container {
+			display: none;
+		}
+		.download-top-box {
+			height: 1.44rem;
+			background-color: #fff;
+			display: flex;
+			align-items: center;
+			padding: 0 .29rem;
+			font-size: 12px;
+			justify-content: space-between;
+		}
+		.download-close {
+			font-size: 38px;
+			color: #999;
+		}
+		.download-txt-container {
+			width: 4.8rem;
+			line-height: 12px;
+			color: #999;
+		}
+		.download-txt-container .download-title {
+			color: #666;
+			font-weight: 600;
+			font-size: 14px;
+			margin-top:0;
+			margin-bottom: 4px;
+		}
+		.download-ljxzbtn {
+			background-image: linear-gradient(90deg,#3379f5 0,#77bbfc 100%),linear-gradient(#5b80e7,#5b80e7);
+			height: 0.864rem;
+			width: 2.3rem;
+			text-align: center;
+			line-height: 0.864rem;
+			color: #fff;
+			border-radius: 0.1rem;
+		}
+		.mui-slider-indicator {
+			bottom: 30px;
+		}
+		.mui-slider-indicator .mui-indicator {
+			background: transparent;
+		}
+	</style>
+	<script>
+		function setSliderHeight() {
+			$('#showOut').css('height',$('#showOut').height());
+		}
+	</script>
+</head>
+<body>
+<div class="mui-content">
+	<div class="download-top-container">
+		<div class="download-top-box">
+			<div class="download-close">×</div>
+			<img src="images/download/head_logo.png" style="width: 1.065rem;">
+			<div class="download-txt-container">
+				<h6 class="download-title">东赢 APP</h6>
+				<span>覆盖全部游戏，体验更流畅，更安全，更快捷</span>
+			</div>
+			<a onclick="app_download()" class="download-ljxzbtn">立即下载</a>
+		</div>
+	</div>
+	<div id="showOut">
+		<div id="slider" class="mui-slider">
+			<div class="mui-slider-group">
+				<!-- 第一张 -->
+				<div class="mui-slider-item promotionIcon mui-active">
+					<a href="#">
+						<img src="https://kzqz.changliangcj.com/static//image/dbea5425-f9e7-4adb-8cc6-f411ea255802.jpg" onload="setSliderHeight()">
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- 头部轮播图片 end -->
+	<div class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted notice">
+    	<div class="mui-scroll" style="width:100%;">
+    		<!--<span class="mui-icon-extra mui-icon-extra-notice" style="color: #4b79be;float:left;"></span>-->
+            <img src="/images/index/notice.png">
+    		<div class="marquee" style="line-height: 30px;overflow: hidden;display: block;float:right;margin-top:-6px;width: calc(100% - 58px);margin-right: 10px;font-size: 14px; "></div>
+   		</div>
+  	</div>
+	<div class="mui-container details-container">
+        <div class="details details-signup" id="logout_details">
+            <div class="mui-row">
+                <div class="mui-col-xs-8 signup-row">
+                    欢迎您，亲爱的用户
+                </div>
+				<div class="mui-col-xs-4" style="display: block;float: right">
+					<button id="loginBtn" onclick="window.location.href = '/wap/login.html'" class="mui-btn-link">请先登录</button>
+					<!--<span><img id="login_img" src="/images/index/login_btn.png" width="40" style="vertical-align: middle;"></span>-->
+				</div>
+            </div>
+        </div>
+        <div class="details" style="display: none" id="login_details">
+            <div class="mui-row">
+				<div class="mui-col-xs-6 details_login">
+                    <span id="details_login_name"></span>
+					<span><img id="member_vip_img" src="" ></span>
+                </div>
+                <div class="mui-col-xs-6 wallet"  onclick="loadBalance()">
+					帐户余额:<span id="details_balance">0.00</span>元
+				</div>
+            </div>
+        </div>
+        <div class="details2">
+            <div class="mui-row">
+				<div class="mui-col-xs-3" onclick="fun_openUrl('/wap/deposit/deposit_index.html')"><img src="/images/index/deposit_icon.png"><span>存款</span></div>
+                <div class="mui-col-xs-3" onclick="fun_openUrl('/wap/withdrawal/withdrawal_index.html')"><img src="/images/index/withdrawal_icon.png"><span>取款</span></div>
+				<div class="mui-col-xs-3" onclick="fun_openUrl('/wap/transfer/transfer_index.html')"><img src="/images/index/transfer_icon.png"><span>转账</span></div>
+				<div class="mui-col-xs-3" onclick="fun_openUrl('/wap/vip/dy_vip.html')"><img src="/images/index/vip_icon.png"><span>VIP详情</span></div>
+            </div>
+        </div>
+    </div>
+	<div class="game_swiper">
+		<ul class="game_tab">
+			<li class="esport_tab tab-active" onclick="selectGame(this,'esport')"><a class="a-hiden">电竞</a><a>电竞赛事</a></li>
+			<li class="sport_tab" onclick="selectGame(this,'sport')"><a>体育</a><a class="a-hiden">体育赛事</a></li>
+			<li class="live_tab" onclick="selectGame(this,'live')"><a>真人</a><a class="a-hiden">真人娱乐</a></li>
+			<li class="poker_tab" onclick="selectGame(this,'poker')"><a>棋牌</a><a class="a-hiden">棋牌游戏</a></li>
+			<li class="lottery_tab" onclick="selectGame(this,'lottery')"><a>彩票</a><a class="a-hiden">彩票游戏</a></li>
+			<li class="slot_tab" onclick="selectGame(this,'slot')"><a>电游</a><a class="a-hiden">电子/捕鱼</a></li>
+		</ul>
+		<div class="swiper-container">
+			<div class="swiper-wrapper">
+				<div class="swiper-slide esport_0">
+					<div class="esprot_marlin">
+						<span class="game_name">东赢电竞</span>
+						<a class="game_count"><span id="MarlinGameCount"></span>电竞赛事</a>
+						<a class="game_play_btn" href="/wap/egames/egame-index.html"></a>
+					</div>
+				</div>
+				<div class="swiper-slide esport_1">
+					<div class="esprot_rg">
+						<a class="game_name">RG电竞</a>
+						<a class="game_count"><span id="RGGameCount"></span>电子竞技</a>
+						<a class="game_play_btn" href="/wap/egames/rg-egame-index.html"></a>
+					</div>
+				</div>
+				<div class="swiper-slide esport_2">
+					<div class="esprot_im">
+						<a class="game_name">IM电竞</a>
+						<a class="game_count"><span id="IMGameCount"></span>电子竞技</a>
+						<div class="game_play_btn" onclick="goToUrlNoToken('/wap/egames/im-egame-index.html')"></div>
+					</div>
+				</div>
+				<div class="swiper-slide sport_0">
+					<div class="sprot_xj">
+						<span class="game_name">东赢体育</span>
+						<a class="game_count"><span id="xjGameCount"></span>体育赛事</a>
+						<div class="game_play_btn" onclick="goSport()"></div>
+					</div>
+				</div>
+				<div class="swiper-slide sport_1">
+					<div class="sprot_im">
+						<span class="game_name">IM体育</span>
+						<a class="game_count"><span id="IMSGameCount"></span>体育赛事</a>
+						<div class="game_play_btn" onclick="playGameWithUrl('/ptweb/imSport')"></div>
+					</div>
+				</div>
+				<div class="swiper-slide live_0">
+					<div class="live_ag">
+						<span class="game_name">AG真人</span>
+						<a class="game_count"><span>40</span>真人娱乐</a>
+						<a class="game_play_btn" onclick="playGame('0',5,'AG')"></a>
+					</div>
+				</div>
+				<div class="swiper-slide live_1">
+					<div class="live_bbin">
+						<span class="game_name">BBIN真人</span>
+						<a class="game_count"><span>40</span>真人娱乐</a>
+						<a class="game_play_btn" onclick="playGame('zhenren',36,'BBIN')"></a>
+					</div>
+				</div>
+				<div class="swiper-slide live_2">
+					<div class="live_allbet">
+						<span class="game_name">欧博真人</span>
+						<a class="game_count"><span>38</span>真人娱乐</a>
+						<a class="game_play_btn" onclick="playGame('100',26,'AllBet')"></a>
+					</div>
+				</div>
+				<div class="swiper-slide poker_0">
+					<div class="poker_tx">
+						<span class="game_name">大唐棋牌</span>
+						<a class="game_count"><span>18</span>棋牌娱乐</a>
+						<a class="game_play_btn" onclick="playGameWithUrl('/ptweb/txGame')"></a>
+					</div>
+				</div>
+				<div class="swiper-slide poker_1">
+					<div class="poker_ky">
+						<span class="game_name">开元棋牌</span>
+						<a class="game_count"><span>30</span>棋牌娱乐</a>
+						<a class="game_play_btn" onclick="playGameWithUrl('/ptweb/kyGame')"></a>
+					</div>
+				</div>
+				<div class="swiper-slide lottery_0">
+					<div class="lottery_tcg">
+						<span class="game_name">TCG彩票</span>
+						<a class="game_count"><span>29</span>彩票游戏</a>
+						<a class="game_play_btn" onclick="playGameWithUrl('/ptweb/playELottery')"></a>
+					</div>
+				</div>
+				<div class="swiper-slide lottery_1">
+					<div class="lottery_bbin">
+						<span class="game_name">BBIN彩票</span>
+						<a class="game_count"><span>48</span>彩票游戏</a>
+						<a class="game_play_btn" onclick="playGame('lottery',36,'BBIN')"></a>
+					</div>
+				</div>
+
+				<div class="swiper-slide slot_0">
+					<div class="slot_pt">
+						<span class="game_name">PT电子</span>
+						<a class="game_count"><span>157</span>电子游戏</a>
+						<a class="game_play_btn" onclick="openPlatform(1,'PT')"></a>
+					</div>
+				</div>
+				<div class="swiper-slide slot_1">
+					<div class="slot_sw">
+						<span class="game_name">SW电子</span>
+						<a class="game_count"><span>89</span>电子游戏</a>
+						<a class="game_play_btn" onclick="openPlatform(17,'SW')"></a>
+					</div>
+				</div>
+				<div class="swiper-slide slot_2">
+					<div class="slot_mgplus">
+						<span class="game_name">MG+电子</span>
+						<a class="game_count"><span>240</span>电子游戏</a>
+						<a class="game_play_btn" onclick="openPlatform(45,'MG_PLUS')"></a>
+					</div>
+				</div>
+				<!--<div class="swiper-slide slot_3">
+					<div class="slot_pp">
+						<a class="game_name">PP电子</a>
+						<a class="game_count"><span>58</span>电子游戏</a>
+						<a class="game_play_btn" onclick="openPlatform(29,'PP')"></a>
+					</div>
+				</div>-->
+				<div class="swiper-slide slot_3">
+					<div class="slot_cq">
+						<span class="game_name">CQ电子</span>
+						<a class="game_count"><span>205</span>电子游戏</a>
+						<a class="game_play_btn" onclick="openPlatform(24,'CQ')"></a>
+					</div>
+				</div>
+				<div class="swiper-slide slot_4">
+					<div class="slot_bbin">
+						<span class="game_name">BBIN电子</span>
+						<a class="game_count"><span>85</span>电子游戏</a>
+						<a class="game_play_btn" onclick="openPlatform(36,'BBIN')"></a>
+					</div>
+				</div>
+				<!--<div class="swiper-slide slot_6">
+					<div class="slot_sg">
+						<a class="game_name">SG电子</a>
+						<a class="game_count"><span>58</span>电子游戏</a>
+						<a class="game_play_btn" onclick="openPlatform(3,'SG')"></a>
+					</div>
+				</div>-->
+				<!--<div class="swiper-slide slot_7">
+					<div class="slot_fg">
+						<a class="game_name">FG电子</a>
+						<a class="game_count"><span>58</span>电子游戏</a>
+						<a class="game_play_btn" onclick="openPlatform(13,'FG')"></a>
+					</div>
+				</div>-->
+				<div class="swiper-slide slot_5">
+					<div class="slot_ag">
+						<span class="game_name">AG电子</span>
+						<a class="game_count"><span>44</span>电子游戏</a>
+						<a class="game_play_btn" onclick="playGame('YP800',5,'AG')"></a>
+					</div>
+				</div>
+
+				<div class="swiper-slide slot_6">
+					<div class="fish_ag_new">
+						<span class="game_name">AG捕鱼</span>
+						<a class="game_count">捕鱼游戏</a>
+						<a class="game_play_btn" onclick="playGame('6', 5)"></a>
+					</div>
+				</div>
+				<div class="swiper-slide slot_7">
+					<div class="fish_icg_lz">
+						<span class="game_name">龙珠捕鱼</span>
+						<a class="game_count">捕鱼游戏</a>
+						<a class="game_play_btn" onclick="playGame('cmf0001', 53)"></a>
+					</div>
+				</div>
+				<div class="swiper-slide slot_8">
+					<div class="fish_sw">
+						<span class="game_name">捕鱼达人</span>
+						<a class="game_count"><span>4</span>捕鱼游戏</a>
+						<a class="game_play_btn" href="/wap/new-page/fishing.html"></a>
+					</div>
+				</div>
+				<div class="swiper-slide slot_10" style="height: 56px">
+
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="swiper-bottom"></div>
+</div>
+</body>
+@@include('html-foot.html')
+<script type="text/javascript">
+    $("#menu_nav a.bar-active").removeClass("bar-active")
+    $("#menu_nav a:nth-child(1)").addClass("bar-active")
+</script>
+<script type="text/javascript">
+    mui.init();
+    var swiper = new Swiper('.swiper-container', {
+        slidesPerView: 'auto',
+        freeMode: true,
+        direction: 'vertical',
+        setWrapperSize: true,
+        scrollbar: {
+            el: '.swiper-scrollbar',
+        },
+        on: {
+            slideChangeTransitionEnd: function(){
+                var className=$(".swiper-slide:nth-child("+(this.activeIndex+1)+")").attr("class");
+                $(".game_tab li.tab-active").removeClass("tab-active");
+                restGameTabText();
+                if(className.indexOf('esport')!=-1){
+					$(".esport_tab").addClass("tab-active");
+                    $(".esport_tab a:first-child").addClass("a-hiden");
+                    $(".esport_tab a:last-child").removeClass("a-hiden");
+				}
+                if(className.indexOf('sport')==13){
+                    $(".sport_tab").addClass("tab-active");
+                    $(".sport_tab a:first-child").addClass("a-hiden");
+                    $(".sport_tab a:last-child").removeClass("a-hiden");
+                }
+                if(className.indexOf('live')!=-1){
+                    $(".live_tab").addClass("tab-active");
+                    $(".live_tab a:first-child").addClass("a-hiden");
+                    $(".live_tab a:last-child").removeClass("a-hiden");
+				}
+                if(className.indexOf('poker')!=-1){
+                    $(".poker_tab").addClass("tab-active");
+                    $(".poker_tab a:first-child").addClass("a-hiden");
+                    $(".poker_tab a:last-child").removeClass("a-hiden");
+                }
+                if(className.indexOf('lottery')!=-1){
+                    $(".lottery_tab").addClass("tab-active");
+                    $(".lottery_tab a:first-child").addClass("a-hiden");
+                    $(".lottery_tab a:last-child").removeClass("a-hiden");
+                }
+                if(className.indexOf('slot')!=-1){
+                    $(".slot_tab").addClass("tab-active");
+                    $(".slot_tab a:first-child").addClass("a-hiden");
+                    $(".slot_tab a:last-child").removeClass("a-hiden");
+                }
+            },
+        },
+    });
+    var is_XJ_maintenance = true;
+    $(document).ready(function() {
+		initDownload();
+        if (wap_is_user_notexist()) {
+            $("#logout_details").show();
+            $("#login_details").hide();
+        } else {
+            $("#logout_details").hide();
+            $("#login_details").show();
+            var loginMember=wap_get_user();
+            $('#details_login_name').html(fun_filterTxt(loginMember.loginName.toLowerCase()));
+            //$('#details_vip_level').html(loginMember.vipLevel);
+			if(loginMember.vipLevel>1)
+            	$('#member_vip_img').attr("src", '/images/vip/vip_text_'+(loginMember.vipLevel-1)+'.png');
+            loadBalance();
+        }
+        loadNotice();//加载滚动公告
+        initSliderPicture();//滚动广告
+        loadAgentCode();
+        $.ajax({
+            dataType: "jsonp",
+            url:wap_site_host()+'/rest/api/platforms',
+            success:function(resultData){
+                if(resultData.code==0){
+                    _setStorageData('_all_app_plat', JSON.stringify(resultData.data));
+                    $.each(resultData.data,function(n, value){
+                        if(value.platformCode==='XJ'){
+                        	is_XJ_maintenance=false;
+                        	$('#xjGameCount').text(value.gameCount);
+                        } else if(value.platformCode === 'IM') {
+                        	$('#IMGameCount').text(value.gameCount);
+							$('#IMSGameCount').text(value.sportCount);
+						} else if(value.platformCode === 'Marlin' || value.platformCode === 'RG') {
+							$('#' + value.platformCode + 'GameCount').text(value.gameCount);
+						}
+                    });
+                }
+            }
+        });
+        loadNewMessageCount();
+    });
+
+    function initDownload() {
+    	let downFlag = _getStorageData("$downFlag");
+    	if(!downFlag) {
+    		$('.download-top-container').show();
+    		$('.download-close').click(function() {
+				$('.download-top-container').hide();
+				_setStorageData("$downFlag", true);
+			});
+		}
+	}
+
+    function loadNewMessageCount(){
+        if (!wap_is_user_notexist()) {
+            $.ajax({
+                type:"POST",
+                url: wap_site_host() + "/session/message/accountMessage/getNewMessageCount?token="+wap_get_user().token,
+                success:function(resultData){
+                    if(resultData.code==0 && resultData.data.count>0){
+                        $('#personal_li .mui-badge-primary').html(resultData.data.count).show();
+                    }
+                }
+            });
+        }
+    }
+
+    function openPlatform(id,platformNameEn,dom_a){
+        _setStorageData('_select_plat_id', id);
+        _setStorageData('_select_plat_name_en', platformNameEn);
+        window.location.href = "/wap/plat-game/pg_index.html";
+    }
+
+    function loadNotice(){
+        $.ajax({
+            dataType: "jsonp",
+            url:wap_site_host()+'/notice/init',
+            success:function(resultData){
+                if(resultData.code==0){
+                    var appendHtml='';
+                    $.each(resultData.data,function(n, value){
+                        appendHtml += '<span onclick="showMsg(this)">'+fun_filterTxt(value.content)+'</span>';
+                    });
+                    $('.marquee').html(appendHtml).marquee();
+                }
+            }
+        });
+    }
+    function loadBalance() {
+        if (wap_is_user_notexist()) {
+            wap_need_login();
+        }else {
+            $('#details_balance').html('0.00');
+            $.ajax({
+                dataType: "jsonp",
+                url: wap_site_host() + "/session/balance/main",
+                type: "GET",
+                data: {"token": wap_get_user().token},
+                dataType: 'json',
+                success: function (resultData) {
+                    if (resultData.code == 0) {
+                        $('#details_balance').html(resultData.data);
+                    }else {
+                        fun_alertMsg(resultData.message, function() {});
+                        wap_if_session_out(resultData.code);
+                    }
+                },
+                error: function (jqXHR, textStatus) {
+                    wap_check_ajaxerror(jqXHR);
+                    fun_toast('获取主钱包失败，请稍后重试');
+                }
+            });
+        }
+    }
+    function initSliderPicture(){
+        $.ajax({
+            dataType: "jsonp",
+            url:wap_site_host()+'/rest/api/newIndexSilder',
+            success:function(resultData){
+                if(resultData.code==0){
+                    //var data = JSON.stringify(resultData.data);
+                    addScriptTag(resultData.data['url']);
+                }
+            }
+        });
+    }
+    function addScriptTag(src) {
+        if (src == '') {
+            callbackShow('');
+        } else {
+            var script = document.createElement("script");
+            script.id = "testscript";
+            script.setAttribute("type", "text/javascript");
+            script.src = src;
+            document.body.appendChild(script);
+        }
+        //initBox();
+    }
+     function callbackShow(data) {
+         if (data != '') {
+             document.getElementById('showOut').innerHTML = data;
+             mui("#slider").slider({interval:3000});
+             $(".promotionIcon").click(function(e){
+                 e.preventDefault();
+                 var url = $(this).attr("jump-url");
+                 var blank_link = $(this).attr("blank-link");
+                 if(blank_link != "" && blank_link != null && blank_link != undefined){
+                     if(wap_is_user_notexist()){
+                         fun_alertMsg('请登入后再做操作！','系统提示',function () {});
+                     }else{
+                         window.open(blank_link+'?token='+wap_get_user().token,'_blank');
+                     }
+                 }else if(url != "" && url != null && url != undefined){
+                     window.location.href=url;
+                 }else{
+                     window.location.href="/wap/promotion/p_index.html";
+                 }
+             });
+         }
+     }
+
+
+    function showMsg(domSpan){
+        fun_alertMsg($(domSpan).html(), '系统公告', function() { });
+    }
+    function goSport() {
+        if(is_XJ_maintenance) {
+            fun_alertMsg('体育系统维护中，请稍后重试','系统提示');
+		} else if (wap_is_user_notexist()) {
+        	window.open(wap_site_host() + "xjTestSport");
+        } else {
+        	window.open(wap_site_host() + "/session/member/xjSport?token=" + wap_get_user().token);
+            return;
+        }
+    }
+
+    function goXj_dzjj() {
+        if (wap_is_user_notexist()) {
+            fun_alertMsg('请登录后再操作','系统提示');
+        } else {
+            window.location.href = "wap/egames/egame-index.html";
+            return;
+        }
+    }
+    function goToUrlNoToken(redirectUrl) {
+        if (wap_is_user_notexist()) {
+            fun_alertMsg('请登录后再操作','系统提示');
+        } else {
+            window.location.href = redirectUrl;
+        }
+    }
+    function playGame(code,pid,pfcode) {
+		var url=event_site_host()+"/ptweb/playGame?gameCode="+code+"&pid="+pid+"&pfCode="+pfcode;
+        goToUrl(url);
+    }
+    function playGameWithUrl(redirectUrl) {
+        if (wap_is_user_notexist()) {
+            fun_alertMsg('请登录后再操作','系统提示');
+        } else {
+            if(redirectUrl=='/ptweb/playELottery'){
+				window.open(event_site_host() + redirectUrl +'?gameCode=Game_List&token='+wap_get_user().token);
+			}else{
+                window.open(event_site_host() + redirectUrl +'?token='+wap_get_user().token);
+			}
+
+        }
+    }
+    function goToUrl(redirectUrl) {
+        if (wap_is_user_notexist()) {
+            fun_alertMsg('请登录后再操作','系统提示');
+        } else {
+            window.location.href = redirectUrl+'&token='+wap_get_user().token;
+        }
+	}
+    function openPlatform(id,platformNameEn,dom_a){
+        _setStorageData('_select_plat_id', id);
+        _setStorageData('_select_plat_name_en', platformNameEn);
+        window.location.href = "/wap/plat-game/pg_index.html";
+    }
+    function selectGame(a,b){
+        $(".game_tab li.tab-active").removeClass("tab-active");
+        restGameTabText();
+        $(a).addClass("tab-active");
+        $(a).find("a:first-child").addClass("a-hiden");
+        $(a).find("a:last-child").removeClass("a-hiden");
+        var index=0;
+        $(".swiper-slide").each(function(i,e){
+            if($(this).attr("class").indexOf(b+"_0")!=-1){
+                index=i;
+			}
+        });
+        swiper.slideTo(index, 1000, false);
+    }
+    function restGameTabText() {
+		$('.game_tab li a:first-child').removeClass("a-hiden");
+        $('.game_tab li a:last-child').addClass("a-hiden");
+    }
+    function openPlatform(id,platformNameEn){
+        _setStorageData('_select_plat_id', id);
+        _setStorageData('_select_plat_name_en', platformNameEn);
+        window.location.href = "/wap/plat-game/pg_index.html";
+    }
+    function showExpect() {
+        fun_alertMsg('敬请期待','系统提示');
+    }
+    checkRst();
+
+	function app_download(){
+        var url=getDownLoadUrl('ytgg8866.com');
+        window.open(url,'_blank');
+	}
+</script>
+</html>

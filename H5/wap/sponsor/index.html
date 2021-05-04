@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html class="ui-page-login" >
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <title>东赢 - 赞助</title>
+    <!--标准mui.css-->
+    <link href="/mui/css/mui.min.css" rel="stylesheet" />
+    <link href="/mui/css/common.css" rel="stylesheet" />
+    <!--扩展图标-->
+    <link href="/mui/css/mui-icons-extra.css" rel="stylesheet" />
+    <link href="/style/css/main.css" rel="stylesheet" />
+    <link href="/style/css/index.css" rel="stylesheet" />
+	<style>
+		body, html {
+			margin: 0;
+            padding: 0;
+            background-color: #F3FDFF;
+		}
+        .title>h2{
+            width: 100%;
+            color: #0094ff;
+            letter-spacing: 3px;
+            text-align: center;
+            padding: 1.5rem 0;
+        }
+        .banner_img{
+            width: 100%;
+        }
+        .figure{
+            width:70%;
+            margin: 0 auto;
+        }
+        .figure_img{
+            width: 100%;
+            margin-top: 30px;
+        }
+        .content{
+            width: 94%;
+            margin: 0 auto;
+            background-color: #fff;
+        }
+        .icon_content{
+            display: flex;
+            width: 85%;
+            margin: .3rem auto;
+            align-items: center;
+        }
+        .text{
+            width: 70%;
+            letter-spacing: 3px;
+            color: #3c4147;
+            line-height: 20px;
+            margin-left: 1rem;
+            font-size: 14px;
+        }
+        .logo_img{
+            width:  3rem;
+	        height: 4rem;
+        }
+        .pictures{
+            display: flex;
+        }
+        .player{
+            width: 19%;
+            height: auto;
+            margin-right: 1.2%;
+            background-color: #fff;
+            text-align: center;
+        }
+        .player>img{
+            width: 100%;
+            height: auto;
+        }
+        .player>p:nth-child(1){
+            width: 100%;
+            margin-right: 0.3rem;
+        }
+        .last{
+            margin-right: 0;
+        }
+        .player_name{
+            text-align: center;
+            letter-spacing: 1px;
+        }
+        .certification{
+            width: 88%;
+            margin: 0 auto;
+        }
+        .certification>img{
+            width: 100%;
+            margin: 2rem 0;
+        }
+	</style>
+
+</head>
+
+<body>
+    <div class="banner">
+        <img class="banner_img" src="../../images/introduce/bg1.jpg" alt="">
+    </div>
+    <div class="title"><h2>带您了解MAD LIONS</h2></div>
+    <div class="content">
+        <div>   
+            <div class="figure"><img class="figure_img" src="../../images/introduce/figure.jpg" alt=""></div>
+        </div>
+        <div class="icon_content">
+            <div><img class="logo_img" src="../../images/introduce/logo.png" alt=""></div>
+            <div class="text">MAD Lions是来自丹麦的一支CSGO战队，现世界排名已经来到了第13，在AcilioN上任后队伍的实力不断地进步，东赢电竞平台以赞助商的身份联手MAD Lions俱乐部，将给为俱乐部增添新的助力，推动MAD Lions的持续发展，让世界重新见证MAD Lions的辉煌。</div>
+        </div>
+    </div>
+    <div class="title"><h2>MAD LIONS队员展示</h2></div>
+    <div class="pictures">
+        <div class="player">
+            <p>1</p>
+            <img src="../../images/introduce/player1.png" alt="">
+            <p class="player_name">sjuush</p>
+        </div>
+        <div class="player">
+            <p>2</p>
+            <img src="../../images/introduce/player2.png" alt="">
+            <p class="player_name">acor</p>
+        </div>
+        <div class="player">
+            <p>3</p>
+            <img src="../../images/introduce/player3.png" alt="">
+            <p class="player_name">acillion</p>
+        </div>
+        <div class="player">
+            <p>4</p>
+            <img src="../../images/introduce/player4.png" alt="">
+            <p class="player_name">roej</p>
+        </div>
+        <div class="player last">
+            <p>5</p>
+            <img src="../../images/introduce/player5.png" alt="">
+            <p class="player_name">bubzkji</p>
+        </div>
+    </div>
+    <div class="certification">
+        <img src="../../images/introduce/certification.png" alt="">
+    </div>
+</body>
+<script type="text/javascript" src="/style/js/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="/style/js/common.js"></script>
+@@include('html-foot.html')
+<script type="text/javascript">
+    $("#menu_nav a.bar-active").removeClass("bar-active");
+    $("#menu_nav a:nth-child(4)").addClass("bar-active");
+    $(document).ready(function () {
+        var menuCode = getQueryString("menuCode");
+        if(menuCode==='hide'){
+            $('#menu_nav').hide();
+        }
+    });
+</script>
+</html>

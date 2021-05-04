@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>获得奖金记录</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+    <!--标准mui.css-->
+    <link href="/mui/css/mui.min.css" rel="stylesheet" />
+    <link href="/mui/css/common.css" rel="stylesheet" />
+    <!--扩展图标-->
+    <link href="/mui/css/mui-icons-extra.css" rel="stylesheet" />
+    <link href="/style/css/main.css" rel="stylesheet" />
+    <link href="/style/css/index.css" rel="stylesheet" />
+    <link href="/style/dropload/dropload.css" rel="stylesheet">
+    <style type="text/css">
+        body, html {
+            background: #fff;
+        }
+        .mui-content{
+            padding-bottom: 40px;
+            background-color: #fff;
+        }
+        .mui-content .mui-table-view label{
+            padding: 5px 5px;
+        }
+        .mui-input-row .mui-btn-primary{
+            border: 1px solid #007aff;
+            background-color: #007aff;
+            background-color: transparent;
+            padding: 5px 5px;
+        }
+        .record-table {
+            border-collapse: collapse;
+            border-spacing: 0;
+            font-size: 16px;
+            border: 1px solid #bac8dc;
+            color: #737985;
+            width: 100%;
+        }
+        .record-table th, .record-table td {
+            border: 1px solid #bac8dc;
+            text-align: center;
+        }
+        .record-table th {
+            height: 40px;
+            font-weight: 400;
+        }
+        .record-table td {
+            font-weight: 600;
+            color: #000000;
+        }
+        .record-table td.gift-name {
+            padding: 0 12px;
+        }
+    </style>
+</head>
+<body style="padding: 0px;">
+<!-- 主体页面begin -->
+<header class="mui-bar mui-bar-nav">
+    <a class="mui-icon mui-icon-back mui-pull-left"></a>
+    <h1 class="mui-title" id="header_title">获得奖金记录</h1>
+</header>
+<div class="mui-content" style="height: 100%;padding-bottom: 0px;background-color: #fff!important;">
+    <table class="record-table">
+        <thead>
+        <tr>
+            <th>奖金获取日期</th>
+            <th>奖金金额</th>
+        </tr>
+        </thead>
+        <tbody id="recordBody">
+
+        </tbody>
+    </table>
+</div>
+<!-- 主体页面end -->
+</body>
+<!-- 加载JavaScript -->
+<script type="text/javascript" src="/style/js/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="/style/layer/layer.js"></script>
+<script type="text/javascript" src="/style/js/common.js"></script>
+<script type="text/javascript" src="/mui/js/mui.min.js"></script>
+<!-- <script type="text/javascript" src="/style/js/zepto.min.js"></script> -->
+<script type="text/javascript" src="/style/dropload/dropload.min.js"></script>
+<script type="text/javascript" src="/style/js/clipboard.min.js"></script>
+<script type="text/javascript" src="/style/js/jquery.cookie.js"></script>
+@@include('html-foot.html')
+<script type="text/javascript">
+    $(document).ready(function(){
+        function getQueryString(name) {
+            var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+            var r = window.location.search.substr(1).match(reg);
+            if(r!=null)return  unescape(r[2]); return null;
+        }
+        var queryToken = getQueryString("token");
+        var headCode = getQueryString("headCode");
+        var menuCode = getQueryString("menuCode");
+        mui(".mui-bar-nav").on('tap','.mui-pull-left',function(){
+            window.location.href='/wap/promotion/inviteFriends.html?token=' + queryToken + "&menuCode="+menuCode+"&headCode="+headCode;
+        });
+        if(headCode==='show'){
+            $('.mui-bar.mui-bar-nav').show();
+            $('.top-banner').css('margin-top','44px');
+        } else if(headCode === 'hide') {
+            $('.mui-bar.mui-bar-nav').hide();
+        }
+        if(menuCode==='hide'){
+            $('#menu_nav').hide();
+        }
+        var recordBody = $('#recordBody');
+        loadMemberRecords();
+        function loadMemberRecords() {
+            if(!queryToken) {
+                fun_alertMsg('请登录后操作。', function() {
+
+                });
+            } else {
+                recordBody.html("<tr><td colspan='2'>loading...</td></tr>");
+                $.ajax({
+                    url:event_site_host() + "/ptweb/eposrts/memberGiftsList",
+                    type:"POST",
+                    data:{'token':queryToken},
+                    dataType: 'json',
+                    success:function(d){
+                        if (d.code == 0) {
+                            recordBody.empty();
+                            if(d.data.records && d.data.records.length) {
+                                $.each(d.data.records, function(i, v) {
+                                    recordBody.append('<tr><td>' + v.date +'</td><td class="gift-name">' + v.giftName + '</td><td>' + v.status + '</td></tr>');
+                                });
+                            } else {
+                                recordBody.html("<tr><td colspan='2'>暂无数据</td></tr>");
+                            }
+                        } else {
+                            fun_alertMsg(d.message, function() {});
+                            wap_if_session_out(d.code);
+                        }
+                    },
+                    error:function(jqXHR, textStatus){
+                        wap_check_ajaxerror(jqXHR);
+                        fun_alertMsg('查询邀请好友获得奖金记录记录异常！', function() {});
+                    }
+                });
+            }
+        }
+    });
+</script>
+</html>

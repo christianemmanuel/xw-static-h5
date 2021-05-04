@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html class="ui-page-login">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<title>修改性别</title>
+	<!--标准mui.css-->
+	<link href="/mui/css/mui.min.css" rel="stylesheet" />
+	<link href="/style/css/main.css" rel="stylesheet" />
+	<link href="/style/css/index.css" rel="stylesheet" />
+	<!-- 加载JavaScript -->
+	<script type="text/javascript" src="/style/js/jquery-3.2.1.min.js"></script>
+	<script type="text/javascript" src="/style/layer/layer.js"></script>
+	<script type="text/javascript" src="/style/js/Validform_v5.3.2_min.js"></script>
+	<script type="text/javascript" src="/style/js/common.js"></script>
+	<script type="text/javascript" src="/style/js/md5.js"></script>
+	<script type="text/javascript" src="/mui/js/mui.min.js"></script>
+	<script type="text/javascript" src="/style/js/jquery.cookie.js"></script>
+	<style>
+		.ui-page-login,
+		body {
+			width: 100%;
+			height: 100%;
+			margin: 0px;
+			padding: 0px;
+		}
+		.compulsory-tip {
+			color: red;
+			padding-left: 5px;
+		}
+		.mui-content{padding: 10px;}
+		.area {
+			margin: 20px auto 0px auto;
+		}
+		.mui-input-group {
+			margin-top: 10px;
+		}
+		.mui-input-group:first-child {
+			margin-top: 20px;
+		}
+		.mui-input-group label {
+			width: 40%;
+			text-align: left;
+			padding: 0 10px;
+			line-height: 40px;
+		}
+		.mui-input-row label~input,
+		.mui-input-row label~select,
+		.mui-input-row label~textarea {
+			width: 60%;
+		}
+		.login_header a{
+			position: absolute;
+			top: 20px;
+		}
+		.login_header a:active{color: #efeff4;}
+		.login_header .mui-icon-left-nav{
+			left: 15px;
+		}
+		.mui-content-padded {
+			margin: 25px 0px;
+		}
+		.radio_inline label {
+			width: 30%;
+			padding-left: 40px;
+			padding-right: 40px;
+			margin-left: 30px;
+			margin-top: 5px;
+		}
+		.mui-input-row label {
+			width: 30%;
+			text-align: left;
+			padding-left: 15px;
+			font-size: 13px;
+		}
+		.radio_inline input[type=radio] {
+			width: 15%;
+			right: auto;
+			margin-bottom: 20px;
+		}
+		.mui-content .mui-input-row input {
+			width: 70%;
+		}
+		.radio_inline {
+			display: inline-block;
+			width: 70%;
+		}
+		.mui-input-row label{width: 30%;text-align: left;padding-left: 15px;font-size: 13px;}
+		.mui-content .mui-input-row input{width: 70%;}
+		.mui-input-group .mui-input-row{margin-top: 5px;}
+	</style>
+</head>
+
+<body>
+<div class="login_header">
+	<h1 class="mui-title" style="margin:0px;padding-top: 10px;">
+		<a class="mui-icon mui-icon-left-nav" href="/wap/personal/personal_info.html"></a>
+	</h1>
+	<img src="https://xwsr2.16fass88.com/resources/wap_new/images/new_person_top_bg.png" style="width: 100%;display: block;">
+	<img src="../../images/new_dy_big_head.png" style="width: 100%;display: block;" onclick="return false">
+</div>
+
+<div class="mui-content">
+	<form id='login-form' class="mui-input-group">
+		<div class="mui-input-row">
+			<label>选择性别<span class="compulsory-tip">*</span></label>
+			<span class="radio_inline mui-radio">
+				<input name="sex" type="radio" id="sex_male" checked="checked" value="1" />
+				<label for="sex_male">男</label>
+				<input name="sex" type="radio" id="sex_woman" value="2" />
+				<label for="sex_woman">女</label>
+			</span>
+		</div>
+	</form>
+	<div class="mui-content-padded">
+		<div id='updateBtn' class="form_sumbit_btn">修改性别</div>
+	</div>
+</div>
+<script>
+    var loginMember = wap_get_user();
+    $(function(){
+        getWechat();
+        $("#updateBtn").click(function(e){
+            e.preventDefault();
+            var sex = $("input[name='sex']:checked").val();
+            if (sex != 1 && sex!=2){
+                fun_alertMsg('请选择性别', function() {});
+                return;
+        	}
+           $.ajax({
+                url:wap_site_host() + "/session/member/updateGender",
+                type:"POST",
+                data:{"genderValue":sex, 'token':loginMember.token},
+                dataType: 'json',
+                success:function(d){
+                    if (d.code == 0) {
+                        mui($('#loginBtn')).button('reset');
+                        fun_alertMsg('修改成功。', function() {window.location.href = "/wap/personal/personal_main.html";});
+                    } else {
+                        fun_alertMsg(d.message, function() {});
+                        wap_if_session_out(d.code);
+                    }
+                },
+                error:function(jqXHR, textStatus){
+                    wap_check_ajaxerror(jqXHR);
+                    fun_alertMsg('修改异常！', function() {});
+                }
+            });
+        });
+    });
+
+    function getWechat(){
+      $.ajax({
+            dataType: "jsonp",
+            url:wap_site_host() + "/session/member",
+            type:"GET",
+            data:{'token':loginMember.token},
+            dataType: 'json',
+            success:function(d) {
+                if (d.code == 0) {
+					if(d.data.sex===1){
+                    	$('#sex_male').attr('checked',true);
+					}
+                    if(d.data.sex===2){
+                        $('#sex_woman').attr('checked',true);
+                    }
+                } else {
+                    fun_alertMsg(d.message, function () {
+                    });
+                    wap_if_session_out(d.code);
+                }
+            }
+            });
+    }
+</script>
+</body>
+@@include('html-foot.html')
+</html>

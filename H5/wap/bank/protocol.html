@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html class="ui-page-login">
+	<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<title>个人中心</title>
+	<!--标准mui.css-->
+	<link href="/mui/css/mui.min.css" rel="stylesheet" />
+	<link href="/mui/css/mui-icons-extra.css" rel="stylesheet" />
+	<link rel="stylesheet" type="text/css" href="/style/plugins/mobileSelect/css/mobileSelect.css">
+	<link href="/style/css/main.css" rel="stylesheet" />
+	<link href="/style/css/index.css" rel="stylesheet" />
+	<!-- 加载JavaScript -->
+	<script type="text/javascript" src="/style/js/jquery-3.2.1.min.js"></script>
+	<script type="text/javascript" src="/style/layer/layer.js"></script>
+	<script type="text/javascript" src="/style/js/common.js"></script>
+	
+	<script type="text/javascript" src="/mui/js/mui.min.js"></script>
+	<script type="text/javascript" src="/style/js/city.data.js"></script>
+	<script type="text/javascript" src="/style/js/jquery.cookie.js"></script>
+	<script type="text/javascript" src="/style/plugins/mobileSelect/js/mobileSelect.min.js"></script>
+    <style>
+        html,
+        body{
+            background-color: #d2d2de;
+        }
+		.mui-content{
+			height: 100%;
+			padding: 10px 10px;
+		}
+		.mui-input-group{
+			margin-top: 10px;
+			background-color: #d2d2de;
+		}
+		.mui-input-group .mui-input-row{
+            margin: 10px 0px;
+            background-color: #fff;
+            height: 1.3rem;
+			display: flex;
+			align-items: center;
+		}
+		.mui-input-row label,
+		.mui-input-row input,
+		.mui-input-row span{
+			font-size: 0.36rem;
+			color: #000;
+		}
+		/* .mui-input-row input{
+			font-size:0.36rem;
+			color: #bacef1;
+		} */
+
+		.virtual-form .protocol-type, .virtual-form .digital-currency-type
+		{
+			position: relative;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			width: 2rem;
+			height: 1rem;
+			font-size: 14px;
+			line-height: 1rem;
+			letter-spacing: 1px;
+			text-align: center;
+			border-radius: 4px;
+			overflow: hidden;
+			text-transform: uppercase;
+			color: #a0bcd6;
+			-webkit-transition: all 300ms linear;
+			transition: all 300ms linear;
+			background-color: #353746;
+			border: 2px solid #fff;
+			margin-right: 5px;
+			padding: 0px 0px;
+			pointer-events: auto;
+		}
+		.virtual-form .protocol-type.active, .virtual-form .digital-currency-type.active {
+			color: #fff;
+			border: 2px solid #d79d0d;
+		}
+		.virtual-form .protocol-type{
+			padding: 0px 8px;
+		}
+        #digital-currency-list img{
+            width: 20px;
+            height: 20px;
+			margin: 0 2px;
+        }
+
+	</style>
+</head>
+
+<body>
+	<header class="mui-bar mui-bar-nav" style="padding-left: 15px;padding-right: 15px;">
+    	<a class="mui-icon mui-icon-left-nav mui-pull-left" style="text-decoration: none; color: white;" href="/wap/bank/bank_index.html"></a>
+        <h1 class="mui-title" style="color: #fff;">绑定虚拟提款账户</h1>
+    </header>
+	<div class="mui-content">
+		<form class="mui-input-group virtual-form">
+			<div class="mui-input-row">
+				<label>虚拟币账户<span style="color: red;">*</span></label>
+				<input type="text" id="digitalWallet" class="mui-input-clear" placeholder="请输入虚拟币账户">
+			</div>
+			<div class="mui-input-row">
+				<label>虚拟币种类<span style="color: red;">*</span></label>
+				<input type="hidden" name="digitalCurrncyId" id="digitalCurrncyId">
+                <div style="display: flex;" id="digital-currency-list">
+
+                </div>
+			</div>
+			<div class="mui-input-row">
+				<label>协议<span style="color: red;">*</span></label>
+				<input type="hidden" name="virtualProtocol" id="digitalProtocol">
+                <div style="display: flex;" id="digital-currency-protocol-list">
+
+                </div>
+			</div>
+			<div class="mui-input-row">
+				<label>手机号码<span style="color: red;">*</span></label>
+				<input type="text" id="phone" placeholder="请输入您绑定的手机号码">
+			</div>
+			<div class="mui-input-row">
+				<label>手机验证码<span style="color: red;">*</span></label>
+				<input type="text" id="code" class="mui-input-clear" placeholder="请输入4位验证码" data-input-clear="5" maxlength="4" style="width: 35%;float: left;">
+				<button id="phoneCodeBtn" type="button" onclick="getCode()" style="background-color: #009688;color: #fff;border: 0;">获取验证码</button>
+			</div>
+		</form>
+		<div style="margin:20px 0px;">
+			<div id="submit_btn" class="form_sumbit_btn" onclick="submitForm()" style="width: 85%;margin: 0 auto;">提交</div>
+		</div>
+
+	</div>
+</body>
+@@include('html-foot.html')
+	<script>
+        var bankDatas;
+        var codeId;
+        var loginMember = wap_get_user();
+        $(document).ready(function() {
+            if(loginMember.memberName=="nullnull" || loginMember.memberName.length==0 ){
+                fun_alertMsg('请先完善真实姓名再进行绑定银行卡操作', '系统提示', function() {
+                    window.location.href="/wap/personal/update_realName.html"
+                });
+            }else if(loginMember.hasPhone === false) {
+                fun_alertMsg('请先完善联系方式再进行绑定银行卡操作', '系统提示', function() {
+                    window.location.href="/wap/personal/update_telephone.html"
+                });
+            }
+            getDigitalCurrency();
+        });
+
+        function getDigitalCurrency(){
+            $.ajax({
+                dataType: "jsonp",
+                url:wap_site_host()+'/session/bank/getDigitalCurrency?token='+wap_get_user().token,
+                dataType: 'json',
+                success:function(d){
+                    if(d.code==0){
+                        $.each(d.data.digitalCurrency, function(index,value){
+                            $("#digital-currency-list").append("<label class=\"digital-currency-type\" id=\"virtualType"+value.id+"\" digitalCurrencyId=\""+value.id+"\" >" +
+                                "<img src=\"/images/BANK_"+value.name.toUpperCase() + ".png\">"+value.name.toUpperCase()+"</label>");
+                            $("#virtualType" + value.id).data("data",value);
+                        });
+
+                        $(".digital-currency-type").click(function(){
+                            $('#digitalCurrncyId').val($(this).attr("digitalCurrencyId"));
+                            $(this).siblings().removeClass('active');
+                            $(this).addClass('active');
+                            $("#digital-currency-protocol-list").empty();
+                            var protocolStatuses=$(this).data("data").protocolStatuses;
+                            $.each($(this).data("data").protocols, function(index,value){
+                                if(protocolStatuses[index]!=0){
+                                    $("#digital-currency-protocol-list").append("<label class='protocol-type' >"+value+"</label>");
+								}
+                            });
+                            $(".protocol-type").click(function () {
+                                $('#digitalProtocol').val($(this).html());
+                                $(this).siblings().removeClass('active');
+                                $(this).addClass('active');
+                            });
+                            $(".protocol-type").first().click();
+                        });
+                        $(".digital-currency-type").first().click();
+                    }else {
+                        fun_alertMsg(d.message, function() {});
+                        wap_if_session_out(d.code);
+                    }
+                },
+                error:function(jqXHR, textStatus){
+                    wap_check_ajaxerror(jqXHR);
+                    fun_alertMsg('获取数据异常！', function() {});
+                }
+            });
+        }
+        function submitForm(){
+            var cardNum = $.trim($("#digitalWallet").val());
+            var code = $.trim($('#code').val());
+            var phone = $.trim($('#phone').val());
+            var digitalCurrncyId=$.trim($('#digitalCurrncyId').val());
+            var digitalProtocol=$.trim($('#digitalProtocol').val());
+            if(cardNum.length == 0){
+                fun_alertMsg('请输入钱包账号！', function() {});
+                return;
+            }
+            else if (code == null || code.length == 0){
+                fun_alertMsg('手机验证码不能为空！', function() {});
+                return;
+            }
+            else if (phone == null || phone.length == 0){
+                fun_alertMsg('手机号码不能为空！', function() {});
+                return;
+            }
+            $.ajax({
+                url:wap_site_host() + "/session/bankcard/addDigitalWallet?token="+wap_get_user().token,
+                type:"POST",
+                data:{"cardNum":cardNum, "digitalCurrncyId":  digitalCurrncyId,"digitalProtocol": digitalProtocol, "code":code,"codeId":codeId,"phone":phone},
+                dataType: 'json',
+                success:function(d){
+                    if (d.code == 0) {
+                        fun_alertMsg('提交成功', function() { window.location.href='/wap/bank/bank_index.html' });
+                    } else {
+                        fun_alertMsg(d.message, function() {});
+                        wap_if_session_out(d.code);
+                    }
+                },
+                error:function(jqXHR, textStatus){
+                    wap_check_ajaxerror(jqXHR);
+                    fun_alertMsg('提交异常！', function() {});
+                }
+            });
+        }
+
+        function getCode() {
+            $.ajax({
+                url: wap_site_host() + "/session/bankcard/getBindCardCode?token="+wap_get_user().token,
+                type: "GET",
+                data: {},
+                success: function (d) {
+                    if (d.code == 0) {
+                        fun_alertMsg('操作成功，请查看手机短信获取验证码');
+                        codeId = d.data.codeId;
+                    } else {
+                        fun_alertMsg(d.message);
+                    }
+                },
+                error: function (e) {
+                    fun_alertMsg('提交异常！', function () {
+                    });
+                }
+            });
+        }
+
+	</script>
+</html>

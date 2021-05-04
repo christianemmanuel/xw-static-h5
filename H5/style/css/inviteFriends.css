@@ -1,0 +1,121 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.invite-friends-container {
+    padding-top: .676rem;
+    font-size: 12px;
+    color: #555657;
+    line-height: 26px;
+    background-color: #dde9f2;
+    letter-spacing: 0;
+    text-align: center;
+    padding-bottom: 2rem;
+}
+.invite-friends-container .invite-table {
+    width: 8.981rem;
+    margin: .416rem auto 0;
+}
+.invite-friends-container .white-bg {
+    background-color: #ffffff;
+    box-shadow: 0px .1rem .29rem 0px #ddeffb;
+    border-radius: .148rem;
+    width: 8.981rem;
+    margin-left: auto;
+    margin-right: auto;
+}
+.invite-friends-container .invite-table th {
+    height: 1.2rem;
+    text-align: center;
+}
+.invite-friends-container .invite-table td {
+    height: .42rem;
+}
+.invite-friends-container .invite-table td:last-child {
+    height: 1.2rem;
+}
+.invite-friends-container .txt-blue-tip {
+    font-size: 14px;
+    letter-spacing: 2px;
+    color: #4080ff;
+}
+.invite-friends-container .rule-list {
+    margin: .527rem auto 0;
+    width: 8.425rem;
+}
+.invite-friends-container .rule-list > li {
+    list-style: decimal;
+    text-align: left;
+    margin-top: .429rem;
+}
+.invite-friends-container .invite-input-box {
+    position: relative;
+    width: 8.342rem;
+    height: .962rem;
+    margin: .462rem auto 0;
+}
+.invite-friends-container .invite-input-box .invite-input {
+    width: 100%;
+    height: 100%;
+    line-height: .962rem;
+    font-size: 12px;
+    letter-spacing: 2px;
+    color: #4080ff;
+    background-color: #ffffff;
+    border-radius: .277rem;
+    border: solid 2px #4080ff;
+    padding-left: .296rem;
+}
+.invite-friends-container .invite-btn {
+    background-color: #387afe;
+    border-radius: .222rem;
+    text-align: center;
+    font-size: 14px;
+    color: #fff;
+    letter-spacing: 2px;
+    border: none;
+    cursor: pointer;
+    width: 3.194rem;
+    height: .768rem;
+    line-height: .224rem;
+}
+.invite-friends-container .invite-btn.copy {
+    position: absolute;
+    right: 4px;
+    top: 50%;
+    width: 2.416rem;
+    height: .776rem;
+    margin-top: -0.388rem;
+}
+.invite-friends-container .invite-btn-box {
+    margin: .611rem auto 0;
+    width: 7.814rem;
+    display: flex;
+    justify-content: space-between;
+}
+.invite-friends-container .record-table {
+    width: 100%;
+    text-align: center;
+}
+.invite-friends-container .scan-bg {
+    width: 4.407rem;
+    height: 5.111rem;
+    background-image: url(/images/promo/inviteFriends/content_code.png);
+    background-position: center top;
+    background-size: cover;
+    background-repeat: no-repeat;
+    margin: .7rem auto;
+    padding-top: 1.398rem;
+}
+.invite-friends-container .scan-bg .scan-btn {
+    width: 3.203rem;
+    height: .768rem;
+    line-height: .768rem;
+    background-color: #387afe;
+    border-radius: .388rem;
+    color: #fff;
+    font-size: 14px;
+    text-align: center;
+    margin: .24rem auto 0;
+}
